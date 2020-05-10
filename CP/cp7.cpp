@@ -34,34 +34,22 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
+    int n,i,j,k,l;
     cin>>n;
     while(n--){
-        string s;
-        cin>>s;
-        int C=0,A=0,max=INT_MIN,maxc=INT_MIN;
-        for (int i = 0; i < s.length(); i++){
-            if(s[i]=='A'||s[i]=='?'){
-                A++;
-                if(A>max){
-                    max=A;
-                }
-            }else if(s[i]=='C'){
-                A--;
-            }
-            if(s[i]=='C'||s[i]=='?'){
-                C++;
-                if(C>maxc){
-                    maxc=C;
-                }
-            }else if(s[i]=='A'){
-                C--;
-            }
-        }
-        if(max>maxc){
-            cout<<max<<"\n";
+        cin>>i>>j;
+        if(j<i){
+            cout<<j<<"\n";
         }else{
-            cout<<maxc<<"\n";
+            if (j % (i - 1) != 0){
+                k = j / (i - 1) + 1;
+                l = j % (i - 1);
+                cout<< (k-1) * (i) + l << "\n";
+            }else{
+                k = j / (i - 1);
+                l = j % (i - 1);
+                cout << k * (i - 1) + (k - 1) * 1 + l << "\n";
+            }
         }
     }
 }

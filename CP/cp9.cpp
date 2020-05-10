@@ -34,29 +34,30 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int n,sum=0,count=0;
+    int n,a;
     cin>>n;
-    int arr[n][3];
-    for(int i=0;i<n;i++){
-        cin>>arr[i][0];
-        arr[i][2]=0;
-    }
-    for (int i = 0; i < n; i++){
-        cin >> arr[i][1];
-    }
-    for (int i = 0; i < n; i++){
-        sum+=arr[i][1];
-    }while(sum>0){
-        int max=INT_MIN,j;
-        for(int i=0;i<n;i++){
-            if(arr[i][0]>=max&&arr[i][2]==0){
-                max=arr[i][0];
-                j=i;
+    vector <int> v;
+    while(n--){
+        cin>>a;
+        int count=0,mul=1;
+        v.clear();
+        while(a>0){
+            int x,i;
+            x=a%10;
+            if(x!=0){
+                count++;
+                i= x*mul;
+                v.push_back(i);
             }
+            mul*=10;
+            a=a/10;
         }
-        sum=sum-(arr[j][0]);
-        arr[j][2]=1;
-        count++;
-    }
-    cout<<count;   
+        cout<<count<<"\n";
+        for(auto j:v){
+            cout<<j<<" ";
+        }
+        cout<<"\n";
+    }   
 }
+
+// date 9-5-2020

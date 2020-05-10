@@ -2,63 +2,50 @@
 
 using namespace std;
 
-int c = 0;
-vector<vector<int>> vect;
-
-void heapify(int arr[], int n, int i)
-{
-    int largest = i;   // Initialize largest as root
-    int l = 2 * i + 1; // left = 2*i + 1
-    int r = 2 * i + 2; // right = 2*i + 2
-
-    // If left child is larger than root
-    if (l < n && arr[l] < arr[largest])
-        largest = l;
-
-    // If right child is larger than largest so far
-    if (r < n && arr[r] < arr[largest])
-        largest = r;
-
-    // If largest is not root
-    if (largest != i)
-    {
-        swap(arr[i], arr[largest]);
-        c++;
-        vector<int> v1;
-        v1.push_back(largest);
-        v1.push_back(i);
-        vect.push_back(v1);
-        heapify(arr, n, largest);
-    }
-}
-
-void buildHeap(int arr[], int n)
-{
-    int startIdx = (n / 2) - 1;
-
-    for (int i = startIdx; i >= 0; i--)
-    {
-        heapify(arr, n, i);
-    }
-}
-
-void printHeap(int arr[], int n)
-{
-    for (int i = 0; i < vect.size(); ++i){
-        cout<<vect[i][0] <<" "<<vect[i][1] <<"\n";
-    }
-}
+#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
+#define show(x) cerr << #x << " = " << (x) << '\n'
 
 int main()
 {
-    int n;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    int n,index;
+    bool flag=false;
     cin>>n;
-    int arr[n];
-    for(int i=0;i<n;i++){
-        cin>>arr[i];
+    string s,name;
+    unordered_map<int, string> mp;
+    while(n--){
+        cin>>s;
+        if(s=="add"){
+            cin>>index>>name;
+            // mp.insert({index,name});
+            mp[index]=name;
+        }else if(s=="find"){
+            cin>>index;
+            if (mp[index]==""){
+                cout<<"not found"<<"\n";
+            }else{
+                cout << mp[index] << "\n";
+            }
+
+            // flag=false;
+            // for (auto x : mp){
+            //     if(x.first==index){
+            //         flag=true;
+            //         cout<<x.second<<"\n";
+            //     }
+            // }
+            // if(flag==false){
+            //     cout<<"not found"<<"\n";
+            // }
+        }else if(s=="del"){
+            cin>>index;
+            mp.erase(index);
+            // for (auto x : mp){
+            //     if(x.first==index){
+            //         mp[index]="not found";
+            //     }
+            // }
+        }
     }
-    buildHeap(arr, n);
-    cout << c << "\n";
-    printHeap(arr, n);
-    return 0;
 }

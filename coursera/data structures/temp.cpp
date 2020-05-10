@@ -1,63 +1,86 @@
-#include <bits/stdc++.h>
-#include <bits/stdc++.h> 
+#include <iostream>
+#include <vector>
+#include <string>
 
-using namespace std; 
+using std::cin;
+using std::string;
+using std::vector;
 
-// A Dequeue (Double ended queue) based method for printing maximum element of 
-// all subarrays of size k 
-void printKMax(int arr[], int n, int k) 
-{ 
-	// Create a Double Ended Queue, Qi that will store indexes of array elements 
-	// The queue will store indexes of useful elements in every window and it will 
-	// maintain decreasing order of values from front to rear in Qi, i.e., 
-	// arr[Qi.front[]] to arr[Qi.rear()] are sorted in decreasing order 
-	std::deque<int> Qi(k); 
-
-	/* Process first k (or first window) elements of array */
-	int i; 
-	for (i = 0; i < k; ++i) { 
-		// For every element, the previous smaller elements are useless so 
-		// remove them from Qi 
-		while ((!Qi.empty()) && arr[i] >= arr[Qi.back()]) 
-			Qi.pop_back(); // Remove from rear 
-
-		// Add new element at rear of queue 
-		Qi.push_back(i); 
-	} 
-
-	// Process rest of the elements, i.e., from arr[k] to arr[n-1] 
-	for (; i < n; ++i) { 
-		// The element at the front of the queue is the largest element of 
-		// previous window, so print it 
-		cout << arr[Qi.front()] << " "; 
-
-		// Remove the elements which are out of this window 
-		while ((!Qi.empty()) && Qi.front() <= i - k) 
-			Qi.pop_front(); // Remove from front of queue 
-
-		// Remove all elements smaller than the currently 
-		// being added element (remove useless elements) 
-		while ((!Qi.empty()) && arr[i] >= arr[Qi.back()]) 
-			Qi.pop_back(); 
-
-		// Add current element at the rear of Qi 
-		Qi.push_back(i); 
-	} 
-
-	// Print the maximum element of last window 
-	cout << arr[Qi.front()]; 
-} 
-
-// Driver program to test above functions 
-int main() 
+struct Query
 {
-    int n,m;
-    cin>>n;
-    int arr[n];
-    for (int i = 0; i <n; i++){
-        cin>>arr[i];
-    }
-    cin>>m;
-	printKMax(arr, n, m); 
-	return 0; 
-} 
+	string type, name;
+	int number;
+};
+
+vector<Query> read_queries()
+{
+	int n;
+	cin >> n;
+	vector<Query> queries(n);
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> queries[i].type;
+		if (queries[i].type == "add")
+			cin >> queries[i].number >> queries[i].name;
+		else
+			cin >> queries[i].number;
+	}
+	return queries;
+}
+
+void write_responses(const vector<string> &result)
+{
+	for (size_t i = 0; i < result.size(); ++i)
+		std::cout << result[i] << "\n";
+}
+
+vector<string> process_queries(const vector<Query> &queries)
+{
+	vector<string> result;
+	// Keep list of all existing (i.e. not deleted yet) contacts.
+	vector<Query> contacts;
+	for (size_t i = 0; i < queries.size(); ++i)
+		if (queries[i].type == "add")
+		{
+			bool was_founded = false;
+			// if we already have contact with such number,
+			// we should rewrite contact's name
+			for (size_t j = 0; j < contacts.size(); ++j)
+				if (contacts[j].number == queries[i].number)
+				{
+					contacts[j].name = queries[i].name;
+					was_founded = true;
+					break;
+				}
+			// otherwise, just add it
+			if (!was_founded)
+				contacts.push_back(queries[i]);
+		}
+		else if (queries[i].type == "del")
+		{
+			for (size_t j = 0; j < contacts.size(); ++j)
+				if (contacts[j].number == queries[i].number)
+				{
+					contacts.erase(contacts.begin() + j);
+					break;
+				}
+		}
+		else
+		{
+			string response = "not found";
+			for (size_t j = 0; j < contacts.size(); ++j)
+				if (contacts[j].number == queries[i].number)
+				{
+					response = contacts[j].name;
+					break;
+				}
+			result.push_back(response);
+		}
+	return result;
+}
+
+int main()
+{
+	write_responses(process_queries(read_queries()));
+	return 0;
+}
