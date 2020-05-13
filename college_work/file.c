@@ -1,46 +1,52 @@
 #include <stdio.h>
-#define max 25
-int main()
+#include <conio.h>
+void main()
 {
-  int frag[max], b[max], f[max], i, j, nb, nf, temp, lowest = 10000;
-  static int bf[max], ff[max];
-  printf("\nEnter the number of blocks:");
-  scanf("%d", &nb);
-  printf("Enter the number of files:");
-  scanf("%d", &nf);
-  printf("\nEnter the size of the blocks:-\n");
-  for (i = 1; i <= nb; i++)
+  int x, n, p[10], pp[10], pt[10], w[10], t[10], awt, atat, i;
+  printf("Enter the number of process : ");
+  scanf("%d", &n);
+  printf("\n Enter process : time priorities \n");
+  for (i = 0; i < n; i++)
   {
-    printf("Block %d:", i);
-    scanf("%d", &b[i]);
+    printf("\nProcess no %d : ", i + 1);
+    scanf("%d  %d", &pt[i], &pp[i]);
+    p[i] = i + 1;
   }
-  printf("Enter the size of the files :-\n");
-  for (i = 1; i <= nf; i++)
+  for (i = 0; i < n - 1; i++)
   {
-    printf("File %d:", i);
-    scanf("%d", &f[i]);
-  }
-  for (i = 1; i <= nf; i++)
-  {
-    for (j = 1; j <= nb; j++)
+    for (int j = i + 1; j < n; j++)
     {
-      if (bf[j] != 1)
+      if (pp[i] < pp[j])
       {
-        temp = b[j] - f[i];
-        if (temp >= 0)
-          if (lowest > temp)
-          {
-            ff[i] = j;
-
-            lowest = temp;
-          }
+        x = pp[i];
+        pp[i] = pp[j];
+        pp[j] = x;
+        x = pt[i];
+        pt[i] = pt[j];
+        pt[j] = x;
+        x = p[i];
+        p[i] = p[j];
+        p[j] = x;
       }
     }
-    frag[i] = lowest;
-    bf[ff[i]] = 1;
-    lowest = 10000;
   }
-  printf("\nFile No\tFile Size \tBlock No\tBlock Size\tFragment");
-  for (i = 1; i <= nf && ff[i] != 0; i++)
-    printf("\n%d\t\t%d\t\t%d\t\t%d\t\t%d", i, f[i], ff[i], b[ff[i]], frag[i]);
+  w[0] = 0;
+  awt = 0;
+  t[0] = pt[0];
+  atat = t[0];
+  for (i = 1; i < n; i++)
+  {
+    w[i] = t[i - 1];
+    awt += w[i];
+    t[i] = w[i] + pt[i];
+    atat += t[i];
+  }
+  printf("\n\n Job \t Burst Time \t Wait Time \t Turn Around Time   Priority \n");
+  for (i = 0; i < n; i++)
+    printf("\n %d \t\t %d  \t\t %d \t\t %d \t\t %d \n", p[i], pt[i], w[i], t[i], pp[i]);
+  awt /= n;
+  atat /= n;
+  printf("\n Average Wait Time : %d \n", awt);
+  printf("\n Average Turn Around Time : %d \n", atat);
+  getch();
 }
