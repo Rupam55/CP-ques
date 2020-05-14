@@ -34,30 +34,41 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int n,a;
-    cin>>n;
-    vector <int> v;
-    while(n--){
-        cin>>a;
-        int count=0,mul=1;
-        v.clear();
-        while(a>0){
-            int x,i;
-            x=a%10;
-            if(x!=0){
-                count++;
-                i= x*mul;
-                v.push_back(i);
+    ll  t;
+    cin>>t;
+    while(t--){
+        ll n,m;
+        ll i, j, k;
+        cin>>m>>n;
+        if(m%2==0 && m!=1 && m!=2){
+            i=m/2;
+            if(n%i==0){
+                j=n/i;
+                k=n/i;
+                if(((m-2)*j+k)<((m-4)*j+(2*(2*k)))){
+                cout<<(m-4)*j+2*2*k<<"\n";
+                }else{
+                cout<<(m-2)*j+k<<"\n";
+                }
+            }else{
+                j=n/i;
+                k=j+n%i;
+            }    
+        }else if(m%2!=0 && m!=1 && m!=2){
+            i=(m-1)/2;
+            if(n%i==0){
+                j=n/i;
+            }else{
+                j=n/i;
+                k=j+n%i;
             }
-            mul*=10;
-            a=a/10;
-        }
-        cout<<count<<"\n";
-        for(auto j:v){
-            cout<<j<<" ";
-        }
-        cout<<"\n";
-    }   
+            cout << (m - 3) * j + (2*k)<<"\n";
+        }else if(m==1){
+            cout<<0<<"\n";
+        }else if(m==2){
+            cout<<n<<"\n";
+        } 
+    }
 }
 
-// date 9-5-2020
+// date 14-5-2020

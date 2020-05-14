@@ -24,22 +24,30 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int t,n,m,a,count;
+    int t;
     cin>>t;
     while(t--){
-        cin>>n>>m;
-        if(n%2==0){
-            if(n/2>=m){
-                cout<<"YES"<<"\n";
-                m-=1;
-                while(m--){
-                    cout<<2<<" ";
-                    n-=2;
-                }cout<<n<<"\n";
-            }else{
-                
-            }
+        int n,k,temp,sum=0;
+        cin>>n>>k;
+        int arr[n],brr[n];
+        for (int i = 0; i < n; i++){
+            cin>>arr[i];
         }
+        for (int i = 0; i < n; i++){
+            cin>>brr[i];
+        }
+        sort(arr,arr+n);
+        sort(brr,brr+n);
+        for (int i = 0; i < k; i++){
+            if(arr[i]<brr[(n-1)-i]){
+            temp=arr[i];
+            arr[i]=brr[(n-1)-i];
+            brr[(n-1)-i]=temp;}
+        }
+        for (int i = 0; i < n; i++){
+            sum+=arr[i];
+        }
+        cout<<sum<<"\n"; 
     }
 }
-// ques 2 date 9:5:2020
+// ques 2 date 14:5:2020
