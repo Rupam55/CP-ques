@@ -1,83 +1,35 @@
-#include <bits/stdc++.h>
 #include <cmath>
-#include <string.h>
- 
+#include <cstdio>
+#include <vector>
+#include <iostream>
+#include <set>
+#include <algorithm>
 using namespace std;
-using namespace std::chrono;
- 
-typedef unsigned long long ull;
-typedef long long ll;
-typedef long double ld;
- 
-#define F first
-#define S second
-typedef vector<int> vi;
-typedef pair<int, int> pi;
- 
-#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
-#define show(x) cerr << #x << " = " << (x) << '\n'
-#define inf 1e14
- 
- 
+
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    
-    int t,n,m,a,b,count;
-    cin>>t;
-    while(t--){
-        cin>>n>>m;
-        a=n/m;
-        b=n%m;
-        count=1;
-        if(a>0){
-            if((b+a)%2==0){
-                if(a%2==0){
-                    cout<<"YES"<<"\n";
-                    for(int i=0;i<m-1;i++){
-                        cout<<a<<" ";
-                    }cout<<a+b<<"\n";
-                }else{
-                    if(a==1){
-                        cout<<"NO"<<"\n";
-                    }else{
-                        if((m-1)%2==0){
-                            cout<<"YES"<<"\n";
-                            for(int i=0;i<(m-1)/2;i++){
-                                cout<<a-1<<" ";
-                            }for(int i=0;i<(m-1)/2;i++){
-                                cout<<a+1<<" ";
-                            }
-                            cout<<a+b<<"\n";
-                        }else{
-                            cout<<"NO"<<"\n";
-                        }
-                    }
-                }
-            }else{
-                if(a%2!=0){
-                    cout<<"YES"<<"\n";
-                   for(int i=0;i<m-1;i++){
-                       cout<<a<<" ";
-                   }cout<<a+b<<"\n";
-                }else{
-                    if((m-1)%2==0){
-                        cout<<"YES"<<"\n";
-                        for(int i=0;i<(m-1)/2;i++){
-                                cout<<a-1<<" ";
-                            }for(int i=0;i<(m-1)/2;i++){
-                                cout<<a+1<<" ";
-                            }
-                            cout<<a+b<<"\n";
-                    }else{
-                        cout<<"NO"<<"\n";
-                    }
-                }
-            }
-        }else{
-            cout<<"NO"<<"\n";
+    set<int> s;
+    int N = 0;
+    cin >> N;
+    for (int i = 0; i < N; i++)
+    {
+        int q = 0, x = 0;
+        cin >> q;
+        cin >> x;
+        if (q == 1)
+            s.insert(x);
+        else if (q == 2)
+            s.erase(x);
+        else
+        {
+            set<int>::iterator itr = s.find(x);
+            if (itr == s.end())
+                cout << "No" << endl;
+            else
+                cout << "Yes" << endl;
         }
     }
+    return 0;
 }
-// ques 2 date 9:5:2020
+
+// hackerrank  date 18 5 2020

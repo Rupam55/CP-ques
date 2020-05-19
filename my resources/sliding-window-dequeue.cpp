@@ -28,17 +28,17 @@ void printKMax(int arr[], int n, int k)
     cout << arr[Qi.front()];
 }
 int main()
-{   
+{
     int n;
-    cin>>n;
-    while(n--){
-        int a,b;
-        cin>>a>>b;
+    cin >> n;
+    while (n--)
+    {
+        int a, b;
+        cin >> a >> b;
         int arr[a];
         for (int i = 0; i < a; i++)
         {
-            cin>>arr[i];
-            
+            cin >> arr[i];
         }
         printKMax(arr, a, b);
         cout << "\n";

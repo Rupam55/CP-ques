@@ -29,57 +29,46 @@ bool mycomp(T x, L y)
     return x > y;
 }
 
-bool isPerfectSquare(long double x)
-{
-    long double sr = sqrt(x);
-
-    return ((sr - floor(sr)) == 0);
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
+    
     int t;
-    cin >> t;
+    cin>>t;
     for (int i = 0; i < t; i++)
     {
-        int n;
-        cin>>n;
-        long double arr[n][2];
-        for (int i = 0; i < n; i++)
+        int n,k;
+        cin>>n>>k;
+        int arr[n];
+        int count=0,next=0,ans=0;
+        for (int j = 0; j < n; j++)
         {
-            cin>>arr[i][0];
-            if(i==0){
-                arr[i][1]=arr[i][0];
-            }else{
-                arr[i][1]+=arr[i-1][1];
-            }
-        }
-        int count=0;
-        for (int i = 0; i < n; i++)
-        {
-            for(int j=i; j<n;j++){
-                if (i == 0)
-                {
-                    if (isPerfectSquare(arr[i][1]))
-                    {
-                        count++;
+            cin>>arr[j];
+            if(arr[j]==k && count==0){
+                count++;
+                next=k-1;
+            }else if(count!=0){
+                if (arr[j] == next){
+                    count++;
+                    next--;
+                    if (count == k){
+                        ans++;
+                        count = 0;
                     }
-                }
-                else
-                {
-                    if (isPerfectSquare(arr[i][1]-arr[i-1][1]))
-                    {
+                }else if(arr[j]!=next){
+                    count=0;
+                    next=0;
+                    if(arr[j]==k){
                         count++;
+                        next=k-1;
                     }
                 }
             }
         }
-     
-        cout << "Case #" << i + 1 << ": " << count << "\n";
+        cout<<"Case #"<<i+1<<": "<<ans<<"\n";
     }
+    
 
     // Time();
 }

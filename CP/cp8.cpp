@@ -9,45 +9,40 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-#define F first
-#define S second
-typedef vector<int> vi;
-typedef pair<int, int> pi;
-
-#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
-#define show(x) cerr << #x << " = " << (x) << '\n'
-#define inf 1e14
-
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     
-    int t;
-    cin>>t;
-    while(t--){
-        int n,k,temp,sum=0;
-        cin>>n>>k;
-        int arr[n],brr[n];
-        for (int i = 0; i < n; i++){
-            cin>>arr[i];
+    vector<ll> v;
+    ll n,a,m;
+    cin>>n;
+    unordered_map<int, int> mp;
+    for (ll i = 1; i <= n; i++)
+    {
+        cin>>a;
+        v.push_back(a);
+        if(!mp[a]){
+            mp[a] = i;
         }
-        for (int i = 0; i < n; i++){
-            cin>>brr[i];
-        }
-        sort(arr,arr+n);
-        sort(brr,brr+n);
-        for (int i = 0; i < k; i++){
-            if(arr[i]<brr[(n-1)-i]){
-            temp=arr[i];
-            arr[i]=brr[(n-1)-i];
-            brr[(n-1)-i]=temp;}
-        }
-        for (int i = 0; i < n; i++){
-            sum+=arr[i];
-        }
-        cout<<sum<<"\n"; 
     }
+    cin>>m;
+    for (ll i = 0; i < m; i++)
+    {
+        cin>>a;
+        std::vector<ll>::iterator it , it2;
+        if (mp[a])
+        {
+            cout << "Yes " << mp[a] <<"\n";
+        }
+        else{
+            it2 = std::lower_bound(v.begin(), v.end(), a);
+            cout<<"No "<<(it2 - v.begin() + 1)<<"\n";
+        }
+    }
+    
+    
+    
 }
-// ques 2 date 14:5:2020
+// ques 2 date 18:5:2020
