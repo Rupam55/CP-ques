@@ -1,31 +1,39 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <algorithm>
+#include <string>
 using namespace std;
-
-typedef unsigned long long ull;
-typedef long long ll;
-typedef long double ld; 
-
+typedef long long LL;
 int main()
 {
-     cout<<"my name is rupam"<<"\n";
-     for(int i=0;i<10;i++){
-         if(i==0||i==4){
-             for(int j=0;j<6;j++){
-                 cout<<"*";
-             }cout<<"\n";
-         }else if(i<4){
-             cout<<"*";
-             for(int j=1;j<5;j++){
-                 cout<<" ";
-             }cout<<"*";
-             cout<<"\n";
-         }else{
-                 cout<<"*";
-                     for(int k=0;k<i-5;k++){
-                         cout<<" ";
-                     }cout<<"*";
-                cout<<"\n";
-         }
-     }
+    ios_base::sync_with_stdio(0);
+    int p, q, l, r, a, b, t[2010], c[2010], d[2010], ans = 0;
+    cin >> p >> q >> l >> r;
+    for (int i = 0; i < 2010; ++i)
+        t[i] = 0;
+    for (int i = 0; i < p; ++i)
+    {
+        cin >> a >> b;
+        for (int j = a; j <= b; ++j)
+            t[j] = 1;
+    }
+    for (int i = 0; i < q; ++i)
+        cin >> c[i] >> d[i];
+    for (int i = l; i <= r; ++i)
+    {
+        bool flag = true;
+        for (int j = 0; j < q && flag; ++j)
+        {
+            for (int k = c[j] + i; k <= d[j] + i; ++k)
+                if (t[k])
+                {
+                    flag = false;
+                    break;
+                }
+        }
+        if (!flag)
+            ans++;
+    }
+    cout << ans << endl;
+    return 0;
 }
+//ladder ques 23
