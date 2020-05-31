@@ -3,29 +3,37 @@ using namespace std;
 
 int main()
 {
-    int n,m,number=0;
+    int n,m,sum_min=0,sum_max=0;
     cin>>n>>m;
-    char arr[n][m];
+    int arr[n][3];
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < m; j++)
+        cin>>arr[i][0];
+        cin>>arr[i][1];
+        arr[i][2]=abs(arr[i][1]-arr[i][0]);
+        sum_min+=abs(arr[i][0]);
+        sum_max+=abs(arr[i][1]);        
+    }
+    if(sum_max<m){
+        cout<<"NO";
+    }else if(sum_min>m){
+        cout<<"NO";
+    }else{
+        cout<<"YES"<<"\n";
+        int ne=m-sum_min;
+        for (int i = 0; i < n; i++)
         {
-            cin>>arr[i][j];
+            if(ne>=arr[i][2]){
+                cout<<arr[i][1]<<" ";
+                ne-=arr[i][2];
+            }else{
+                cout<<arr[i][0]+ne<<" ";
+                ne=0;
+            }
         }
         
     }
-    for (int i = 0; i < n; i++)
-    {
-        for (int j = 0; j < m; j++)
-        {
-            if(arr[i][j]=='W'){
-                if (arr[i][j-1] == 'P' || arr[i-1][j] == 'P' || arr[i][j+1] == 'P' || arr[i+1][j] == 'P'){
-                    number++;
-                }
-            }
-        }
-    }
-    cout<<number;
+    
 }
 
 // hackerrank  date 18 5 2020
