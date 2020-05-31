@@ -1,35 +1,31 @@
-#include <cmath>
-#include <cstdio>
-#include <vector>
-#include <iostream>
-#include <set>
-#include <algorithm>
+#include <bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    set<int> s;
-    int N = 0;
-    cin >> N;
-    for (int i = 0; i < N; i++)
+    int n,m,number=0;
+    cin>>n>>m;
+    char arr[n][m];
+    for (int i = 0; i < n; i++)
     {
-        int q = 0, x = 0;
-        cin >> q;
-        cin >> x;
-        if (q == 1)
-            s.insert(x);
-        else if (q == 2)
-            s.erase(x);
-        else
+        for (int j = 0; j < m; j++)
         {
-            set<int>::iterator itr = s.find(x);
-            if (itr == s.end())
-                cout << "No" << endl;
-            else
-                cout << "Yes" << endl;
+            cin>>arr[i][j];
+        }
+        
+    }
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < m; j++)
+        {
+            if(arr[i][j]=='W'){
+                if (arr[i][j-1] == 'P' || arr[i-1][j] == 'P' || arr[i][j+1] == 'P' || arr[i+1][j] == 'P'){
+                    number++;
+                }
+            }
         }
     }
-    return 0;
+    cout<<number;
 }
 
 // hackerrank  date 18 5 2020

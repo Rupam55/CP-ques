@@ -4,36 +4,31 @@ using namespace std;
 
 typedef unsigned long long ull;
 typedef long long ll;
-typedef long double ld; 
+typedef long double ld;
 
 int main()
 {
-    int n,m,a;
+    ll n, m, x, i, j, cnt, ans = 0;
     cin>>n>>m;
-    vector<int>v;
-    bool flag=true;
-    for (int i = 0; i < m; i++)
+    ll arr[n + 1], brr[m + 1];
+    for (i = 0; i < n; i++)
+        cin >> arr[i];
+    for (j = 0; j < m; j++)
+        cin >> brr[j];
+    j = 0;
+    cnt = 0;
+    for (i = 0; i < n; i++)
     {
-        cin>>a;
-        v.push_back(a);
-    }
-    sort(v.begin(),v.end());
-    if(m>0){
-        if(v.front()==1|| v.back()==n){
-        flag=false;
-    }else{
-        for (int i = 2; i < m; i++)
+        while (j < m)
         {
-            if(v[i]==v[i-1]+1 && v[i] == v[i-2]+2){
-                flag=false;
+            if (brr[j] >= arr[i])
+            {
+                cnt++;
+                i++;
             }
+            j++;
         }
     }
-    }
-    if(flag==true){
-        cout<<"YES";
-    }else{
-        cout<<"NO";
-    }
+    cout << max(ans, n - cnt) << endl;
 }
-//ladder ques 21
+//ladder ques 26

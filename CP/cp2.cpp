@@ -7,27 +7,27 @@ typedef long double ld;
 
 int main()
 {
-	int n,t,a;
-	cin>>n>>t;
-	vector<int> v;
+	int n,t,m=0,num=0;
+	cin>>n;
+	vector<int> v (n);
 	for (int i = 0; i < n; i++)
 	{
-		cin>>a;
-		v.push_back(a);
-	}
-	int sum=0,count=0,k=0;
-	for (int i = 0; i < n; i++)
-	{
-		sum+=v[i];
-		if(sum<=t){
-			count++;
+		cin>>v[i];
+		if(i>1){
+			if(v[i]==(v[i-1]+v[i-2])){
+				num++;
+			}else{
+				if(num>m){
+					m=num;
+				}
+				num=2;
+			}
 		}else{
-			sum-=v[k];
-			k++;
+			num++;
+			m++;
 		}
 	}
-	cout<<count;
-	
+	cout << max(m,num) ;
 	
 }
-//ladder ques 22
+//ladder ques 27
