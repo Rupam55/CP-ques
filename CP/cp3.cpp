@@ -1,39 +1,61 @@
-#include <iostream>
-#include <algorithm>
-#include <string>
+#include <bits/stdc++.h>
+
 using namespace std;
-typedef long long LL;
+
 int main()
 {
-    ios_base::sync_with_stdio(0);
-    int p, q, l, r, a, b, t[2010], c[2010], d[2010], ans = 0;
-    cin >> p >> q >> l >> r;
-    for (int i = 0; i < 2010; ++i)
-        t[i] = 0;
-    for (int i = 0; i < p; ++i)
+    string s;
+    stack<int> mystack;
+    stack<int> dummy;
+    long long int n, c = -1000, i, value, k = 0, l = 0, j, max;
+    long int max_array[100000], array[5000];
+    cin >> n;
+    max = -1000;
+    for (i = 0; i < n; i++)
     {
-        cin >> a >> b;
-        for (int j = a; j <= b; ++j)
-            t[j] = 1;
-    }
-    for (int i = 0; i < q; ++i)
-        cin >> c[i] >> d[i];
-    for (int i = l; i <= r; ++i)
-    {
-        bool flag = true;
-        for (int j = 0; j < q && flag; ++j)
+        cin >> s;
+        if (s == "pop")
         {
-            for (int k = c[j] + i; k <= d[j] + i; ++k)
-                if (t[k])
+            if (mystack.top() == max)
+            {
+                for (j = 0; j < k; j++)
                 {
-                    flag = false;
-                    break;
+                    if (c < array[j])
+                        c = array[j];
                 }
+            }
+            max = c;
+            c = -1000;
+            mystack.pop();
         }
-        if (!flag)
-            ans++;
+        else if (s == "max")
+        {
+            //			dummy=mystack;
+            //			while(!dummy.empty())
+            //			{
+            //				if(max<dummy.top())
+            //				{
+            //					max=dummy.top();
+            //				}
+            //				dummy.pop();
+            //			}
+            max_array[l] = max;
+            l++;
+        }
+        else
+        {
+            cin >> value;
+            if (value > max)
+                max = value;
+            array[k] = value;
+            k++;
+            mystack.push(value);
+        }
     }
-    cout << ans << endl;
+    for (i = 0; i < l; i++)
+    {
+        cout << max_array[i] << "\n";
+    }
     return 0;
 }
-//ladder ques 23
+//ladder ques 35

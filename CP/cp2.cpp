@@ -7,27 +7,26 @@ typedef long double ld;
 
 int main()
 {
-	int n,t,m=0,num=0;
-	cin>>n;
-	vector<int> v (n);
-	for (int i = 0; i < n; i++)
+	string s;
+	cin>>s;
+	int n=0,m=0;
+	for (int i = 0; i < s.length(); i++)
 	{
-		cin>>v[i];
-		if(i>1){
-			if(v[i]==(v[i-1]+v[i-2])){
-				num++;
-			}else{
-				if(num>m){
-					m=num;
-				}
-				num=2;
-			}
-		}else{
-			num++;
+		if(s[i]=='4'){
+			n++;
+		}else if(s[i]=='7'){
 			m++;
 		}
 	}
-	cout << max(m,num) ;
+	if(m==0&&n==0){
+		cout<<"-1";
+	}else if(m==n){
+		cout<<"4";
+	}else if(m>n){
+		cout<<"7";
+	}else{
+		cout<<"4";
+	}
 	
 }
 //ladder ques 27

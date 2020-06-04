@@ -6,33 +6,33 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t,count;
-    int capacity;
-    cin >> t;
+    int n,num=0;
+    string s;
+    stack<int> mystack,dummy;
+
+    cin>>n;
+    for (int i = 0; i < n; i++)
+    {
+        cin>>s;
+        if(s=="push"){
+            cin>>num;
+            mystack.push(num);
+            if(dummy.size()==0){
+                dummy.push(num);
+            }else{
+                if(dummy.top()<num){
+                    dummy.push(num);
+                }else{
+                    dummy.push(dummy.top());
+                }
+            }
+        }else if(s=="pop"){
+            mystack.pop();
+            dummy.pop();
+        }else if(s=="max"){
+            cout<<dummy.top()<<"\n";
+        }
+    }
     
 
-    while(t--){
-        cin >> capacity;
-        int GR[capacity];
-        int OP[capacity];
-        count=0;
-        for (int i = 0; i < capacity; i++){
-            cin>>GR[i];
-        }
-        for (int i = 0; i < capacity; i++){
-            cin>>OP[i];
-        }
-        sort(GR,GR+capacity);
-        sort(OP,OP+capacity);
-        int i=0,j=0;
-        while(i < capacity && j < capacity){
-            if(GR[i]>OP[j]){
-                count++;
-                i++;j++;
-            }else{
-                i++;
-            }
-        }
-        cout<<count<<"\n";
-    }
 }
