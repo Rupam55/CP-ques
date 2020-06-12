@@ -4,58 +4,41 @@ using namespace std;
 
 int main()
 {
-    string s;
-    stack<int> mystack;
-    stack<int> dummy;
-    long long int n, c = -1000, i, value, k = 0, l = 0, j, max;
-    long int max_array[100000], array[5000];
-    cin >> n;
-    max = -1000;
-    for (i = 0; i < n; i++)
-    {
-        cin >> s;
-        if (s == "pop")
+    int t;
+    cin>>t;
+    while(t--){
+        int n,count_5=0,count_10=0,count_15=0,a,b;
+        bool flag = true;
+        cin>>n;
+        for (int i = 0; i < n; i++)
         {
-            if (mystack.top() == max)
-            {
-                for (j = 0; j < k; j++)
-                {
-                    if (c < array[j])
-                        c = array[j];
+            cin>>a;
+            b=a-5;
+            if(b==0){
+                count_5++;
+            }else if(b==5){
+                if(count_5>0){
+                    count_10++;
+                    count_5--;
+                }else{
+                    flag = false;
+                }
+            }else if(b==10){
+                if(count_10>0){
+                    count_15++;
+                    count_10--;
+                }else if(count_5>1){
+                    count_15++;
+                    count_5-=2;
+                }else{
+                    flag = false;
                 }
             }
-            max = c;
-            c = -1000;
-            mystack.pop();
         }
-        else if (s == "max")
-        {
-            //			dummy=mystack;
-            //			while(!dummy.empty())
-            //			{
-            //				if(max<dummy.top())
-            //				{
-            //					max=dummy.top();
-            //				}
-            //				dummy.pop();
-            //			}
-            max_array[l] = max;
-            l++;
-        }
-        else
-        {
-            cin >> value;
-            if (value > max)
-                max = value;
-            array[k] = value;
-            k++;
-            mystack.push(value);
+        if(flag){
+            cout<<"YES"<<"\n";
+        }else{
+            cout<<"NO"<<"\n";
         }
     }
-    for (i = 0; i < l; i++)
-    {
-        cout << max_array[i] << "\n";
-    }
-    return 0;
 }
-//ladder ques 35
