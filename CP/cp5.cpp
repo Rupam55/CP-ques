@@ -2,46 +2,41 @@
 
 using namespace std;
 
-void printKMax(int arr[], int n, int k)
-{
-    std::deque<int> Qi(k);
-
-    int i;
-    for (i = 0; i < k; ++i)
-    {
-        while ((!Qi.empty()) && arr[i] >= arr[Qi.back()])
-            Qi.pop_back(); // Remove from rear
-        Qi.push_back(i);
-    }
-
-    for (; i < n; ++i)
-    {
-        cout << arr[Qi.front()] << " ";
-
-        while ((!Qi.empty()) && Qi.front() <= i - k)
-            Qi.pop_front(); // Remove from front of queue
-        while ((!Qi.empty()) && arr[i] >= arr[Qi.back()])
-            Qi.pop_back();
-
-        Qi.push_back(i);
-    }
-    cout << arr[Qi.front()];
-}
 int main()
-{   
-    int n;
-    cin>>n;
-    while(n--){
-        int a,b;
-        cin>>a>>b;
-        int arr[a];
+{
+    long long int t;
+    cin >> t;
+    while (t--)
+    {
+        int a;
+        cin >> a;
+        int arr[a][a], b = 1;
         for (int i = 0; i < a; i++)
         {
-            cin>>arr[i];
-            
+            if (i % 2 == 0)
+            {
+                for (int j = 0; j < a; j++)
+                {
+                    arr[i][j] = b;
+                    b++;
+                }
+            }
+            else
+            {
+                for (int j = a - 1; j >= 0; j--)
+                {
+                    arr[i][j] = b;
+                    b++;
+                }
+            }
         }
-        printKMax(arr, a, b);
-        cout << "\n";
+
+        for (int i = 0; i < a; i++)
+        {
+            for (int j = 0; j < a; j++)
+            {
+                cout<<arr[i][j]<<" ";
+            }cout<<"\n";
+        }
     }
-    return 0;
 }

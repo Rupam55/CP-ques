@@ -14,21 +14,29 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    float n,m, ans = 0;
-    cin >> n>>m;
-    vector<int> v(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> v[i];
+    int t;
+    cin>>t;
+    while(t--){
+        ll a,b,res=0;
+        cin>>a>>b;
+        if(a>0 && b>0){
+            if(a>b){
+                if(a>(2*b)){
+                    res=b;
+                }else{
+                    res=(a+b)/3;
+                }
+            }else{
+                if(b>=(2*a)){
+                    res=a;
+                }else{
+                    res=(a+b)/3;
+                }
+            }
+        }else{
+            res=0;
+        }
+        cout<<res<<"\n";
     }
-    sort(v.begin(), v.end());
-    for (int i = 0; i < m; i++)
-    {
-        if(v[i]<0){
-            ans += abs(v[i]);
-        }  
-    }
-    cout << ans;
-    // Time();
 }
 // ques 29 date 29:5:2020
