@@ -2,41 +2,35 @@
 
 using namespace std;
 
+typedef unsigned long long ull;
+typedef long long ll;
+typedef long double ld;
+
 int main()
 {
-    long long int t;
-    cin >> t;
-    while (t--)
-    {
-        int a;
-        cin >> a;
-        int arr[a][a], b = 1;
-        for (int i = 0; i < a; i++)
-        {
-            if (i % 2 == 0)
-            {
-                for (int j = 0; j < a; j++)
-                {
-                    arr[i][j] = b;
-                    b++;
-                }
-            }
-            else
-            {
-                for (int j = a - 1; j >= 0; j--)
-                {
-                    arr[i][j] = b;
-                    b++;
-                }
-            }
-        }
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
-        for (int i = 0; i < a; i++)
-        {
-            for (int j = 0; j < a; j++)
-            {
-                cout<<arr[i][j]<<" ";
-            }cout<<"\n";
-        }
-    }
+   ll a;
+   cin>>a;
+   bool flag=true;
+   while(a!=1){
+       if(a%7==0){
+           a=a/7;
+       }else if(a%5==0){
+           a=a/5;
+       }else if(a%3==0){
+           a=a/3;
+       }else if(a%2==0){
+           a=a/2;
+       }else{
+           flag=false;
+           break;
+       }
+   }
+   if(flag){
+       cout<<"YES";
+   }else{
+       cout<<"NO";
+   }
 }

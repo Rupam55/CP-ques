@@ -1,39 +1,29 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main()
-{
-    int n,m,sum_min=0,sum_max=0;
-    cin>>n>>m;
-    int arr[n][3];
+int arr[100000][100000];
+
+int ans(int n,int c){
+    int max=INT_MIN,path;
     for (int i = 0; i < n; i++)
     {
-        cin>>arr[i][0];
-        cin>>arr[i][1];
-        arr[i][2]=abs(arr[i][1]-arr[i][0]);
-        sum_min+=abs(arr[i][0]);
-        sum_max+=abs(arr[i][1]);        
-    }
-    if(sum_max<m){
-        cout<<"NO";
-    }else if(sum_min>m){
-        cout<<"NO";
-    }else{
-        cout<<"YES"<<"\n";
-        int ne=m-sum_min;
-        for (int i = 0; i < n; i++)
-        {
-            if(ne>=arr[i][2]){
-                cout<<arr[i][1]<<" ";
-                ne-=arr[i][2];
-            }else{
-                cout<<arr[i][0]+ne<<" ";
-                ne=0;
-            }
-        }
         
     }
     
+
 }
 
-// hackerrank  date 18 5 2020
+int main()
+{
+    int n,c;
+    int a,b;
+    cin>>n>>c;
+    int brr[n][2];
+    for (int i = 1; i < n-1; i++)
+    {
+        cin>>a>>b;
+        arr[a][b]=1; 
+    }
+    cout<<ans(n,c);    
+}
+
