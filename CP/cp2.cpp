@@ -5,25 +5,57 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-int gcd(int a, int b)  
-{  
-    if (a == 0) 
-        return b;  
-    return gcd(b % a, a);  
-}  
-int lcm(int a, int b)  
-{  
-    return (a*b)/gcd(a, b);  
-}  
-
 int main()
 {
-	int t;
-	cin>>t;
-	while(t--){
-		ll a,b,c;
-		cin>>a>>b;
-		c=lcm(a,b);
-		cout<<(c/a)*(c/b)<<"\n";		
+	int n,m;
+	cin>>n>>m;
+	vector<int> v(n);
+	for (size_t i = 0; i < n; i++)
+	{
+		cin>>v[i];
 	}
+	sort(v.begin(),v.end());
+
+	map<string, int> mp;
+	string s;
+
+	for (size_t i = 0; i < m; i++)
+	{
+		cin>>s;
+		mp[s]++;	
+	}
+
+	vector<pair<string,int>> vec;
+
+	copy(mp.begin(),
+			mp.end(),
+			back_inserter<vector<pair<string,int>>>(vec));
+
+	std::sort(vec.begin(), vec.end(),
+			[](const pair<string,int>& l, const pair<string,int>& r) {
+				if (l.second != r.second)
+					return l.second > r.second;
+
+				return l.first < r.first;
+			});
+
+	int sum=0,i=0;
+
+	for (auto const &pair: vec) {
+		sum+=pair.second*v[i];
+		i++;
+	}
+	cout<<sum<<" ";
+	
+	sort(v.begin(),v.end(),greater<int>());
+
+	sum=0,i=0;
+
+	for (auto const &pair: vec) {
+		sum+=pair.second*v[i];
+		i++;
+	}
+	cout<<sum<<" ";
+		
+
 }

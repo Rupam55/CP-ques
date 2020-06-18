@@ -11,26 +11,29 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-   ll a;
-   cin>>a;
-   bool flag=true;
-   while(a!=1){
-       if(a%7==0){
-           a=a/7;
-       }else if(a%5==0){
-           a=a/5;
-       }else if(a%3==0){
-           a=a/3;
-       }else if(a%2==0){
-           a=a/2;
-       }else{
-           flag=false;
-           break;
-       }
-   }
-   if(flag){
-       cout<<"YES";
-   }else{
-       cout<<"NO";
-   }
+    int n,m,k;
+    cin>>n>>m>>k;
+    unordered_map<int,int>mp;
+    for (size_t i = 1; i <= m; i++)
+    {
+        mp[i]=INT_MAX;
+    }
+    int a,b;
+    for (size_t i = 1; i <= n; i++)
+    {
+        cin>>a>>b;
+        if(mp[a]>b){
+            mp[a]=b;
+        }
+    }
+    int sum =0;
+    for (size_t i = 1; i <= m; i++)
+    {
+        sum+=mp[i];
+    }
+    if(sum>=k){
+        cout<<k;
+    }else{
+        cout<<sum;
+    }
 }

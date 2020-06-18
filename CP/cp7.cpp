@@ -1,29 +1,26 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int arr[100000][100000];
-
-int ans(int n,int c){
-    int max=INT_MIN,path;
-    for (int i = 0; i < n; i++)
-    {
-        
-    }
-    
-
-}
-
 int main()
 {
-    int n,c;
-    int a,b;
-    cin>>n>>c;
-    int brr[n][2];
-    for (int i = 1; i < n-1; i++)
+    string s;
+    cin>>s;
+    stack<char> c;
+    int count=0;
+    for (size_t i = 0; i < s.length(); i++)
     {
-        cin>>a>>b;
-        arr[a][b]=1; 
+        if(s[i]=='('){
+            c.push('(');
+        }else if(s[i]==')'){
+            if(c.empty()){
+
+            }else{
+                count+=2;
+                c.pop();
+            }
+        }
     }
-    cout<<ans(n,c);    
+    cout<<count;
+        
 }
 
