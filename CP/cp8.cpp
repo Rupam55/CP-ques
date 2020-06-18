@@ -17,26 +17,18 @@ int main()
     int t;
     cin>>t;
     while(t--){
-        ll a,b,res=0;
-        cin>>a>>b;
-        if(a>0 && b>0){
-            if(a>b){
-                if(a>(2*b)){
-                    res=b;
-                }else{
-                    res=(a+b)/3;
-                }
-            }else{
-                if(b>=(2*a)){
-                    res=a;
-                }else{
-                    res=(a+b)/3;
-                }
+        string s,s1="";
+        cin>>s;
+        s1+=s[0];
+        for (int i = 1; i < s.length()-1; i++)
+        {
+            if(s[i]==s[i+1]){
+                s1+=s[i];
+                i++;
             }
-        }else{
-            res=0;
         }
-        cout<<res<<"\n";
+        s1+=s[s.length()-1];
+        cout<<s1<<"\n";
     }
 }
 // ques 29 date 29:5:2020

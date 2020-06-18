@@ -9,25 +9,6 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-#define F first
-#define S second
-typedef vector<int> vi;
-typedef pair<int, int> pi;
-#define pob pop_back
-#define pb push_back
-
-#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
-#define show(x) cerr << #x << " = " << (x) << '\n'
-#define inf 1e14
-
-#define invec(v)     \
-    for (auto x : v) \
-        cin >> x;
-template <typename T, typename L>
-bool mycomp(T x, L y)
-{
-    return x > y;
-}
 
 int main()
 {
@@ -36,39 +17,53 @@ int main()
     
     int t;
     cin>>t;
-    for (int i = 0; i < t; i++)
+    while(t--)
     {
-        int n,k;
-        cin>>n>>k;
-        int arr[n];
-        int count=0,next=0,ans=0;
-        for (int j = 0; j < n; j++)
+        int a,b,c=0,res=0,no=0;
+        string s;
+        cin>>a>>b;
+        cin>>s;
+        for (int i = 0; i < s.length(); i++)
         {
-            cin>>arr[j];
-            if(arr[j]==k && count==0){
-                count++;
-                next=k-1;
-            }else if(count!=0){
-                if (arr[j] == next){
-                    count++;
-                    next--;
-                    if (count == k){
-                        ans++;
-                        count = 0;
+            if(s[i]=='0' && i != s.length()-1){
+                c++;
+            }else if(s[i]=='1'){
+                if(no==0){
+                    no+=1;
+                    if(c>= (b*2) ){
+                        res += c/(b*2);
+                        c=0;
+                    }else{
+                        c=0;
+                    }   
+                }else{
+                    if(c> (b*2)){
+                        res += c/(b*2);
+                        c=0;
+                    }else{
+                        c=0;
                     }
-                }else if(arr[j]!=next){
-                    count=0;
-                    next=0;
-                    if(arr[j]==k){
-                        count++;
-                        next=k-1;
+                }
+            }else if(s[i]=='0' && i == s.length()-1){
+                c++;
+                if(no==0){
+                    if(c>= (b+1) ){
+                        res += c/(b+1);
+                        c=0;
+                    }else{
+                        res+=1;
+                        c=0;
+                    }
+                }else{
+                    if(c> (b) ){
+                        res += c/(b*2);
+                        c=0;
+                    }else{
+                        c=0;
                     }
                 }
             }
         }
-        cout<<"Case #"<<i+1<<": "<<ans<<"\n";
+        cout<<res<<"\n";
     }
-    
-
-    // Time();
 }

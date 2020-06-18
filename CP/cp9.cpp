@@ -10,41 +10,22 @@ int main()
     int t;
     cin>>t;
     while(t--){
-        int a,b,res=0;
-        cin>>a>>b;
-        if(a>b){
-            if(b>=(a/2)){
-                res+=(a/2);
-                b-=(a/2);
-                a-=(res*2);
-                if(a>0 &&b>1){
-                    res++;
-                }
-            }else{
-                res=b;
-                b=0;
-            }
-        }else if(b>a){
-            if(a>(b/2)){
-                res+=(b/2);
-                a-=(b/2);
-                b-=res*2;
-                if(b>0 &&a>1){
-                   res++;
-                }
-            }else{
-                res=a;
-                a=0;
-            }
-        }else if(a==b){
-            res=a/2;
-            a-=res*2;
-            b-=a/2;
-            if(a>0&&b>1){
-                res++;
+        int n,a,rese=0,reso=0;
+        cin>>n;
+        for (int i = 0; i < n; i++)
+        {
+            cin>>a;
+            if(i%2 != 0 && a%2 == 0){
+                rese++;    
+            }else if(i%2 == 0 && a%2 != 0){
+                reso++;
             }
         }
-        cout<<res<<"\n";
+        if(rese==reso){
+            cout<<rese<<"\n";
+        }else{
+            cout<<-1<<"\n";
+        } 
     }
     // Time();
 }
