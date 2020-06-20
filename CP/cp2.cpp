@@ -7,55 +7,95 @@ typedef long double ld;
 
 int main()
 {
-	int n,m;
-	cin>>n>>m;
-	vector<int> v(n);
-	for (size_t i = 0; i < n; i++)
+	string s, s1, s2, s3;
+	cin >> s;
+	int n = 0, m = 0;
+	bool flag = true;
+	vector<string> v;
+	for (int i = 0; i < s.length(); i++)
 	{
-		cin>>v[i];
+		if (s[i] != '.')
+		{
+			s1 += s[i];
+			if(i==(s.length()-1)){
+				if(m==0){
+					flag=false;
+				}else{
+					if(s1.length()<=3&&s1.length()>=1){
+						s3+=s1;
+						v.push_back(s3);
+					}else{
+						flag=false;
+					}
+				}
+			}
+		}
+		else
+		{
+			if (m == 0)
+			{
+				if (s1.length() <= 8)
+				{
+					s3 = s1;
+					s3 += '.';
+					s1 = "";
+				}
+				else
+				{
+					flag = false;
+				}
+				m++;
+			}
+			else
+			{
+				if (s1.length() > 11)
+				{
+					flag = false;
+				}
+				else if (s1.length() < 11 && s1.length() > 8)
+				{
+					for (int i = 0; i < 3; i++)
+					{
+						s3 += s1[i];
+					}
+					for (int i = 3; i < s1.length(); i++)
+					{
+						s2 += s1[i];
+					}
+					v.push_back(s3);
+					s1="";
+					s3=s2;
+					s3+='.';
+				}
+				else if (s1.length() <= 8 && s1.length() >= 2)
+				{
+					for (int i = 0; i < 1; i++)
+					{
+						s3 += s1[i];
+					}
+					for (int i = 1; i < s1.length(); i++)
+					{
+						s2 += s1[i];
+					}
+					v.push_back(s3);
+					s1="";
+					s3=s2;
+					s3+='.';
+				}
+				else
+				{
+					flag = false;
+				}
+			}
+		}
 	}
-	sort(v.begin(),v.end());
-
-	map<string, int> mp;
-	string s;
-
-	for (size_t i = 0; i < m; i++)
-	{
-		cin>>s;
-		mp[s]++;	
+	if(flag){
+		cout<<"YES"<<"\n";
+		for (int i = 0; i < v.size(); i++)
+		{
+			cout<<v[i]<<"\n";
+		}
+	}else{
+		cout<<"NO";
 	}
-
-	vector<pair<string,int>> vec;
-
-	copy(mp.begin(),
-			mp.end(),
-			back_inserter<vector<pair<string,int>>>(vec));
-
-	std::sort(vec.begin(), vec.end(),
-			[](const pair<string,int>& l, const pair<string,int>& r) {
-				if (l.second != r.second)
-					return l.second > r.second;
-
-				return l.first < r.first;
-			});
-
-	int sum=0,i=0;
-
-	for (auto const &pair: vec) {
-		sum+=pair.second*v[i];
-		i++;
-	}
-	cout<<sum<<" ";
-	
-	sort(v.begin(),v.end(),greater<int>());
-
-	sum=0,i=0;
-
-	for (auto const &pair: vec) {
-		sum+=pair.second*v[i];
-		i++;
-	}
-	cout<<sum<<" ";
-		
-
 }

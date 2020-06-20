@@ -6,49 +6,100 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-bool isPrime(ll n) 
-{ 
-	if (n <= 1) 
-		return false; 
-	if (n <= 3) 
-		return true; 
-
-	if (n % 2 == 0 || n % 3 == 0) 
-		return false; 
-
-	for (ll i = 5; i * i <= n; i = i + 6) 
-		if (n % i == 0 || n % (i + 2) == 0) 
-			return false; 
-
-	return true; 
-} 
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n,m;
-    cin>>n>>m;
-
-    vector<ll>v;
-    
-    for (ll i = 2; i <= n; i++) { 
-		if (isPrime(i)) 
-            v.push_back(i);
-	}
-    ll ans=0;
-    for(ll i=0;i<v.size();i++){
-        for(ll j=0;j<v.size();j++){
-            if(v[j]+v[j+1]+1==v[i]){
-                ans++;
-                break;
+    string s, s1 = "";
+    cin >> s;
+    bool flag = true;
+    vector<string> v;
+    for (int i = 0; i <= s.length(); i++)
+    {
+        if (s[i] == '.' || i == s.length())
+        {
+            if (s1.length() != 0)
+            {
+                v.push_back(s1);
+                s1 = "";
+            }
+            else
+            {
+                flag = false;
             }
         }
+        else
+        {
+            s1 += s[i];
+        }
     }
-    if(ans==m){
-        cout<<"YES";
-    }else{
-        cout<<"NO";
+    if (v.size() < 2)
+    {
+        cout << "NO";
+    }
+    else
+    {
+        for (int i = 0; i < v.size(); i++)
+        {
+            if (i == 0)
+            {
+                if (v[i].size() > 8)
+                {
+                    flag = false;
+                }
+            }
+            else
+            {
+                if (i != (v.size() - 1))
+                {
+                    v[i - 1] += '.';
+                    if (v[i].size() > 1 && v[i].size() <= 8)
+                    {
+                        v[i - 1] += v[i][0];
+                        v[i].erase(v[i].begin());
+                    }
+                    else if (v[i].size() > 8 && v[i].size() <= 11)
+                    {
+                        v[i - 1] += v[i][0];
+                        v[i - 1] += v[i][1];
+                        v[i - 1] += v[i][2];
+                        v[i].erase(v[i].begin());
+                        v[i].erase(v[i].begin());
+                        v[i].erase(v[i].begin());
+                    }
+                    else
+                    {
+                        flag = false;
+                    }
+                }
+                else
+                {
+                    if (v[i].size() >= 1 && v[i].size() <= 3)
+                    {
+                        v[i - 1] += '.';
+                        v[i - 1] += v[i];
+                        v.erase(v.end());
+                    }
+                    else
+                    {
+                        flag = false;
+                    }
+                }
+            }
+        }
+        if (flag)
+        {
+            cout << "YES"
+                 << "\n";
+            for (size_t i = 0; i < v.size(); i++)
+            {
+                cout << v[i] << "\n";
+            }
+        }
+        else
+        {
+            cout << "NO";
+        }
     }
 }
