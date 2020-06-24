@@ -2,38 +2,69 @@
 
 using namespace std;
 
-void dotopo(vector<vector<int>> &adj, int v, vector<bool> &visited, stack<int> &stack){
-    visited[v]=true;
-
-    for (int i = 0; i < adj[v].size(); i++)
+int reach(vector<vector<int>> &adj, int n)
+{
+    int x = 0;
+    vector<int> color(n);
+    for (size_t i = 0; i < n; i++)
     {
-        if(!visited[adj[v][i]]){
-            dotopo(adj,adj[v][i],visited,stack);
+        color[i] = 0;
+    }
+    vector<bool> visited(n);
+    for (size_t i = 0; i < n; i++)
+    {
+        visited[i] = false;
+    }
+    queue<int> record;
+    color[x] = 1;
+    record.push(x);
+
+    while (!record.empty())
+    {
+        x = record.front();
+        record.pop();
+
+        if (visited[x] == false)
+        {
+            for (int i = 0; i < adj[x].size(); i++)
+            {
+                if (color[x] == 1)
+                {
+                    if (color[adj[x][i]] == 0)
+                    {
+                        color[adj[x][i]] = 2;
+                        record.push(adj[x][i]);
+                    }
+                    else if (color[adj[x][i]] == 1)
+                    {
+                        return 0;
+                    }
+                    else if (color[adj[x][i]] == 2)
+                    {
+                        record.push(adj[x][i]);
+                    }
+                }
+                else if (color[x] == 2)
+                {
+                    if (color[adj[x][i]] == 0)
+                    {
+                        color[adj[x][i]] = 1;
+                        record.push(adj[x][i]);
+                    }
+                    else if (color[adj[x][i]] == 2)
+                    {
+                        return 0;
+                    }
+                    else if (color[adj[x][i]] == 1)
+                    {
+                        record.push(adj[x][i]);
+                    }
+                }
+            }
+            visited[x]=true;
         }
     }
-    stack.push(v+1);
-}
-
-void topo(vector<vector<int>> &adj, int n)
-{
-
-    stack<int> stack;
-
-    vector<bool> visited(n);
-    for (int i = 0; i < n; i++)
-    {
-        visited[i]=false;
-    }
-    for (int i = 0; i < n; i++) 
-      if (visited[i] == false) 
-        dotopo(adj,i, visited, stack); 
-
-    while (stack.empty() == false) 
-    { 
-        cout << stack.top() << " "; 
-        stack.pop(); 
-    } 
-    
+    return 1;
 }
 
 int main()
@@ -46,6 +77,7 @@ int main()
         int x, y;
         cin >> x >> y;
         adj[x - 1].push_back(y - 1);
+        adj[y - 1].push_back(x - 1);
     }
     // for (size_t i = 0; i < n; i++)
     // {
@@ -56,6 +88,6 @@ int main()
     //     }cout<<"\n";
 
     // }
-
-    topo(adj, n);
+    // cout<<"\n";
+    cout << reach(adj, n);
 }

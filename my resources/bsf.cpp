@@ -20,19 +20,19 @@ int reach(vector<vector<int>> &adj, int x, int y, int n)
 
   while (!record.empty())
   {
-    x = record.front();
+    int x1 = record.front();
     record.pop();
 
-    for (int i = 0; i < adj[x].size(); i++)
+    for (int i = 0; i < adj[x1].size(); i++)
     {
-      if (adj[x][i] == y)
+      if (adj[x1][i] == y)
       {
         return 1;
       }
-      if (visited[x] != true)
+      if (visited[adj[x1][i]] != true)
       {
-        visited[x] = true;
-        record.push(x);
+        visited[adj[x1][i]] = true;
+        record.push(adj[x1][i]);
       }
     }
   }
@@ -52,6 +52,15 @@ int main()
     adj[x - 1].push_back(y - 1);
     adj[y - 1].push_back(x - 1);
   }
+  // testing
+  // for (size_t i = 0; i < n; i++)
+  //   {
+  //       cout<<i+1<<" ";
+  //       for (size_t j = 0; j < adj[i].size(); j++)
+  //       {
+  //           cout<<adj[i][j]+1<<" ";
+  //       }cout<<"\n";
+  //   }
   int x, y;
   cin >> x >> y;
   cout << reach(adj, x - 1, y - 1,n);
