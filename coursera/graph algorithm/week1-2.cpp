@@ -2,51 +2,38 @@
 
 using namespace std;
 
-int reach(vector<vector<int>> &adj, int n)
+void dotopo(vector<vector<int>> &adj, int v, vector<bool> &visited, stack<int> &stack){
+    visited[v]=true;
+
+    for (int i = 0; i < adj[v].size(); i++)
+    {
+        if(!visited[adj[v][i]]){
+            dotopo(adj,adj[v][i],visited,stack);
+        }
+    }
+    stack.push(v+1);
+}
+
+void topo(vector<vector<int>> &adj, int n)
 {
 
-    int res = 0;
-
-    vector<int> vect;
-    for (size_t i = 0; i < n; i++)
-    {
-        vect.push_back(i);
-    }
+    stack<int> stack;
 
     vector<bool> visited(n);
-    for (size_t i = 0; i < n; i++)
+    for (int i = 0; i < n; i++)
     {
-        visited[i] = false;
+        visited[i]=false;
     }
-    vector<int> record;
+    for (int i = 0; i < n; i++) 
+      if (visited[i] == false) 
+        dotopo(adj,i, visited, stack); 
 
-    while (vect.size() != 0)
-    {
-        vector<int>::iterator it = vect.begin();
-        int y = *it;
-        vect.erase(vect.begin());
-
-        visited[y] = true;
-        record.push_back(y);
-
-        while (record.size() != 0)
-        {
-            int x = record[0];
-            record.erase(record.begin());
-
-            for (int i = 0; i < adj[x].size(); i++)
-            {
-                if (visited[adj[x][i]] != true)
-                {
-                    visited[adj[x][i]] = true;
-                    record.push_back(adj[x][i]);
-                    vect.erase(find(vect.begin(), vect.end(), adj[x][i]));
-                }
-            }
-        }
-        res++;
-    }
-    return res;
+    while (stack.empty() == false) 
+    { 
+        cout << stack.top() << " "; 
+        stack.pop(); 
+    } 
+    
 }
 
 int main()
@@ -59,7 +46,6 @@ int main()
         int x, y;
         cin >> x >> y;
         adj[x - 1].push_back(y - 1);
-        adj[y - 1].push_back(x - 1);
     }
     // for (size_t i = 0; i < n; i++)
     // {
@@ -71,5 +57,5 @@ int main()
 
     // }
 
-    cout << reach(adj, n);
+    topo(adj, n);
 }

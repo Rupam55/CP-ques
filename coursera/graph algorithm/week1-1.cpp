@@ -2,41 +2,38 @@
 
 using namespace std;
 
-int reach(vector<vector<int>> &adj, int x, int y, int n)
-{
+bool iscyclic(vector<vector<int> > &adj, int v, vector<bool> &visited, vector<bool> &stack){
+    if(visited[v]==false){
+        visited[v]=true;
+        stack[v]=true;
 
-    if (x == y)
-    {
-        return 1;
-    }
-    vector<bool> visited(n);
-    for (size_t i = 0; i < n; i++)
-    {
-        visited[i] = false;
-    }
-    queue<int> record;
-    visited[x] = true;
-    record.push(x);
-
-    while (!record.empty())
-    {
-        x = record.front();
-        record.pop();
-
-        for (int i = 0; i < adj[x].size(); i++)
+        for (int i = 0; i < adj[v].size(); i++)
         {
-            if (adj[x][i] == y)
-            {
-                return 1;
-            }
-            if (visited[adj[x][i]] != true)
-            {
-                visited[adj[x][i]] = true;
-                record.push(adj[x][i]);
+            if(!visited[adj[v][i]] && iscyclic(adj,adj[v][i],visited,stack)){
+                return true;
+            }else if(stack[adj[v][i]]){
+                return true;
             }
         }
     }
+    stack[v]=false;
+    return false;
+}
 
+int acyclic(vector<vector<int> > &adj, int n) {
+
+    vector<bool> visited(n);
+    vector<bool> stack(n);
+    for (int i = 0; i < n; i++){
+        visited[i] = false; 
+        stack[i] = false;
+    }
+    for (int i = 0; i < n; i++)
+    {
+        if(iscyclic(adj,i,visited,stack)){
+            return 1;
+        }
+    }
     return 0;
 }
 
@@ -50,9 +47,6 @@ int main()
         int x, y;
         cin >> x >> y;
         adj[x - 1].push_back(y - 1);
-        adj[y - 1].push_back(x - 1);
     }
-    int x, y;
-    cin >> x >> y;
-    cout << reach(adj, x - 1, y - 1, n);
+    cout << acyclic(adj, n);
 }

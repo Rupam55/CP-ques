@@ -1,73 +1,91 @@
-#include<bits/stdc++.h>
+// A C++ Program to detect cycle in a graph 
+#include<bits/stdc++.h> 
 
-typedef long long int ll;
-#define pp pair<ll,ll>
+using namespace std; 
 
-#define max2(a,b) ((a<b)?b:a)
-#define max3(a,b,c) max2(max2(a,b),c)
-#define min2(a,b) ((a>b)?b:a)
-#define min3(a,b,c) min2(min2(a,b),c)
+class Graph 
+{ 
+	int V; // No. of vertices 
+	list<int> *adj; // Pointer to an array containing adjacency lists 
+	bool isCyclicUtil(int v, bool visited[], bool *rs); // used by isCyclic() 
+public: 
+	Graph(int V); // Constructor 
+	void addEdge(int v, int w); // to add an edge to graph 
+	bool isCyclic(); // returns true if there is a cycle in this graph 
+}; 
 
-using namespace std;
+Graph::Graph(int V) 
+{ 
+	this->V = V; 
+	adj = new list<int>[V]; 
+} 
 
-int main()
-{
-        ll i,j,k;
-        ll n,p;
+void Graph::addEdge(int v, int w) 
+{ 
+	adj[v].push_back(w); // Add w to v’s list. 
+} 
 
-        cin>>n>>k;
-        ll a[n+1];
+// This function is a variation of DFSUtil() in https://www.geeksforgeeks.org/archives/18212 
+bool Graph::isCyclicUtil(int v, bool visited[], bool *recStack) 
+{ 
+	if(visited[v] == false) 
+	{ 
+		// Mark the current node as visited and part of recursion stack 
+		visited[v] = true; 
+		recStack[v] = true; 
 
-        for(i=0;i<=n;i++)
-        {
-            a[i]=1;
-        }
+		// Recur for all the vertices adjacent to this vertex 
+		list<int>::iterator i; 
+		for(i = adj[v].begin(); i != adj[v].end(); ++i) 
+		{ 
+			if ( !visited[*i] && isCyclicUtil(*i, visited, recStack) ) 
+				return true; 
+			else if (recStack[*i]) 
+				return true; 
+		} 
 
-        //prime
-        a[0]=0;a[1]=0;a[2]=1;
-        //all evens are non-primes
-        for(i=4;i<=n;i+=2)
-        {
-            a[i]=0;
-        }
+	} 
+	recStack[v] = false; // remove the vertex from recursion stack 
+	return false; 
+} 
 
-        for(i=3;i<=n;i+=2)
-        {
-            if(a[i]==1)
-            {
-                int x=2;
-                while(i*x<=n)
-                {
-                    a[i*x]=0;
-                    x++;
-                }
-            }
-        }
+// Returns true if the graph contains a cycle, else false. 
+// This function is a variation of DFS() in https://www.geeksforgeeks.org/archives/18212 
+bool Graph::isCyclic() 
+{ 
+	// Mark all the vertices as not visited and not part of recursion 
+	// stack 
+	bool *visited = new bool[V]; 
+	bool *recStack = new bool[V]; 
+	for(int i = 0; i < V; i++) 
+	{ 
+		visited[i] = false; 
+		recStack[i] = false; 
+	} 
 
-        vector<ll> v;
-        for(i=0;i<=n;i++)
-        {
-            if(a[i]==1)
-                v.push_back(i);
-        }
+	// Call the recursive helper function to detect cycle in different 
+	// DFS trees 
+	for(int i = 0; i < V; i++) 
+		if (isCyclicUtil(i, visited, recStack)) 
+			return true; 
 
-        int count=0;
-        for(i=0;i<(v.size());i++)
-        {
-            for(j=0;j<v.size();j++)
-            {
-                if(v[j]+v[j+1]+1==v[i])
-                {
-                    count++;
-                    break;
-                }
-            }
-        }
+	return false; 
+} 
 
-        if(count>=k)
-            cout<<"YES";
-        else
-            cout<<"NO";
+int main() 
+{ 
+	// Create a graph given in the above diagram 
+	Graph g(4); 
+	g.addEdge(0, 1); 
+	g.addEdge(0, 2); 
+	g.addEdge(1, 2); 
+	g.addEdge(2, 0); 
+	g.addEdge(2, 3); 
+	g.addEdge(3, 3); 
 
-        return 0;
-}
+	if(g.isCyclic()) 
+		cout << "Graph contains cycle"; 
+	else
+		cout << "Graph doesn't contain cycle"; 
+	return 0; 
+} 
