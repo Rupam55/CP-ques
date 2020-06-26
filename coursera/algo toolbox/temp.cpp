@@ -1,41 +1,76 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <limits>
+#include <vector>
+#include <queue>
 
-using namespace std;
+using std::vector;
+using std::queue;
+using std::pair;
+using std::priority_queue;
 
-int main()
-{
-    int n, W;
-    cin >> W >> n;
-
-    vector<int> val(n);
-    vector<int> wt(n);
-    int Temp;
-    for (size_t i = 0; i < n; i++)
-    {
-        cin >> Temp;
-        val[i] = wt[i] = Temp;
-    }
-    vector<vector<int>> R(n + 1, vector<int>(W + 1));
-    for (int i = 0; i <= n; i++)
-    {
-        for (int w = 0; w <= W; w++)
-        {
-            if (i == 0 || w == 0)
-                R[i][w] = 0;
-            else if (wt[i - 1] <= w)
-                R[i][w] = max(val[i - 1] + R[i - 1][w - wt[i - 1]], R[i - 1][w]);
-            else
-                R[i][w] = R[i - 1][w];
+void shortest_paths(vector<vector<int> > &adj, vector<vector<int> > &cost, int s, vector<long long> &distance, vector<int> &reachable, vector<int> &shortest) {
+  //write your code here
+  reachable[s] = 1;
+  distance[s] = 0;
+  queue<int> q;
+  for (int i = 0; i < adj.size(); i++) {
+    for (int u = 0; u < adj.size(); u++){
+      for (int k = 0; k < adj[u].size(); k++) {
+        int v = adj[u][k];
+        if (distance[u]!= std::numeric_limits<long long>::max() && distance[v] > distance[u] + cost[u][k]) {
+          distance[v] = distance[u] + cost[u][k];
+          reachable[v] = 1;
+          if (i == adj.size() - 1) {
+            q.push(v);
+          }	
         }
+      }
     }
-    // for (int i = 0; i <= n; i++)
-    // {
-    //     for (int w = 0; w <= W; w++)
-    //     {
-    //         cout << R[i][w] << " ";
-    //     }
-    //     cout << "\n";
-    // }
+  }
+  
+  vector<int> visited(adj.size());
+  while (!q.empty()){
+    int u = q.front();
+	q.pop();
+	visited[u] = 1;
+// 	if(u != s)
+	shortest[u] = 0;
+	for (int i = 0; i < adj[u].size(); i++) {
+	  int v = adj[u][i];
+      if (!visited[v]) {
+        q.push(v);
+        visited[v] = 1;
+        shortest[v] = 0;
+	  }
+	}
+  }
+  distance[s] = 0;
+}
 
-    cout<< R[n][W];
+int main() {
+  int n, m, s;
+  std::cin >> n >> m;
+  vector<vector<int> > adj(n, vector<int>());
+  vector<vector<int> > cost(n, vector<int>());
+  for (int i = 0; i < m; i++) {
+    int x, y, w;
+    std::cin >> x >> y >> w;
+    adj[x - 1].push_back(y - 1);
+    cost[x - 1].push_back(w);
+  }
+  std::cin >> s;
+  s--;
+  vector<long long> distance(n, std::numeric_limits<long long>::max());
+  vector<int> reachable(n, 0);
+  vector<int> shortest(n, 1);
+  shortest_paths(adj, cost, s, distance, reachable, shortest);
+  for (int i = 0; i < n; i++) {
+    if (!reachable[i]) {
+      std::cout << "*\n";
+    } else if (!shortest[i]) {
+      std::cout << "-\n";
+    } else {
+      std::cout << distance[i] << "\n";
+    }
+  }
 }

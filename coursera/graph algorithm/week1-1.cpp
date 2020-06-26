@@ -2,57 +2,45 @@
 
 using namespace std;
 
-int reach(vector<vector<int>> &adj, int dist[], int x, int y, int n)
+# define INF 0x3f3f3f3f 
+
+int distance(vector<vector<int>> &adj, vector<vector<int>> &cost, int s, int t, int V)
 {
 
-    if (x == y)
-    {
-        return 1;
-    }
-    vector<bool> visited(n);
-    for (size_t i = 0; i < n; i++)
-    {
-        visited[i] = false;
-        dist[i] = INT_MAX;
-    }
-    queue<int> record;
-    visited[x] = true;
-    dist[x] = 0;
-    record.push(x);
+    set<pair<int, int>> setds;
 
-    while (!record.empty())
-    {
-        x = record.front();
-        record.pop();
+    vector<int> dist(V, INF);
 
-        for (int i = 0; i < adj[x].size(); i++)
-        {
-            if (adj[x][i] == y)
-            {
-                dist[adj[x][i]] = dist[x] + 1;
-                return 1;
-            }
-            if (visited[adj[x][i]] != true)
-            {
-                visited[adj[x][i]] = true;
-                dist[adj[x][i]] = dist[x] + 1;
-                record.push(adj[x][i]);
-            }
-        }
-    }
-return 0;
-}
+    setds.insert(make_pair(0, s)); 
+	dist[s] = 0; 
 
-int distance(vector<vector<int>> &adj, int x, int y, int n)
-{
-    int dist[n];
-    if (reach(adj, dist, x, y, n) == 0)
-    {
+    while (!setds.empty()) 
+	{ 
+		pair<int, int> tmp = *(setds.begin()); 
+		setds.erase(setds.begin()); 
+
+		int u = tmp.second; 
+ 
+		for (int i = 0; i < adj[u].size(); i++) 
+		{ 
+			int v = adj[u][i]; 
+			int weight =  cost[u][i];
+
+			if (dist[v] > dist[u] + weight) 
+			{ 
+				if (dist[v] != INF) 
+					setds.erase(setds.find(make_pair(dist[v], v))); 
+
+				dist[v] = dist[u] + weight; 
+				setds.insert(make_pair(dist[v], v)); 
+			} 
+		} 
+	} 
+
+	if(dist[t]==INF){
         return -1;
-    }
-    else
-    {
-        return dist[y];
+    }else{
+        return dist[t];
     }
 }
 
@@ -61,15 +49,16 @@ int main()
     int n, m;
     cin >> n >> m;
     vector<vector<int>> adj(n, vector<int>());
+    vector<vector<int>> cost(n, vector<int>());
     for (int i = 0; i < m; i++)
     {
-        int x, y;
-        cin >> x >> y;
+        int x, y, w;
+        cin >> x >> y >> w;
         adj[x - 1].push_back(y - 1);
-        adj[y - 1].push_back(x - 1);
+        cost[x - 1].push_back(w);
     }
     int s, t;
     cin >> s >> t;
     s--, t--;
-    cout << distance(adj, s, t, n);
+    cout << distance(adj, cost, s, t, n);
 }
