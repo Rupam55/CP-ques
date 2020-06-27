@@ -11,30 +11,27 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n,a,nz=0,nn=0,np=0,ans=0;
+    int n;
     cin>>n;
-    for (ll i = 0; i < n; i++)
+    vector<int>v(n);
+    for (int i = 0; i < n; i++)
     {
-        cin>>a;
-        if(a==0){
-            nz++;
-        }else if(a>0){
-            np++;
-            ans+=(a-1);
-        }else if(a<0){
-            nn++;
-            ans+=abs(a+1);
+        cin>>v[i];
+    }
+    int d,m;
+    cin>>d>>m;
+    int count=0;
+    for (int i = 0; i < n-m+1; i++)
+    {
+        int sum=0;
+        for (int j = i; j < i+m; j++)
+        {
+            sum+=v[j];
+        }
+        if(sum==d){
+            count++;
         }
     }
-    if(nn%2!=0){
-        if(nz==0){
-            ans+=2;
-        }else{
-            ans++;
-            nz--;
-        }
-    }
-    ans+=nz;
-    cout<<ans;
-    
+    cout<<count;
+        
 }
