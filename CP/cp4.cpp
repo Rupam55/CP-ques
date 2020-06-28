@@ -4,23 +4,28 @@ using namespace std;
 
 int main()
 {
-    int n,sum=0;
-    cin>>n;
-    vector<int>v(n);
-    for (size_t i = 0; i < n; i++)
+    int n, s, v(0);
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 0; i < n; i++)
     {
-        cin>>v[i];
-        sum+=v[i];
+        cin >> a[i];
     }
-    int sum2=0,count=0;
-    for (size_t i = 0; i < n-1; i++)
+    for (int i = 0; i < n - 1; i++)
     {
-        sum2+=v[i];
-        sum-=v[i];
-        if(sum==sum2){
-            count++;
-            // cout<<sum<<" "<<sum2<<" "<<i<<"\n";
+        if (a[i] > a[i + 1])
+        {
+            s = i, v++;
         }
     }
-    cout<<count;
+    if (a[n - 1] > a[0])
+        s = n - 1, v++;
+    if (v == 0)
+        cout << 0 << endl;
+    else if (v > 1)
+        cout << -1 << endl;
+    else
+        cout << n - 1 - s << endl;
 }
+
+// little-pony-and-sort-by

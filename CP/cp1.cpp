@@ -11,27 +11,28 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin>>n;
-    vector<int>v(n);
-    for (int i = 0; i < n; i++)
+    int n, m;
+    char c[12][13];
+    scanf("%d%d", &n, &m);
+    for (int i = 1; i <= n; ++i)
     {
-        cin>>v[i];
+        scanf("%s", &c[i][1]);
     }
-    int d,m;
-    cin>>d>>m;
-    int count=0;
-    for (int i = 0; i < n-m+1; i++)
+    int eaten(0);
+    for (int i = 1; i <= n; ++i)
     {
-        int sum=0;
-        for (int j = i; j < i+m; j++)
+        for (int j = 1; j <= m; ++j)
         {
-            sum+=v[j];
-        }
-        if(sum==d){
-            count++;
+            if (c[i][j] == 'W')
+            {
+                if (c[i-1][j] == 'P' || c[i+1][j] == 'P' || c[i][j-1] == 'P' || c[i][j+1] == 'P')
+                {
+                    eaten += 1;
+                }
+            }
         }
     }
-    cout<<count;
+    printf("%d\n", eaten);
+    return 0;
         
 }

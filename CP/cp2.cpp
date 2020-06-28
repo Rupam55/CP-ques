@@ -1,36 +1,67 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
+
+typedef long long int ll;
+
+#define pp pair<ll,ll>
+#define dbg printf("in\n");
+#define NL printf("\n");
+
+#define inf 1000000000000
+
 using namespace std;
 
-typedef unsigned long long ull;
-typedef long long ll;
-typedef long double ld;
-
-int countKdivPairs(int A[], int n, int K)
-{
-	int freq[K] = {0};
-
-	for (int i = 0; i < n; i++)
-		++freq[A[i] % K];
-
-	int sum = freq[0] * (freq[0] - 1) / 2;
-
-	for (int i = 1; i <= K / 2 && i != (K - i); i++)
-		sum += freq[i] * freq[K - i];
-	// If K is even
-	if (K % 2 == 0)
-		sum += (freq[K / 2] * (freq[K / 2] - 1) / 2);
-	return sum;
-}
-
+ll f[100][100];
 int main()
 {
-	int n,k;
-	cin>>n>>k;
-	int A[n];
-	for (int i = 0; i < n; i++)
-	{
-		cin>>A[i];
-	}
-	cout << countKdivPairs(A, n, k);
-	return 0;
+    //freopen("in.txt","r",stdin);
+    ll i,j,k;
+    ll n,m,x,w;
+
+    cin>>n>>k;
+    ll a[n];
+
+    m=200;
+    for(i=0; i<n; i++)
+        cin>>a[i],m=min(m,a[i]);
+
+    x=1;
+    if(x>k)
+    {
+        cout<<"NO";
+        return 0;
+    }
+
+    memset(f,0,sizeof(f));
+    for(i=0; i<n; i++)
+    {
+        for(j=0; j<=m; j++)
+            f[i][j]=x;
+    }
+
+    m++;x++;
+    for(i=0;i<n;i++)
+    {
+        w=x;
+        for(j=m;j<a[i];j++)
+        {
+            if(w>k)
+            {
+                cout<<"NO";
+                return 0;
+            }
+
+            f[i][j]=w;w++;
+        }
+    }
+
+    cout<<"YES"<<endl;
+    for(i=0; i<n; i++)
+    {
+        for(j=0; j<a[i]; j++)
+            cout<<f[i][j]<<" ";
+
+        cout<<endl;
+    }
+
+    return 0;
 }

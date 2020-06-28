@@ -7,25 +7,20 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--){
-        int n,a,rese=0,reso=0;
-        cin>>n;
-        for (int i = 0; i < n; i++)
-        {
-            cin>>a;
-            if(i%2 != 0 && a%2 == 0){
-                rese++;    
-            }else if(i%2 == 0 && a%2 != 0){
-                reso++;
-            }
-        }
-        if(rese==reso){
-            cout<<rese<<"\n";
-        }else{
-            cout<<-1<<"\n";
-        } 
+    int n;
+    cin>>n;
+    map<int,int>mp;
+    for (size_t i = 0; i < n; i++)
+    {
+        int a;
+        cin>>a;
+        mp[a]++;
     }
-    // Time();
+    int count=0;
+    for (auto x : mp){
+        count+=x.second/2;
+    }    
+    cout<<count;
 }
+// Sock Merchant
+

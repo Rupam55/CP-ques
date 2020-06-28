@@ -3,24 +3,23 @@ using namespace std;
 
 int main()
 {
-    string s;
-    cin>>s;
-    stack<char> c;
-    int count=0;
-    for (size_t i = 0; i < s.length(); i++)
+    int n, s, t;
+    cin>>n>>s>>t;
+    vector<int>v(n+1);
+    for (int i = 1; i <= n; i++)
     {
-        if(s[i]=='('){
-            c.push('(');
-        }else if(s[i]==')'){
-            if(c.empty()){
-
-            }else{
-                count+=2;
-                c.pop();
-            }
-        }
+        cin>>v[i];
     }
-    cout<<count;
-        
+    int count=0;
+    while(s!=t && v[s]!=0){
+        int t=s;
+        s=v[s];
+        v[t]=0;
+        count++;
+    }if(s==t){
+    cout<<count;}
+    else{
+        cout<<-1;
+    }    
 }
-
+// marbel wala ques
