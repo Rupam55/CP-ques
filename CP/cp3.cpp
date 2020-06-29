@@ -11,17 +11,30 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    double r,x,y,x1,y1;
-    cin>>r>>x>>y>>x1>>y1;
-    double dist_x,dist_y,dist;
-    dist_x=abs(x-x1);
-    dist_y=abs(y-y1);
-    dist=sqrt((dist_x*dist_x)+(dist_y*dist_y));
-    if(fmod(dist,(r*2))==0){
-        cout<<int(dist/(r*2));
-    }else{
-        cout<<int(dist/(r*2))+1;
+    int n,maxz=INT_MIN;
+    cin>>n;
+    map<int,int>mp;
+    for (int i = 0; i < n; i++)
+    {
+        int a;
+        cin>>a;
+        mp[a]++;
+        if(a>maxz){
+            maxz=a;
+        }
     }
+    int maxi=INT_MIN;
+    for (int i = 0; i <= maxz; i++)
+    {
+        int b=0,c=0,d=0;
+        c+=mp[i];
+        d+=mp[i];
+        c+=mp[i-1];
+        d+=mp[i+1];
+        b=max(c,d);
+        maxi=max(maxi,b);
+    }
+    cout<<maxi;
 }
 
-// amir and pins
+// Picking Numbers

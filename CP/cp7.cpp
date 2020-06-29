@@ -3,23 +3,28 @@ using namespace std;
 
 int main()
 {
-    int n, s, t;
-    cin>>n>>s>>t;
-    vector<int>v(n+1);
-    for (int i = 1; i <= n; i++)
-    {
-        cin>>v[i];
-    }
-    int count=0;
-    while(s!=t && v[s]!=0){
-        int t=s;
-        s=v[s];
-        v[t]=0;
-        count++;
-    }if(s==t){
-    cout<<count;}
-    else{
-        cout<<-1;
-    }    
+    int t;
+    cin>>t;
+    while(t--){
+        int sum=0,count=0,n;
+        string s;
+        cin>>n>>s;
+        for (int i = 0; i < s.length(); i++)
+        {
+            if(s[i]=='('){
+                if(sum<0){
+                    sum=0;
+                    sum++;
+                }else{
+                    sum++;
+                }
+            }else{
+                sum--;
+                if(sum<0){
+                count++;
+                }
+            }
+        }
+        cout<<count<<"\n";
+    }   
 }
-// marbel wala ques

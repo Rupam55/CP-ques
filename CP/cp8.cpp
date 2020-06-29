@@ -6,61 +6,61 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
+bool sortcol(const vector<int> &v1,
+             const vector<int> &v2)
+{
+    return v1[1] < v2[1];
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    string s,s1;
-    cin>>s>>s1;
-    map<char,int>mp;
-    for (int i = 0; i < s.length(); i++)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        mp[s[i]]++;
-    }
-    map<char,int>mp1;
-    for (int i = 0; i < s1.length(); i++)
-    {
-        mp1[s1[i]]++;
-    }
-    
-    bool flag=true;
-    for (int i = 0; i < s.length(); i++)
-    {
-        if(mp[s[i]]!=mp1[s[i]]){
-            flag=false;
-        }
-    }
-    if(flag==true){
-        cout<<"array";
-        return 0;
-    }
+        vector<vector<int>> vect;
+        int n,k;
+        cin >> n >> k;
 
-    int count=0;
-    for (int i = 0,j=0; i < s.length(); i++)
-    {
-        if(s[i]==s1[j]){
-            count++;
-            j++;
+        for (int i = 0; i < n; i++)
+        {
+            vector<int> v1;
+            int a;
+            cin>>a;
+            v1.push_back(a);
+            if(a%k==0){
+                v1.push_back(0);
+            }else{
+                v1.push_back(k-(a%k));
+            }
+            vect.push_back(v1);
         }
-    }
-    if(count==s1.length()){
-        cout<<"automaton";
-        return 0;
-    }
-    flag=true;
-    for (int i = 0; i < s1.length(); i++)
-    {
-        if(mp[s1[i]]<mp1[s1[i]]){
-            flag=false;
+
+        sort(vect.begin(), vect.end(), sortcol);
+
+        int x=0;
+        // for (int i = 0; i < n; i++)
+        // {
+        //     if(vect[i][1]>0){
+        //         if(x>vect[i][1]){
+        //             vect[i][1]+=k;
+        //         }
+        //         if(x<=vect[i][1]){
+        //             x+=(vect[i][1]-x);
+        //             x++;
+        //             // cout<<i<<" "<<x<<" ""\n";
+        //         }
+        //     }
+        // }
+        // cout<<x<<"\n";
+        for (int i = 0; i < n; i++){
+        for (int j = 0; j < 2; j++)
+            cout << vect[i][j] << " ";
+        cout << endl;
         }
-    }
-    if(flag==true){
-        cout<<"both";
-        return 0;
-    }else{
-        cout<<"need tree";
-        return 0;
     }
 }
 // suffix structure

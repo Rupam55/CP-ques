@@ -11,28 +11,27 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n, m;
-    char c[12][13];
-    scanf("%d%d", &n, &m);
-    for (int i = 1; i <= n; ++i)
+    int b,n,m;
+    cin>>b>>n>>m;
+    vector<int>k(n);
+    vector<int>u(m);
+    for (int i = 0; i < n; i++)
     {
-        scanf("%s", &c[i][1]);
+        cin>>k[i];
     }
-    int eaten(0);
-    for (int i = 1; i <= n; ++i)
+    for (int i = 0; i < m; i++)
     {
-        for (int j = 1; j <= m; ++j)
-        {
-            if (c[i][j] == 'W')
-            {
-                if (c[i-1][j] == 'P' || c[i+1][j] == 'P' || c[i][j-1] == 'P' || c[i][j+1] == 'P')
-                {
-                    eaten += 1;
-                }
+        cin>>u[i];
+    }
+    int max_spent = -1,t;
+    for (int i = 0; i < k.size(); i++) {
+        for (int j = 0; j < u.size(); j++) {
+            t = k[i] + u[j];
+            if (t > max_spent && t <= b) {
+                max_spent = t;
             }
         }
     }
-    printf("%d\n", eaten);
-    return 0;
-        
+    cout<<max_spent;
 }
+// Electronics Shop #pue se pehle din

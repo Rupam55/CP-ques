@@ -2,30 +2,31 @@
 
 using namespace std;
 
+typedef unsigned long long ull;
+typedef long long ll;
+typedef long double ld;
+
+int infi = 1000000007;
+
 int main()
 {
-    int n, s, v(0);
-    cin >> n;
-    vector<int> a(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin >> a[i];
-    }
-    for (int i = 0; i < n - 1; i++)
-    {
-        if (a[i] > a[i + 1])
-        {
-            s = i, v++;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    int t;
+    cin>>t;
+    while(t--){
+        int a,b,c,x,y,n,k;
+        cin>>x>>y>>n;
+        a=abs(x-y);
+        b=n/x;
+        c=n%x;
+        if(c==y){
+            cout<<n<<"\n";
+        }else if(c<y){
+            cout<<n-x+y-c<<"\n";
+        }else{
+            cout<<n-c+y<<"\n";
         }
     }
-    if (a[n - 1] > a[0])
-        s = n - 1, v++;
-    if (v == 0)
-        cout << 0 << endl;
-    else if (v > 1)
-        cout << -1 << endl;
-    else
-        cout << n - 1 - s << endl;
 }
-
-// little-pony-and-sort-by
