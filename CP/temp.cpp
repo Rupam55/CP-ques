@@ -2,35 +2,54 @@
 
 using namespace std;
 
-int main(){
-    int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    stack<char> sta;
-	int count=0;
-    for(int i=0;i<n;i++){
-        if(sta.empty()){
-			sta.push(s[i]);
-		}else{
-			char c=sta.top();
-			if(c=='U'){
-				if(s[i]=='D'){
-					sta.pop();
-				}else{
-					sta.push(s[i]);
-				}
-			}else{
-				if(s[i]=='U'){
-					sta.pop();
-					if(sta.empty()){
-						count++;
-					}
-				}else{
-					sta.push(s[i]);
-				}
-			}
-		}
+int main()
+{
+    char p[101];
+    scanf("%s", p);
+    int size(0);
+    for (size_t i = 0; p[i] != 0; ++i)
+    {
+        size *= 16;
+        switch (p[i])
+        {
+        case '>':
+            size += 8;
+            break;
+
+        case '<':
+            size += 9;
+            break;
+
+        case '+':
+            size += 10;
+            break;
+
+        case '-':
+            size += 11;
+            break;
+
+        case '.':
+            size += 12;
+            break;
+
+        case ',':
+            size += 13;
+            break;
+
+        case '[':
+            size += 14;
+            break;
+
+        case ']':
+            size += 15;
+            break;
+
+        default:
+            break;
+        }
+
+        size %= 1000003;
     }
-	cout<<count;
+    printf("%d\n", size);
+    return 0;
 }

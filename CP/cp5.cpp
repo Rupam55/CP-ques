@@ -6,38 +6,34 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-int maxi = 1000000007;
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin>>n;
-    for (int i = 0; i < n; i++)
+    string s;
+    cin>>s;
+    ll ans=0;
+    for (ll i = 0; i < s.length(); i++)
     {
-        int a,count=0;
-        cin>>a;
-        bool flag=true;
-        while(a!=1){
-            if(a%6==0){
-                a=a/6;
-                count++;
-            }else{
-                if(a%2==0){
-                    flag=false;
-                    a=1;
-                }else{
-                    a=a*2;
-                    count++;
-                }
-            }
-        }
-        if(flag==true){
-            cout<<count<<"\n";
+        (ans=ans% 1000003 * 16% 1000003)% 1000003;
+        if(s[i]=='>'){
+            ans+=8;
+        }else if(s[i]=='<'){
+            ans+=9;
+        }else if(s[i]=='+'){
+            ans+=10;
+        }else if(s[i]=='-'){
+            ans+=11;
+        }else if(s[i]=='.'){
+            ans+=12;
+        }else if(s[i]==','){
+            ans+=13;
+        }else if(s[i]=='['){
+            ans+=14;
         }else{
-            cout<<-1<<"\n";
+            ans+=15;
         }
     }
+    cout<<ans;
 }

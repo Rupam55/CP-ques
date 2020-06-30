@@ -11,30 +11,27 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n,maxz=INT_MIN;
-    cin>>n;
-    map<int,int>mp;
-    for (int i = 0; i < n; i++)
-    {
-        int a;
-        cin>>a;
-        mp[a]++;
-        if(a>maxz){
-            maxz=a;
+    int t;
+    cin>>t;
+    while(t--){
+        int n,a,mini=0,maxi=0;
+        cin>>n>>a;
+        for (int i = 0; i < n; i++)
+        {
+            int b;
+            cin>>b;
+            if(b<=0){
+                mini++;
+            }else{
+                maxi++;
+            }
+        }
+        if(mini>=a){
+            cout<<"NO"<<"\n";
+        }else{
+            cout<<"YES"<<"\n";
         }
     }
-    int maxi=INT_MIN;
-    for (int i = 0; i <= maxz; i++)
-    {
-        int b=0,c=0,d=0;
-        c+=mp[i];
-        d+=mp[i];
-        c+=mp[i-1];
-        d+=mp[i+1];
-        b=max(c,d);
-        maxi=max(maxi,b);
-    }
-    cout<<maxi;
 }
 
 // Picking Numbers
