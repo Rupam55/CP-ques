@@ -12,22 +12,31 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    vector<int>v(26);
-    for (int i = 0; i < 26; i++)
+    int n,k;
+    cin>>n>>k;
+    int arr[n];
+    for (int i = 0; i < n; i++)
     {
-        cin>>v[i];
+        cin>>arr[i];
     }
-    int maxi=INT_MIN;
-    string s;
-    cin>>s;
-    for (int i = 0; i < s.length(); i++)
+    int mini=INT_MAX,minix=0;
+    for (int i = 0; i < k; i++)
     {
-        int a=s[i];
-        a-=97;
-        maxi=max(maxi,v[a]);
+        int cal=0;
+        // cout<<arr[i]<<" ";
+        cal+=arr[i];
+        for (int j = (i+k)%n; j != i ; j=(j+k)%n)
+        {
+            cal+=arr[j];
+            // cout<<arr[j]<<" ";
+        }
+        // cout<<"\n";
+        if(mini>cal){
+            mini=cal;
+            minix=i;
+        }
     }
-    cout<<maxi*s.length();
+    cout<<minix+1;
 }
-
-// Designer PDF Viewer
+// Dima and To-do List
 

@@ -1,55 +1,49 @@
-#include <bits/stdc++.h>
-
+#include "iostream"
+#include "limits.h"
 using namespace std;
-
 int main()
 {
-    char p[101];
-    scanf("%s", p);
-    int size(0);
-    for (size_t i = 0; p[i] != 0; ++i)
-    {
-        size *= 16;
-        switch (p[i])
-        {
-        case '>':
-            size += 8;
-            break;
+	int n,k;
+	cin>>n>>k;
+	int a[n];
+	for (int i = 0; i < n; ++i)
+	{
+		cin>>a[i];
+	}
+	int s=n/k;
+	int c[k]={0},p=0;
+	int i=0,j=0,ii;
+	while(j<k){
+		p=0;
+		ii=i;
+		while(p<s){
+						
+			c[j]=c[j]+a[ii];
+			//cout<<"j="<<j<<"   c[j]="<<c[j]<<endl;
+			ii=ii+k;
 
-        case '<':
-            size += 9;
-            break;
+			p++;
+		}		
+		j++;
+		i++;
+	}
 
-        case '+':
-            size += 10;
-            break;
-
-        case '-':
-            size += 11;
-            break;
-
-        case '.':
-            size += 12;
-            break;
-
-        case ',':
-            size += 13;
-            break;
-
-        case '[':
-            size += 14;
-            break;
-
-        case ']':
-            size += 15;
-            break;
-
-        default:
-            break;
-        }
-
-        size %= 1000003;
-    }
-    printf("%d\n", size);
-    return 0;
+	// for (int i = 0; i < k; ++i)
+	// {
+	// 	cout<<c[i]<<" ";
+	// }
+	// cout<<endl;
+	int min=INT_MAX,mini;
+	for (int i = 0; i < k; i++)
+	{
+		if (min>c[i])
+		{
+			min=c[i];
+			mini=i;
+			//cout<<"i="<<i<<endl;
+		}
+		//cout<<"min="<<min<<endl;
+	}
+	cout<<(mini+1)<<endl;
+	return 0;
 }

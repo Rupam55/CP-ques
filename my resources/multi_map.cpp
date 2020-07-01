@@ -45,3 +45,11 @@ int main()
         cout<<v[i].first<<" "<<v[i].second<<endl;
 
 }
+
+// set iterator
+set <float> :: iterator itr; 
+for (itr = s.begin(); itr != s.end(); ++itr) 
+    { 
+        cout << '\t' << *itr; 
+    } 
+    cout << endl;

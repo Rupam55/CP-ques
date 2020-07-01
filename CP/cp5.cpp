@@ -13,27 +13,34 @@ int main()
 
     string s;
     cin>>s;
-    ll ans=0;
-    for (ll i = 0; i < s.length(); i++)
+    map<char,int>mp;
+    for (int i = 0; i < s.length(); i++)
     {
-        (ans=ans% 1000003 * 16% 1000003)% 1000003;
-        if(s[i]=='>'){
-            ans+=8;
-        }else if(s[i]=='<'){
-            ans+=9;
-        }else if(s[i]=='+'){
-            ans+=10;
-        }else if(s[i]=='-'){
-            ans+=11;
-        }else if(s[i]=='.'){
-            ans+=12;
-        }else if(s[i]==','){
-            ans+=13;
-        }else if(s[i]=='['){
-            ans+=14;
-        }else{
-            ans+=15;
+        mp[s[i]]++;
+    }
+    string s1;
+    cin>>s1;
+    map<char,int>mp1;
+    for (int i = 0; i < s1.length(); i++)
+    {
+        mp1[s1[i]]++;
+    }
+    bool flag=true;
+    int count=0;
+    for (auto x : mp1){
+        char ch= x.first;
+        if(mp[ch]==0){
+           flag=false; 
+        }else if(mp[ch]>=mp1[ch]){
+            count+=mp1[ch];
+        }
+        else{
+            count+=mp[ch];
         }
     }
-    cout<<ans;
+    if(flag){
+        cout<<count;
+    }else{
+        cout<<-1;
+    }
 }

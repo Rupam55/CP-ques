@@ -13,35 +13,15 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n, a;
-    cin >> n;
-    map<ll, vector<ll>> mp;
-    vector<pair<ll,ll>> v;
+    double n,x,y;
+    cin>>n>>x>>y;
+    set<double>s;
+    double a,b,c=0;
     for (int i = 0; i < n; i++)
     {
-        cin >> a;
-        mp[a].push_back(i);
+        cin>>a>>b;
+        if(x == a){c = 1;}
+        else{s.insert((b - y) / (a - x));}
     }
-
-    for (auto x : mp){
-        ll b=x.first;
-        if(mp[b].size()==1){
-            v.push_back({b,0});
-        }
-        else
-        {
-            set<ll> s;
-            for(int i=1;i<mp[b].size();i++)
-                s.insert(abs(mp[b][i]-mp[b][i-1]));
-
-            set<ll>::iterator q=s.begin();
-            if(s.size()==1){
-                v.push_back({b,*q});
-            }
-        }
-    }
-    cout<<v.size()<<endl;
-    for(int i=0;i<v.size();i++)
-        cout<<v[i].first<<" "<<v[i].second<<endl;
-
+    cout<<s.size()+c;
 }
