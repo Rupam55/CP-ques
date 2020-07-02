@@ -12,31 +12,20 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n,k;
-    cin>>n>>k;
-    int arr[n];
+    int n,k,q;
+    cin>>n>>k>>q;
+    vector<int>v(n);
     for (int i = 0; i < n; i++)
     {
-        cin>>arr[i];
+        cin>>v[i];
     }
-    int mini=INT_MAX,minix=0;
-    for (int i = 0; i < k; i++)
+    k %= n;
+    for (int i = 0; i < q; i++)
     {
-        int cal=0;
-        // cout<<arr[i]<<" ";
-        cal+=arr[i];
-        for (int j = (i+k)%n; j != i ; j=(j+k)%n)
-        {
-            cal+=arr[j];
-            // cout<<arr[j]<<" ";
-        }
-        // cout<<"\n";
-        if(mini>cal){
-            mini=cal;
-            minix=i;
-        }
+        int a;
+        cin>>a;
+        cout<<v[(n-k+a)%n]<<"\n";
     }
-    cout<<minix+1;
 }
 // Dima and To-do List
 

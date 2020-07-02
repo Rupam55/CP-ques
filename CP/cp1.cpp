@@ -6,35 +6,32 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
+int reversDigits(int num) 
+{ 
+    int rev_num = 0; 
+    while(num > 0) 
+    { 
+        rev_num = rev_num*10 + num%10; 
+        num = num/10; 
+    } 
+    return rev_num; 
+} 
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n,m,k;
-    cin>>n>>m>>k;
-    vector<int>v(n*m);
-    for (int i = 0; i < n*m; i++)
+    int a,b,k,c,count=0;
+    cin>>a>>b>>k;
+    for (int i = a; i <= b; i++)
     {
-        cin>>v[i];
-    }
-    sort(v.begin(),v.end());
-    map<int,int>mp;
-    for (int i = 0; i < n*m; i++)
-    {
-        mp[v[i]%k]=1;
-    }
-    if(mp.size()==1){
-        int count=0;
-        int middle=(n*m)/2;
-        for (int i = 0; i < n*m; i++)
-        {
-            count+=abs(v[i]-v[middle])/k;
+        c=reversDigits(i);
+        if(abs(i-c)%k==0){
+            count++;
         }
-        cout<<count;
-    }else{
-        cout<<-1;
     }
-    
+    cout<<count;
 }
-// Polo the Penguin and Matrix
+// HR Beautiful Days at the Movies
+
