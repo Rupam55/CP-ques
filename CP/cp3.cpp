@@ -11,21 +11,15 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n;
+    int n;
     cin>>n;
-    while (n != 1)
+    for (int i = 0; i < n; i++)
     {
-        cout<<n<<" ";
-        for (int i = 2; i <= n; ++i)
-        {
-            if (n % i == 0)
-            {
-                n /= i;
-                break;
-            }
-        }
+        int a=i;
+        a=a%4;
+        cout<<char(a+97);
     }
-    cout<<n;
+    
 }
 
-// coins
+// Lucky String

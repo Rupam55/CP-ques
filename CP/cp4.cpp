@@ -13,15 +13,37 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    double n,x,y;
-    cin>>n>>x>>y;
-    set<double>s;
-    double a,b,c=0;
+    int n;
+    cin>>n;
+    vector<int>v(n);
     for (int i = 0; i < n; i++)
     {
-        cin>>a>>b;
-        if(x == a){c = 1;}
-        else{s.insert((b - y) / (a - x));}
+        cin>>v[i];
     }
-    cout<<s.size()+c;
+    int maxi=INT_MIN;
+    for (int i = 0; i < n; i++)
+    {
+        int count=0;
+        int current=v[i];
+        for (int j = i+1; j < n; j++)
+        {
+            if(v[j]<=current){
+                count++;
+                current=v[j];
+            }else{
+                break;
+            }
+        }
+        current=v[i];
+        for(int j=i-1; j >= 0; j--){
+            if(v[j]<=current){
+                count++;
+                current=v[j];
+            }else{
+                break;
+            }
+        }
+        maxi=max(maxi,count);
+    }
+    cout<<maxi+1;
 }
