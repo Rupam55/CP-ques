@@ -13,13 +13,23 @@ int main()
 
     int n;
     cin>>n;
+    vector<int>a;
+    vector<int>b;
     for (int i = 0; i < n; i++)
     {
-        int a=i;
-        a=a%4;
-        cout<<char(a+97);
+        int c;
+        cin>>c;
+        a.push_back(c);
     }
+    for (int i = 0; i < n; i++)
+    {
+        int c;
+        cin>>c;
+        b.push_back(c);
+    }
+    a.insert(a.end(), b.begin(), b.end());
+    sort(a.begin(),a.end());
+    cout<<a[(2*n)/2-1];
     
 }
 
-// Lucky String
