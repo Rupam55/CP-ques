@@ -6,41 +6,43 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-int gcd(int a, int b)
-{
-    int c = a % b;
-    while (c != 0)
-    {
-        a = b;
-        b = c;
-        c = a % b;
-    }
-    return b;
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int a, b, c, d;
-    cin>>a>>b>>c>>d;
-
-    int ansa, ansb;
-    if (b * c >= a * d)
+    int t;
+    cin >> t;
+    while (t--)
     {
-        ansa = b * c - a * d;
-        ansb = b * c;
+        int a, b, c;
+        cin >> a >> b >> c;
+        int temp = min(a, b);
+        int temp2 = max(a, b);
+        a = temp;
+        b = temp2;
+        if (c <= b)
+        {
+            if (b % a == 0)
+            {
+                if (c % a == 0 && c >= a)
+                {
+                    cout << "YES1" << b << " " << a << endl;
+                }
+                else
+                {
+                    cout << "NO" << b << " " << a << endl;
+                }
+            }
+            else
+            {
+                cout << "YES1" << b << " " << a << endl;
+            }
+        }
+        else
+        {
+            cout << "NO" << "\n";
+        }
     }
-    else
-    {
-        ansa = a * d - b * c;
-        ansb = a * d;
-    }
-
-    int ansc = gcd(ansa, ansb);
-
-    printf("%d/%d\n", ansa / ansc, ansb / ansc);
-
     return 0;
 }

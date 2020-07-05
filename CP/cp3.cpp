@@ -11,25 +11,19 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin>>n;
-    vector<int>a;
-    vector<int>b;
+    int n,k;
+    cin>>n>>k;
+    vector<pair<int,int>> a;     
     for (int i = 0; i < n; i++)
     {
-        int c;
-        cin>>c;
-        a.push_back(c);
+        int b;
+        cin>>b;
+        a.push_back({b,i+1});
     }
-    for (int i = 0; i < n; i++)
+    sort(a.rbegin(),a.rend());
+    for (int i = 0; i < k; i++)
     {
-        int c;
-        cin>>c;
-        b.push_back(c);
+        cout<<a[i].second<<" ";
     }
-    a.insert(a.end(), b.begin(), b.end());
-    sort(a.begin(),a.end());
-    cout<<a[(2*n)/2-1];
-    
 }
 

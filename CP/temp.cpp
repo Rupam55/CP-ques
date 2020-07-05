@@ -1,49 +1,36 @@
-#include "iostream"
-#include "limits.h"
-using namespace std;
-int main()
-{
-	int n,k;
-	cin>>n>>k;
-	int a[n];
-	for (int i = 0; i < n; ++i)
-	{
-		cin>>a[i];
-	}
-	int s=n/k;
-	int c[k]={0},p=0;
-	int i=0,j=0,ii;
-	while(j<k){
-		p=0;
-		ii=i;
-		while(p<s){
-						
-			c[j]=c[j]+a[ii];
-			//cout<<"j="<<j<<"   c[j]="<<c[j]<<endl;
-			ii=ii+k;
+// CPP program to illustrate 
+// std::find 
+// CPP program to illustrate 
+// std::find 
+#include<bits/stdc++.h> 
 
-			p++;
-		}		
-		j++;
-		i++;
-	}
-
-	// for (int i = 0; i < k; ++i)
-	// {
-	// 	cout<<c[i]<<" ";
-	// }
-	// cout<<endl;
-	int min=INT_MAX,mini;
-	for (int i = 0; i < k; i++)
-	{
-		if (min>c[i])
-		{
-			min=c[i];
-			mini=i;
-			//cout<<"i="<<i<<endl;
-		}
-		//cout<<"min="<<min<<endl;
-	}
-	cout<<(mini+1)<<endl;
-	return 0;
-}
+int main () 
+{ 
+	std::vector<int> vec { 10, 20, 30, 40 }; 
+	
+	// Iterator used to store the position 
+	// of searched element 
+	std::vector<int>::iterator it; 
+	
+	// Print Original Vector 
+	std::cout << "Original vector :"; 
+	for (int i=0; i<vec.size(); i++) 
+		std::cout << " " << vec[i]; 
+		
+	std::cout << "\n"; 
+	
+	// Element to be searched 
+	int ser = 30; 
+	
+	// std::find function call 
+	it = std::find (vec.begin(), vec.end(), ser); 
+	if (it != vec.end()) 
+	{ 
+		std::cout << "Element " << ser <<" found at position : " ; 
+		std::cout << it - vec.begin() << " (counting from zero) \n" ; 
+	} 
+	else
+		std::cout << "Element not found.\n\n"; 
+		
+	return 0; 
+} 
