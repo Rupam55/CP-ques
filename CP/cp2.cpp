@@ -1,33 +1,50 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-typedef unsigned long long ull;
-typedef long long ll;
-typedef long double ld;
 
 int main()
+
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
-	ll d,n,ans=0;
-    cin>>d>>n;
-    vector<int>v(n);
-    for (ll i = 0; i < n; i++)
+    int n,m,u,v;
+    cin>>n>>m;
+    map< int , pair<int,int> >edge;
+    map< pair<int,int> , bool> edge_vis;
+    int degrees[n+1];
+    memset(degrees,0,sizeof(degrees));
+    int i=0;
+    for(i=0;i<m;i++)
     {
-        cin>>v[i];
+        cin>>u>>v;
+        edge[i]=make_pair(u,v);
+        degrees[u]++;
+        degrees[v]++;
     }
-    ll prev=(v[0])%d + 1;
-    for (ll i = 1; i < n; i++)
+    int total_group=0;
+    while(1)
     {
-        if(prev!=1){
-            // cout<<d<<" "<<prev<<" ";
-            ans+=(d-prev+1);       
+        vector< pair<int,int> >v;
+        bool group=false;
+        for(int i=0;i<m;i++)
+        {
+            pair<int,int>p;
+            p=edge[i];
+            if((degrees[p.first]==1||degrees[p.second]==1) &&edge_vis[p]==false)
+            {
+                v.push_back(p);
+                group=true;
+            }
         }
-        prev=(v[i])%d +1;
+        for(int j=0;j<v.size();j++)
+        {
+            degrees[v[j].first]--;
+            degrees[v[j].second]--;
+            edge_vis[v[j]]=true;
+        }
+        if(group==false)
+            break;
+        else{
+            total_group++;}
     }
-    cout<<ans;
+    cout<<total_group<<endl;
 }
-
-// Vasya's Calendar

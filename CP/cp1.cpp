@@ -11,38 +11,24 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin >> t;
-    while (t--)
+    ll k, n;
+    cin >> n >> k;
+    vector<ll> a(2 * n + 1);
+
+    for (ll i = 1; i <= 2 * n; i++)
     {
-        int a, b, c;
-        cin >> a >> b >> c;
-        int temp = min(a, b);
-        int temp2 = max(a, b);
-        a = temp;
-        b = temp2;
-        if (c <= b)
-        {
-            if (b % a == 0)
-            {
-                if (c % a == 0 && c >= a)
-                {
-                    cout << "YES1" << b << " " << a << endl;
-                }
-                else
-                {
-                    cout << "NO" << b << " " << a << endl;
-                }
-            }
-            else
-            {
-                cout << "YES1" << b << " " << a << endl;
-            }
-        }
-        else
-        {
-            cout << "NO" << "\n";
-        }
+        a[i] = i;
     }
-    return 0;
+
+    for (ll i = 1; i <= k; i++)
+    {
+        swap(a[2 * i - 1], a[2 * i]);
+    }
+
+    for (ll i = 1; i <= 2 * n; i++)
+    {
+        cout << a[i] << " ";
+    }
 }
+
+// permutation
