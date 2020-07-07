@@ -2,49 +2,48 @@
 
 using namespace std;
 
+typedef unsigned long long ull;
+typedef long long ll;
+typedef long double ld;
 
 int main()
 
 {
-    int n,m,u,v;
-    cin>>n>>m;
-    map< int , pair<int,int> >edge;
-    map< pair<int,int> , bool> edge_vis;
-    int degrees[n+1];
-    memset(degrees,0,sizeof(degrees));
-    int i=0;
-    for(i=0;i<m;i++)
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    ll n, k;
+    cin >> n;
+    vector<ll> a(n);
+    map<ll, ll> mp;
+    for (ll i = 0; i < n; i++)
     {
-        cin>>u>>v;
-        edge[i]=make_pair(u,v);
-        degrees[u]++;
-        degrees[v]++;
+        cin >> a[i];
     }
-    int total_group=0;
-    while(1)
+    cin >> k;
+    for (int j = 0; j < n; j++)
     {
-        vector< pair<int,int> >v;
-        bool group=false;
-        for(int i=0;i<m;i++)
+        for (int i = 1; i <= sqrt(a[j]); i++)
         {
-            pair<int,int>p;
-            p=edge[i];
-            if((degrees[p.first]==1||degrees[p.second]==1) &&edge_vis[p]==false)
+            if (a[j] % i == 0)
             {
-                v.push_back(p);
-                group=true;
+                // If divisors are equal, print only one
+                if (a[j] / i == i)
+                    mp[i]++;
+
+                else{ // Otherwise print both
+                    mp[i]++;
+                mp[a[j] / i]++;}
             }
         }
-        for(int j=0;j<v.size();j++)
-        {
-            degrees[v[j].first]--;
-            degrees[v[j].second]--;
-            edge_vis[v[j]]=true;
-        }
-        if(group==false)
-            break;
-        else{
-            total_group++;}
     }
-    cout<<total_group<<endl;
+    ll maxi=INT_MIN;
+    for (auto x : mp){
+        if(x.second>k && x.second> maxi){
+            maxi=x.second;
+        }
+    }
+    cout<<maxi;
 }
+
+// hr problemsolving (intermidiate)

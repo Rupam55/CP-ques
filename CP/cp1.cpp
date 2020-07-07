@@ -11,24 +11,48 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll k, n;
-    cin >> n >> k;
-    vector<ll> a(2 * n + 1);
-
-    for (ll i = 1; i <= 2 * n; i++)
+    ll n, k, d;
+    cin >> n;
+    bool check = true;
+    vector<ll> v(n);
+    unordered_map<ll, pair<ll, ll>> mp;
+    for (ll i = 0; i < n; i++)
     {
-        a[i] = i;
+        cin >> v[i];
+        mp[v[i]].first++;
+        mp[v[i]].second = 0;
+    }
+    cin >> k >> d;
+    ll turn = 1, count = INT_MAX,z=0;
+    for (ll i = 0; i < n; i++)
+    {
+        if (mp[v[i]].first >= k)
+        {
+            check = false;
+            count = min(count, z);
+        }
     }
 
-    for (ll i = 1; i <= k; i++)
+    while (check)
     {
-        swap(a[2 * i - 1], a[2 * i]);
+        for (ll i = 0; i < n; i++)
+        {
+            if (v[i] > 0)
+            {
+                v[i] = v[i] / d;
+                mp[v[i]].first++;
+                mp[v[i]].second += turn;
+                if (mp[v[i]].first == k)
+                {
+                    check = false;
+                    count = min(mp[v[i]].second, count);
+                    break;
+                }
+            }
+        }
+        turn++;
     }
-
-    for (ll i = 1; i <= 2 * n; i++)
-    {
-        cout << a[i] << " ";
-    }
+    cout << count;
 }
 
-// permutation
+// hr problemsolving (llermidiate)

@@ -3,17 +3,25 @@ using namespace std;
 
 int main()
 {
-    int t;
-    cin>>t;
-    while(t--){
-        int n,m;
-        cin>>n>>m;
-        if(n==1){
-            cout<<0<<"\n";
-        }else if(n==2){
-            cout<<m<<"\n";
-        }else{
-            cout<<2*m<<"\n";
+    int n, m = 1, t=0;
+    cin >> n;
+
+    while (n)
+    {
+        if (n % 10 == 4)
+        {
+            t += m;
+            n /= 10;
+            m *= 2;
+        }
+        else
+        {
+            t += 2 * m;
+            n /= 10;
+            m *= 2;
         }
     }
+
+    cout << t;
+    return 0;
 }
