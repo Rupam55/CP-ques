@@ -11,11 +11,16 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n;
-    cin>>n;
-
-    cout<<__builtin_popcount(n);
+    string s;
+    cin>>s;
+    int u=0,l=0;    
+    for (int i = 0; i < s.length(); i++)
+    {
+        islower(s[i])?l++:u++;
+    }
+    (u>l)?transform(s.begin(), s.end(), s.begin(), ::toupper):transform(s.begin(), s.end(), s.begin(), ::tolower);
+    cout<<s;
 }
 
-// 579/A raising bacteria
+// cd 59/A
 

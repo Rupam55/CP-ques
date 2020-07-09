@@ -6,53 +6,23 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-int max = 1000000007;
-
-// void showpq(priority_queue <int> gq) 
-// { 
-// 	priority_queue <int> g = gq; 
-// 	while (!g.empty()) 
-// 	{ 
-// 		cout << '\t' << g.top(); 
-// 		g.pop(); 
-// 	} 
-// 	cout << '\n'; 
-// } 
+int infi = 1000000007;
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n,k;
-    cin>>n>>k;
-    vector<ll>v(n);
-    vector<ll>::iterator it;
-    priority_queue<ll>pq;
-    unordered_map<int,int>mp;
-    for (int i = 0; i < n; i++)
-    {
-        cin>>v[i];
-        pq.push(v[i]);
-        mp[v[i]]=i;
+    int t;
+    cin>>t;
+    while(t--){
+        string a,b;
+        cin>>a>>b;
+        ull val_a = bitset<64>(a).to_ullong();
+        ull val_b = bitset<64>(b).to_ullong();
+        ull val=val_a^val_b;
+        string binary = bitset<64>(val).to_string();
+        string ans=binary.substr(63-(a.length()-1),63);
+        cout<<ans<<"\n";
     }
-    for (int i = 0; i < n && k>0; i++)
-    {
-        ll current = pq.top();
-        pq.pop();
-        ll pos;
-        if(v[i]!=current){
-            pos=mp[current]; 
-            v[pos]=v[i];
-            v[i]=current;
-            mp[v[i]]=i;
-            mp[v[pos]]=pos;
-            k--;
-        }
-    }
-    for (int i = 0; i < n; i++)
-    {
-        cout<<v[i]<<" ";
-    }
-    
 }
