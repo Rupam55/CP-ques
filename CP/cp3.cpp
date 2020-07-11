@@ -11,16 +11,15 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    string s;
-    cin>>s;
-    int u=0,l=0;    
-    for (int i = 0; i < s.length(); i++)
-    {
-        islower(s[i])?l++:u++;
-    }
-    (u>l)?transform(s.begin(), s.end(), s.begin(), ::toupper):transform(s.begin(), s.end(), s.begin(), ::tolower);
-    cout<<s;
+    int n; cin>>n;
+    string s; cin>>s;
+    int k = 0;
+
+    for (int i = 0; i < n - 2; i++)
+        if (s[i] == 'x' && s[i + 1] == 'x' && s[i + 2] == 'x')
+            ++k;
+
+    cout<<k;
 }
 
-// cd 59/A
-
+// cd 978/B File Name
