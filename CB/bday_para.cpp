@@ -13,11 +13,16 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n;
-    cin>>n;
-    while(n--){
-        int a;
-        cin>>a;
-        cout<<__builtin_popcount(a)<<"\n";
+    float x=1,ans=0,p,num=365,dnum=365;
+    cin>>p;
+    if(p==1){
+        cout<<366;
+        return 0;
     }
+    while(x>(1-p)){
+        x=x*(num/dnum);
+        num--;
+        ans++;
+    }
+    cout<<ans;
 }
