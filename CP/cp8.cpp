@@ -6,61 +6,40 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-bool sortcol(const vector<int> &v1,
-             const vector<int> &v2)
-{
-    return v1[1] < v2[1];
-}
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        vector<vector<int>> vect;
-        int n,k;
-        cin >> n >> k;
-
+    int t; cin>>t;
+    while(t--){
+        int n,m,sum=0;
+        cin>>n>>m;
+        vector<int>v(n);
         for (int i = 0; i < n; i++)
         {
-            vector<int> v1;
-            int a;
-            cin>>a;
-            v1.push_back(a);
-            if(a%k==0){
-                v1.push_back(0);
-            }else{
-                v1.push_back(k-(a%k));
-            }
-            vect.push_back(v1);
+            cin>>v[i];
+            sum+=v[i];
         }
-
-        sort(vect.begin(), vect.end(), sortcol);
-
-        int x=0;
-        // for (int i = 0; i < n; i++)
-        // {
-        //     if(vect[i][1]>0){
-        //         if(x>vect[i][1]){
-        //             vect[i][1]+=k;
-        //         }
-        //         if(x<=vect[i][1]){
-        //             x+=(vect[i][1]-x);
-        //             x++;
-        //             // cout<<i<<" "<<x<<" ""\n";
-        //         }
-        //     }
-        // }
-        // cout<<x<<"\n";
-        for (int i = 0; i < n; i++){
-        for (int j = 0; j < 2; j++)
-            cout << vect[i][j] << " ";
-        cout << endl;
+        int len_l=0,len_r=0,i=0;
+        while(v[i]%m==0 && i<n){
+            i++;
+            len_l++;
         }
+        i=n-1;
+        while(v[i]%m==0 && i>=0){
+            i--;
+            len_r++;
+        }
+        len_l+=1;len_r+=1;
+        if(sum%m!=0){
+            cout<<n<<"\n";
+        }else{
+            int ans = n-min(len_l,len_r);
+                cout<<ans<<"\n";
+        }   
     }
 }
-// suffix structure
+// A. XXXXX

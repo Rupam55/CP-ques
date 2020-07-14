@@ -12,12 +12,30 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    string s;
-    cin>>s;
-    char ch;
-    ch=toupper(s[0]);
-    s[0]=ch;
-    cout<<s;
+    int n,ans=0,ans_b=0,ans_c=0;
+    cin>>n;
+    for (int i = 0; i < n; i++)
+    {
+        int a;
+        cin >> a;
+        ans += a;
+    }
+
+    for (int i = 0; i < n - 1; i++)
+    {
+        int a;
+        cin >> a;
+        ans_b += a;
+    }
+
+    for (int i = 0; i < n - 2; i++)
+    {
+        int a;
+        cin >> a;
+        ans_c += a;
+    }
+
+    cout << ans - ans_b <<"\n"<<ans_b - ans_c << "\n";
 }
 
-// cd 281/A
+// cd ds compilation error

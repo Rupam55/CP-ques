@@ -6,39 +6,43 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-bool comp(string a, string b)
-{
-    return a.size() < b.size();
-}
+
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin >> n;
-    string str;
-    vector<string> v;
-
-    for (int i = 1; i <= n; i++)
-    {
-        cin >> str;
-        v.push_back(str);
-    }
-
-    sort(v.begin(), v.end(), comp);
-
-    for (int i = 0; i < n - 1; i++)
-    {
-        if (v[i + 1].find(v[i]) == string::npos)
+    int t;
+    cin>>t;
+    while(t--){
+        int n,k;
+        cin>>n>>k;
+        vector<int>arr;
+        set<int> st;
+        for (int i = 0; i < n; i++)
         {
-            cout << "NO" << endl;
-            return 0;
+            int a; cin>>a;
+            arr.push_back(a);
+            st.insert(a);
         }
+        if(k<st.size()){
+            cout<<-1;
+        }else{
+            cout<<n*k<<"\n";
+        for (int i = 0; i < n; i++)
+        {
+            for(auto it:st){
+                cout<<it<<" ";
+            }
+            for (int j = 0; j < k- st.size() ; j++)
+            {
+                cout<<1<<" ";
+            }
+        }
+        }
+        cout<<"\n";
     }
-    cout << "YES" << endl;
-
-    for (auto j : v)
-        cout << j << endl;
 }
+
+// phoenix and beauty

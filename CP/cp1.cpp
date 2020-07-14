@@ -1,3 +1,4 @@
+// C. Rotation Matching div2 648
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,22 +13,35 @@ int main()
     cin.tie(NULL);
 
     int n;
-    cin>>n;
-    string s;
-    cin>>s;
-    transform(s.begin(), s.end(), s.begin(), ::tolower); 
-    int arr[26]={0};
-    for (int i = 0; i < s.length(); i++)
+    cin >> n;
+    vector<int> a(n + 1);
+    vector<int> b(n + 1);
+    for (int i = 1; i <= n; i++)
     {
-        arr[s[i]-97]+=1;
+        int x;
+        cin>>x;
+        a[x] = i;
     }
-    for(int i=0;i<26;i++){
-        if(arr[i]==0){
-            cout<<"NO";
-            return 0;
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin>>x;
+        b[x] = i;
+    }
+    vector<int> count(n, 0);
+    int maxi=0;
+    for (int i = 1; i <= n; i++)
+    {
+        int diff = a[i] - b[i];
+        if (diff < 0)
+        {
+            diff += n;
         }
+        ++count[diff];
+        maxi = (maxi > count[diff]) ? maxi : count[diff];
     }
-    cout<<"YES";
+
+    cout << maxi;
+
     return 0;
 }
-// cd 520/A

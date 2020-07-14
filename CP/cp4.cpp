@@ -12,45 +12,23 @@ int main()
     cin.tie(NULL);
 
     int n;
-    cin >> n;
-    string s;
-    char ans[n];
-    cin >> s;
-    int k = n - 1, j = 0;
-    if (n % 2 != 0)
-    {
-        for (int i = n - 1; i >= 0; i--)
+    cin>>n;
+    while(n--){
+        string s;
+        cin>>s;
+        vector<int>v;
+        v.push_back(0);
+        for (int i = 0; i < s.length(); i++)
         {
-            if (i % 2 == 0)
-            {
-                ans[k] = s[i];
-                k--;
-            }
-            else
-            {
-                ans[j] = s[i];
-                j++;
-            }
+            if(s[i]=='R') v.push_back(i+1);
         }
-    }
-    else
-    {
-        for (int i = n - 1; i >= 0; i--)
+        v.push_back(s.length()+1);
+        int maxi=INT_MIN;
+        for (int i = 0; i < v.size()-1; i++)
         {
-            if (i % 2 == 0)
-            {
-                ans[j] = s[i];
-                j++;
-            }
-            else
-            {
-                ans[k] = s[i];
-                k--;
-            }
+            int dif=abs(v[i]-v[i+1]);
+            maxi=max(maxi,dif);
         }
-    }
-    for (int i = 0; i < n; i++)
-    {
-        cout << ans[i];
+        cout<<maxi<<"\n";
     }
 }
