@@ -1,3 +1,4 @@
+// mock vita q1
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,43 +7,41 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--){
-        int n,k;
-        cin>>n>>k;
-        vector<int>arr;
-        set<int> st;
-        for (int i = 0; i < n; i++)
+    int n,m;
+    cin >> n;
+    m=n;
+    string a, b;
+    cin >> a >> b;
+    for (int i = 0; i < n; i++)
+    {
+        string c = "";
+        bool flag = false;
+        for (int j = 0; j < m; j++)
         {
-            int a; cin>>a;
-            arr.push_back(a);
-            st.insert(a);
-        }
-        if(k<st.size()){
-            cout<<-1;
-        }else{
-            cout<<n*k<<"\n";
-        for (int i = 0; i < n; i++)
-        {
-            for(auto it:st){
-                cout<<it<<" ";
-            }
-            for (int j = 0; j < k- st.size() ; j++)
+            if (b[j] == a[i])
             {
-                cout<<1<<" ";
+                b.erase(0, j + 1);
+                b += c;
+                // cout << b << "\n";
+                flag = true;
+                m--;
+                break;
+            }
+            // cout<<a[i]<<" "<<b[j]<<"\n";
+            else
+            {
+                c += b[j];
             }
         }
+        if (flag == false)
+        {
+            break;
         }
-        cout<<"\n";
     }
+    cout << b.length();
 }
-
-// phoenix and beauty

@@ -1,3 +1,4 @@
+// round 653 div3 q3
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -11,34 +12,29 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n,m,a,count=0;
-    cin>>n>>m;
-    vector<int>v(n+1);
-    vector<int>arr(n+1);
-    unordered_map<int,int>mp;
-    for (int i = 1; i <= n; i++)
-    {
-        cin>>a;
-        arr[i]=a;
-    }
-    
-    for (int i = n; i > 0; i--)
-    {
-        if(mp[arr[i]]>0){
-            v[i]=count;
-            mp[arr[i]]++;
-        }else{
-            mp[arr[i]]++;
-            count++;
-            v[i]=count;
+    ll t;
+    cin>>t;
+    while(t--){
+        ll n;
+        cin>>n;
+        vector<ll>arr(n);
+        for (ll i = 0; i < n; i++)
+        {
+            cin>>arr[i];
         }
-    }
-    for (int i = 1; i <= m; i++)
-    {
-        int b;
-        cin>>b;
-        cout<<v[b]<<"\n";
+        bool flag = true;
+        int ans=0;
+        for (ll i = n-1; i >=1; i--)
+        {
+            if(arr[i]<=arr[i-1] && flag == true){
+
+            }else if(arr[i]>=arr[i-1]){
+                flag=false;
+            }else{
+                ans=i;
+                break;
+            }
+        }
+        cout<<ans<<"\n";
     }
 }
-
-// cd 978/B File Name

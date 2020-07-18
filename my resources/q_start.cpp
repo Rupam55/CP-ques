@@ -18,7 +18,7 @@ typedef long double ld;
 #define nl                  cout<<endl;
 
 
-int max = 1000000007;
+int infi = 1000000007;
 
 int main()
 {
