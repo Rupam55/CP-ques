@@ -1,4 +1,4 @@
-// round 653 div3 q2
+// A. Towers
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -13,25 +13,19 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        unordered_map<ll,bool>mp;
-        vector<ll>v(2*n);
-        for (ll i = 0; i < 2*n; i++)
-        {
-            cin>>v[i];
-            mp[v[i]]=true;
-        }
-        for (size_t i = 0; i < 2*n; i++)
-        {
-            if(mp[v[i]]==true){
-                cout<<v[i]<<" ";
-            }
-            mp[v[i]]=false;
-        }
-        cout<<"\n";
+    ll n;
+    cin>>n;
+    map<ll,ll>mp;
+    for (ll i = 0; i < n; i++)
+    {
+        ll a;cin>>a;
+        mp[a]++;
     }
+    ll maxi=INT_MIN,size,val;
+    for (auto it = mp.rbegin(); it != mp.rend(); it++) { 
+        if(it->second > maxi){
+            maxi=it->second;
+        }
+    } 
+    cout<<maxi<<" "<<mp.size();
 }

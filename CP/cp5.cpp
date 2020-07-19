@@ -1,4 +1,4 @@
-// mock vita q1
+// simple math
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,36 +12,29 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n,m;
-    cin >> n;
-    m=n;
-    string a, b;
-    cin >> a >> b;
-    for (int i = 0; i < n; i++)
-    {
-        string c = "";
-        bool flag = false;
-        for (int j = 0; j < m; j++)
-        {
-            if (b[j] == a[i])
-            {
-                b.erase(0, j + 1);
-                b += c;
-                // cout << b << "\n";
-                flag = true;
-                m--;
-                break;
-            }
-            // cout<<a[i]<<" "<<b[j]<<"\n";
-            else
-            {
-                c += b[j];
-            }
+    ll n;
+    cin>>n;
+    if(n==0){
+        cout<<1;
+        return 0;
+    }
+    n=n%4;
+    switch(n){
+        case 1:{
+            cout<<8;
+            break;
         }
-        if (flag == false)
-        {
+        case 2:{
+            cout<<4;
+            break;
+        }
+        case 3:{
+            cout<<2;
+            break;
+        }
+        case 0:{
+            cout<<6;
             break;
         }
     }
-    cout << b.length();
 }

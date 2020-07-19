@@ -1,4 +1,4 @@
-// round 653 div3 q1
+// cd cf 466c
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,42 +6,33 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll t;
-    cin>>t;
-    while(t--){
-        ll x,y,z;
-        cin>>x>>y>>z;
-        unordered_map<ll,ll>mp;
-        mp[x]++;mp[y]++;mp[z]++;
-        if(mp.size()>2){
-            cout<<"NO"<<"\n";
-        }else if(mp.size()==1){
-            cout<<"YES"<<"\n";
-            cout<<x<<" "<<y<<" "<<z<<"\n";
-        }else{
-            int m,mi;
-            for(auto it : mp){
-                if(it.second==1){
-                    mi=it.first;
-                }else if(it.second==2){
-                    m=it.first;
-                }
+    ll n,sum=0;
+    cin>>n;
+    vector<ll>arr(n);
+    for(ll i=0;i<n;i++){
+        cin>>arr[i];
+        sum+=arr[i];
+    }
+    if(sum%3==0){
+        ll sum3=0,_2sum3=0,sr=0;
+        for (ll i = 0; i < n-1; i++)
+        {
+            sr+=arr[i];
+            if(sr==(2*sum/3)){
+                _2sum3+=sum3;
             }
-            if(m>mi){
-            cout<<"YES"<<"\n";
-            for(auto it : mp){
-                cout<<it.first<<" ";
-            }
-            cout<<1<<"\n";
-            }else{
-                cout<<"NO"<<"\n";
-            }
+            if(sr==sum/3){
+                sum3++;
+            }           
         }
+        cout<<_2sum3;
+
+    }else{
+        cout<<0;
     }
 }
