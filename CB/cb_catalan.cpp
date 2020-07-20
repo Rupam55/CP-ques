@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <assert.h>
 
 using namespace std;
 
@@ -6,35 +7,45 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-unsigned long int binomialCoeff(unsigned int n, unsigned int k) 
-{ 
-	unsigned long int res = 1; 
 
-	if (k > n - k) 
-		k = n - k; 
+ll subCount(ll arr[], ll n, ll k)
+{
+	ll mod[k];
+	memset(mod, 0, sizeof(mod));
 
-	for (int i = 0; i < k; ++i) 
-	{ 
-		res *= (n - i); 
-		res /= (i + 1); 
-	} 
+	ll cumSum = 0;
+	for (ll i = 0; i < n; i++)
+	{
+		cumSum += arr[i];
 
-	return res; 
-} 
+		mod[((cumSum % k) + k) % k]++;
+	}
 
-unsigned long int catalan(unsigned int n) 
-{ 
-	unsigned long int c = binomialCoeff(2*n, n); 
+	ll result = 0; // Initialize result
 
-	return c/(n+1); 
+	for (ll i = 0; i < k; i++)
+
+		if (mod[i] > 1)
+			result += (mod[i] * (mod[i] - 1)) / 2;
+
+	result += mod[0];
+
+	return result;
 }
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    ll n;
-    cin>>n;
-    cout<<catalan(n);
+	ll t;
+	cin >> t;
+	while (t--)
+	{
+		ll n;
+		cin>>n;
+		ll arr[n];
+		for (ll i = 0; i < n; i++)
+		{
+			cin>>arr[i];
+		}
+		cout << subCount(arr, n, n) << endl;
+	}
 }

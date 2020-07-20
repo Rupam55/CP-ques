@@ -7,32 +7,21 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-int calc(string s, ll n, ll st, ll ed, char ch){
-    while(n>0){
-            if(n==1){
-                if(s[0]!=ch)
-                    return 1;
-                else
-                    return 0;
-            }else{
-                int a=0,b=0;
-                for (int i = st; i < (ed/2-1); i++)
-                {
-                    if(s[i]==ch){
-                        a++;
-                    }
-                    a=n-a;    
-                }
-                for (int i = ed/2; i < n; i++)
-                {
-                    if(s[i]==ch){
-                        b++;
-                    }
-                    b=n-b;
-                }
-                return min((a+calc(s,n/2,ed/2,ed,char(ch+1))),(b+calc(s,n/2,st,ed/2,char(ch+1))));
-            }
-        }
+int calc(string s, char ch)
+{
+    if (s.size() == 1)
+    {
+        if (s[0] != ch)
+            return 1;
+        else
+            return 0;
+    }
+    int mid = s.size() / 2;
+    int a = s.size() / 2 - count(s.begin(), s.begin() + mid, ch);
+    int b = s.size() / 2 - count(s.begin() + mid, s.end(), ch);
+    b += calc(string(s.begin(), s.begin() + mid), char(ch + 1));
+    a += calc(string(s.begin() + mid, s.end()), char(ch + 1));
+    return min(a, b);
 }
 
 int main()
@@ -41,12 +30,13 @@ int main()
     cin.tie(NULL);
 
     ll t;
-    cin>>t;
-    while(t--){
+    cin >> t;
+    while (t--)
+    {
         ll n;
-        cin>>n;
+        cin >> n;
         string s;
-        cin>>s;
-        cout<<calc(s,n,0,n,'a');
+        cin >> s;
+        cout << calc(s, 'a')<<"\n";
     }
 }

@@ -87,19 +87,7 @@ int main()
     cin >> t;
     while (t--)
     {
-        cin >> k;
-        for (int i = 0; i < k; i++)
-        {
-            cin >> num;
-            b.push_back(num);
-        }
-        for (int i = 0; i < k; i++)
-        {
-            cin >> num;
-            c.push_back(num);
-        }
         cin >> n;
-
         cout<<compute(n)<<"\n";
 
         b.clear();
