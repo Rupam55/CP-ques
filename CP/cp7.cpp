@@ -1,4 +1,4 @@
-// mock  vita q2
+// Amusing Joke
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,65 +12,31 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    int num,a,b,c,mini,maxi;
-    cin>>n;
-    vector<int>arr(n);
-    vector<int>brr(n);
-    for (int i = 0; i < n; i++)
+    string a,b,c;
+    cin>>a>>b>>c;
+    unordered_map<char,int>mp;
+    for (int i = 0; i < c.length(); i++)
     {
-        cin>>arr[i];
-        num=arr[i];
-        a=num%10;
-        num=num/10;
-        b=num%10;
-        num=num/10;
-        c=num%10;
-        num=num/10;
-        mini=min(a,b);
-        mini=min(mini,c);
-        maxi=max(a,b);
-        maxi=max(maxi,c);
-        brr[i]=(maxi*11+mini*7)%100;
+        mp[c[i]]++;
     }
-    unordered_map<int,int>mp1;
-    unordered_map<int,int>mp2;
-    for (int i = 0; i < n; i++)
+    bool flag = true;
+    for (int i = 0; i < a.length(); i++)
     {
-        if(i&1){
-            mp1[brr[i]/10]++;
-        }else{
-            mp2[brr[i]/10]++;
-        }   
+        mp[a[i]]--;
     }
-    unordered_map<int,int>mp3;
-    for(auto it:mp1){
-        if(it.second>1){
-            if(it.second==2){
-            mp3[it.first]=max(mp3[it.first],1);
-            }
-            else{
-            mp3[it.first]=max(mp3[it.first],2);
-            }
-        }
+    for (int i = 0; i < b.length(); i++)
+    {
+        mp[b[i]]--;
+    }
+    for(auto it : mp){
         // cout<<it.first<<" "<<it.second<<"\n";
-    }
-    for(auto it:mp2){
-        if(it.second>1){
-            if(it.second==2){
-                mp3[it.first]=max(mp3[it.first],1);
-            }
-            else{
-                mp3[it.first]=max(mp3[it.first],2);
-            }
+        if(it.second!=0){
+            flag=false;
         }
-        // cout<<it.first<<" "<<it.second<<"\n";
     }
-    int ans=0;
-    for (auto it:mp3)
-    {
-        ans+=it.second;
+    if(flag){
+        cout<<"YES";
+    }else{
+        cout<<"NO";
     }
-    cout<<ans;
-    
 }

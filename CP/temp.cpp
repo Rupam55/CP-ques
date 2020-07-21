@@ -1,43 +1,61 @@
-#include<bits/stdc++.h>
-using namespace std;
+// C++ Code to find pair with 
+// maximum GCD in an array 
+#include <bits/stdc++.h> 
 
-using vec = vector<int> ;
-vec v ;
+using namespace std; 
 
-int find_it(int node){
+// function to find GCD of pair with 
+// max GCD in the array 
+int findMaxGCD(int arr[], int n) 
+{ 
+	// Computing highest element 
+	int high = 0; 
+	for (int i = 0; i < n; i++) 
+		high = max(high, arr[i]); 
 
-	int cnt = 1;
-	int curr = v[node]; node ++;
-	while(curr != node){
-		cnt ++;
-		curr = v[curr-1] ;
-	}
+	// Array to store the count of divisors 
+	// i.e. Potential GCDs 
+	int divisors[high + 1] = { 0 }; 
+
+	// Iterating over every element 
+	for (int i = 0; i < n; i++) 
+	{ 
+		// Calculating all the divisors 
+		for (int j = 1; j <= sqrt(arr[i]); j++) 
+		{ 
+			// Divisor found 
+			if (arr[i] % j == 0) 
+			{ 
+				// Incrementing count for divisor 
+				divisors[j]++; 
+
+				// Element/divisor is also a divisor 
+				// Checking if both divisors are 
+				// not same 
+				if (j != arr[i] / j) 
+					divisors[arr[i] / j]++; 
+			} 
+		} 
+	} 
+
+	// Checking the highest potential GCD 
+	for (int i = high; i >= 1; i--) 
 	
-	return cnt;
-}
+		// If this divisor can divide at least 2 
+		// numbers, it is a GCD of at least 1 pair 
+		if (divisors[i] > 1) 
+			return i;	 
+} 
 
-void solve(){
-	int n ; cin >> n;
-	v = vector<int> (n) ;
-	
-	for(int &x : v){
-		cin >> x ;
-	}
-	
-	for(int i = 0 ; i < n ; i++){
-		cout << find_it(i) <<" ";
-	}
-	cout << endl ;
-	
-}
-
-int main()
-{
-	int q ;
-	cin >> q;
-	while(q--){
-		solve() ;
-	}
-
-    return 0;
+// Driver code 
+int main() 
+{ 
+	int t;
+	cin>>t;
+	while(t--){
+		int arr[] = { 1, 2, 4, 8, 8, 12 }; 
+		int n = sizeof(arr) / sizeof(arr[0]); 
+		cout << findMaxGCD(arr,n);
+	} 
+	return 0; 
 }

@@ -1,4 +1,4 @@
-// simple math
+// simple string
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,29 +12,23 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n;
-    cin>>n;
-    if(n==0){
-        cout<<1;
-        return 0;
+    int t,ans=0;
+    cin>>t;
+    while(t--){
+        string s;
+        cin>>s;
+        if(s=="Tetrahedron"){
+            ans+=4;
+        }else if(s=="Cube"){
+            ans+=6;
+        }else if(s=="Octahedron"){
+            ans+=8;
+        }
+        else if(s=="Dodecahedron"){
+            ans+=12;
+        }else{
+            ans+=20;
+        } 
     }
-    n=n%4;
-    switch(n){
-        case 1:{
-            cout<<8;
-            break;
-        }
-        case 2:{
-            cout<<4;
-            break;
-        }
-        case 3:{
-            cout<<2;
-            break;
-        }
-        case 0:{
-            cout<<6;
-            break;
-        }
-    }
+    cout<<ans;
 }

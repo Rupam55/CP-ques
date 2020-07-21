@@ -18,16 +18,8 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n;
+        ll n,gcd;
         cin >> n;
-        for (int i = 2; i < infi; i++)
-        {
-            int p=pow(2,i);
-            p--;
-            if(n%p==0){
-                cout<<n/p<<"\n";
-                break;
-            }
-        }
+        cout<<n/2<<"\n";
     }
 }

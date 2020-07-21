@@ -1,58 +1,41 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-void left(vector<int> &v)
-{
-    for (int i = 0; i < 10; i++)
-    {
-        if (v[i] == 0)
-        {
-            v[i] = 1;
-            break;
-        }
-    }
-}
-void right(vector<int> &v)
-{
-    for (int i = 9; i >= 0; i--)
-    {
-        if (v[i] == 0)
-        {
-            v[i] = 1;
-            break;
-        }
-    }
-}
+
+typedef unsigned long long ull;
+typedef long long ll;
+typedef long double ld;
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n;
-    cin >> n;
-    string s;
-    cin >> s;
-    vector<int> v(10, 0);
-    for (int k = 0; k < s.length(); k++)
-    {
-        if (s[k] == 'L')
+    string a,b;
+    cin>>a>>b;
+    bool flag =true;
+    if(a.size()!=b.size()){
+        cout<<"NO";
+    }else{
+        for (int i = 0; i < a.size(); i++)
         {
-            left(v);
+            if(a[i]=='a'||a[i]=='e'||a[i]=='i'||a[i]=='o'||a[i]=='u'){/[]
+                if(b[i]=='a'||b[i]=='e'||b[i]=='i'||b[i]=='o'||b[i]=='u'){
+                
+                }else{
+                    flag=false;
+                }    
+            }else{
+                if(b[i]=='a'||b[i]=='e'||b[i]=='i'||b[i]=='o'||b[i]=='u'){
+                    flag=false;
+                }
+            }
         }
-        else if (s[k] == 'R')
-        {
-            right(v);
+        if(flag){
+            cout<<"YES";
+        }else{
+            cout<<"NO";
         }
-        else
-        {
-            int pos = int(s[k]) - 48;
-            v[pos] = 0;
-        }
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        cout << v[i];
     }
 }
-// A. Hotelier
+// Superhero Transformation
