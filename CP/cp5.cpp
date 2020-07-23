@@ -12,23 +12,32 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t,ans=0;
-    cin>>t;
-    while(t--){
-        string s;
-        cin>>s;
-        if(s=="Tetrahedron"){
-            ans+=4;
-        }else if(s=="Cube"){
-            ans+=6;
-        }else if(s=="Octahedron"){
-            ans+=8;
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int a,b,c,n;
+        cin >> n;
+        vector<ll> arr(n);
+        bool flag=false;
+        for (int i = 0; i < n; ++i)
+            cin >> arr[i];
+        for (int i = 1; i < n - 1; ++i)
+        {
+            if (arr[i] > arr[i - 1] && arr[i] > arr[i + 1])
+            {
+                flag=true;
+                a=i;
+                b=i+1;
+                c=i+2;
+            }
         }
-        else if(s=="Dodecahedron"){
-            ans+=12;
+        if(flag){
+            cout << "YES" << "\n";
+            cout << a << " " << b << " " << c << "\n";
         }else{
-            ans+=20;
-        } 
+            cout<<"NO"<<"\n";
+        }
+
     }
-    cout<<ans;
 }

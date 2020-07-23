@@ -3,23 +3,36 @@
 
 using namespace std;
 
-typedef unsigned long long ull;
-typedef long long ll;
-typedef long double ld;
-
 int infi = 10000;
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
 
-    ll t;
+    int t;
     cin >> t;
     while (t--)
     {
-        ll n,gcd;
+        int n;
         cin >> n;
-        cout<<n/2<<"\n";
+        string a, b;
+        vector<int> ans;
+        vector<int> ansb;
+        cin >> a >> b;
+        a += '0'; b += '0';
+        for (int i = 1; i <= n; i++)
+        {
+            if(a[i] != a[i - 1]) ans.push_back(i);
+            if(b[i] != b[i - 1]) ansb.push_back(i);
+        }
+        cout << ans.size()+ansb.size() << " ";
+        for (int i = 0; i < ans.size(); i++)
+        {
+            cout << ans[i] << " ";
+        }
+        for (int i = ansb.size() - 1; i >= 0; i--)
+        {
+            cout << ansb[i] << " ";
+        }
+        cout << "\n";
     }
 }
