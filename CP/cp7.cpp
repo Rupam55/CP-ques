@@ -7,36 +7,27 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
+char ans[100000];
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    string a,b,c;
-    cin>>a>>b>>c;
-    unordered_map<char,int>mp;
-    for (int i = 0; i < c.length(); i++)
+    string s;
+    cin >> s;
+    int n = s.length();
+    int j = 0;
+    for (int i = 0; i < n; i++)
     {
-        mp[c[i]]++;
-    }
-    bool flag = true;
-    for (int i = 0; i < a.length(); i++)
-    {
-        mp[a[i]]--;
-    }
-    for (int i = 0; i < b.length(); i++)
-    {
-        mp[b[i]]--;
-    }
-    for(auto it : mp){
-        // cout<<it.first<<" "<<it.second<<"\n";
-        if(it.second!=0){
-            flag=false;
+        char ch = s[i];
+        if ((i >= 2 && ch == ans[j - 1] && ans[j - 1] == ans[j - 2]) || (i >= 3 && ch == ans[j - 1] && ans[j - 2] == ans[j - 3]))
+            continue;
+        else
+        {
+            ans[j] = s[i];
+            j++;
         }
     }
-    if(flag){
-        cout<<"YES";
-    }else{
-        cout<<"NO";
-    }
+    cout<<ans;
 }

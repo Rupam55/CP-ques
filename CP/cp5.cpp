@@ -12,32 +12,47 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    ull t;
     cin >> t;
-    while (t--)
+    for (ull cas = 0; cas < t; cas++)
     {
-        int a,b,c,n;
-        cin >> n;
-        vector<ll> arr(n);
-        bool flag=false;
-        for (int i = 0; i < n; ++i)
-            cin >> arr[i];
-        for (int i = 1; i < n - 1; ++i)
+        ull n,m;
+        cin>>n>>m;
+        vector<ull>arr(n);
+        vector<ull>mini(n,LONG_LONG_MAX);
+        for (ull i = 0; i < n; i++)
         {
-            if (arr[i] > arr[i - 1] && arr[i] > arr[i + 1])
+            cin>>arr[i];
+        }
+        for (ull i = 0; i <= m; i++)
+        {
+            mini[i]=0;
+        }
+        bool flag = true;
+        for (ull i = 0; i < n; i++)
+        {
+            int k=0;
+            for (ull j = i-1 ; j >= i-m && j>=0 ; j--)
             {
-                flag=true;
-                a=i;
-                b=i+1;
-                c=i+2;
+                if(arr[j]!=0){
+                    mini[i]=min( mini[i], mini[j]+arr[j]);
+                }else{ 
+                    if(j>=m){
+                        k++;
+                    }
+                }
+            }
+            if(k==m){
+                flag=false;
             }
         }
         if(flag){
-            cout << "YES" << "\n";
-            cout << a << " " << b << " " << c << "\n";
+            cout<<"Case #"<<cas+1<<": "<<mini[n-1]<<"\n";
         }else{
-            cout<<"NO"<<"\n";
+            cout<<"Case #"<<cas+1<<": "<<-1<<"\n";
         }
-
     }
 }

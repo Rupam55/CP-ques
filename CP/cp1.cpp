@@ -1,4 +1,3 @@
-// Misha and Changing Handles
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,6 +5,7 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
+
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -13,42 +13,23 @@ int main()
 
     ll t;
     cin >> t;
-    while (t--)
+    for(int i=0;i<t;i++)
     {
-        ll n1, n2;
-        cin >> n1>> n2;
-        vector<ll> arr(n1);
-        vector<ll> brr(n2);
-        for (ll i = 0; i < n1; i++)
+        ll n,num_a=0,num_b=0;
+        string s;
+        cin >> n;
+        cin>>s;
+        for (ll j = 0; j < s.length(); j++)
         {
-            cin >> arr[i];
+            if(s[j]=='A') num_a++;
+            else num_b++;
         }
-        for (ll i = 0; i < n2; i++)
-        {
-            cin >> brr[i];
-        }
-        sort(arr.begin(), arr.end());
-        sort(brr.begin(), brr.end());
-        ll i = 0, j = 0;
-        vector<ll>com;
-        bool flag=true;
-        while (i < arr.size() && j < brr.size() && flag)
-        {
-            if(arr[i]==brr[j]){
-                com.push_back(arr[i]);
-                i++;j++;
-                flag=false;
-            }else if(arr[i]<brr[j]){
-                i++;
-            }else{
-                j++;
-            }
-        }
-        if(com.size()>0){
-            cout<<"YES"<<"\n";
-            cout<<com.size()<<" "<<com[0]<<"\n";
+        if(num_a==n/2 || num_b==n/2){
+            cout<<"Case #"<<i+1<<": Y"<<"\n";
         }else{
-            cout<<"NO"<<"\n";
+            cout<<"Case #"<<i+1<<": N"<<"\n";
         }
+        
     }
+    return 0;
 }

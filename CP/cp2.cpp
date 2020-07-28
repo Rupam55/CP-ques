@@ -1,4 +1,4 @@
-// A. Oh Those Palindromes
+
 #include <bits/stdc++.h>
 #define boost ios_base::sync_with_stdio(0);
 
@@ -16,92 +16,46 @@ int main()
 
     ll t;
     cin >> t;
-    while (t--)
+    for (int casee = 0; casee < t; casee ++)
     {
         ll n;
-        cin >> n;
-        ll a, start = 0, end = 0, mid = 0;
-        vector<ll> arr;
+        cin>>n;
+        string I,O;
+        cin>>I>>O;
+        vector<vector<char>> adj(n, vector<char>(n));
         for (ll i = 0; i < n; i++)
         {
-            cin >> a;
-            if (a > 0)
+            for (ll j = 0; j < n; j++)
             {
-                arr.push_back(a);
-            }
-        }
-        int i = 0, j = (arr.size() - 1);
-        while (i < arr.size()-1 && arr[i] == 1)
-        {
-            start++;
-            i++;
-        }
-        while (j >= i && arr[j] == 1)
-        {
-            end++;
-            j--;
-        }
-        for (int k = i; k <= j; k++)
-        {
-            if (arr[k] == 1)
-            {
-                mid++;
-            }
-            if (k == (arr.size() - 1))
-            {
-                end++;
-            }
-        }
-        // cout << start << " " << mid << " " << end<< "\n";
-        if (arr.size() == 1)
-        {
-            cout<<"First"<<"\n";
-        }
-        else
-        {
-            if (start % 2 == 1)
-            {
-                if (end % 2 == 1)
-                {
-                    cout << "Second"
-                         << "\n";
+                if(i==j){
+                    adj[i][j]='Y';
                 }
-                else
-                {
-                    if (mid % 2 == 1)
-                    {
-                        cout << "Second"
-                             << "\n";
+                else if(j>i){
+                    if(adj[i][j-1]=='Y' && O[j-1]=='Y' && I[j]=='Y'){
+                        adj[i][j]='Y';
+                    }else{
+                        adj[i][j]='N';
                     }
-                    else
-                    {
-                        cout << "Second"
-                             << "\n";
+                }else{
+                    if(adj[i-1][j]=='Y' && O[i]=='Y' && I[i-1]=='Y'){
+                        adj[i][j]='Y';
+                    }else{
+                        adj[i][j]='N';
                     }
                 }
             }
-            else
-            {
-                if (end % 2 == 1)
-                {
-                    cout << "First"
-                         << "\n";
-                }
-                else
-                {
-                    if (mid % 2 == 1)
-                    {
-                        cout << "First"
-                             << "\n";
-                    }
-                    else
-                    {
-                        cout << "First"
-                             << "\n";
-                    }
-                }
-            }
+            
         }
+        cout<<"Case #"<<casee+1<<":"<<"\n";
+        for (ll i = 0; i < n; i++)
+        {
+            for (ll j = 0; j < n; j++)
+            {
+                cout<<adj[i][j];
+            }
+            cout<<"\n";
+        }
+        cout<<"\n";
     }
     return 0;
 }
