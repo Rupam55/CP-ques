@@ -6,97 +6,54 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
-bool comp(const pair<ll, ll> &v1, const pair<ll, ll> &v2)
-{
-    return v1.first < v2.first;
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll t;
-    cin >> t;
-    for (ll cas = 0; cas < t; cas++)
+    ll n;
+    cin >> n;
+    vector<ll> a(n);
+    vector<ll> b(n);
+    for (ll i = 0; i < n; i++)
     {
-        ll a, b, n, left, right;
-        cin >> n;
-        vector<pair<ll, ll>> arr;
-        for (ll i = 0; i < n; i++)
-        {
-            cin >> a >> b;
-            arr.push_back({a, b});
-        }
-        sort(arr.begin(), arr.end(), comp);
-
-        unordered_map<ll, pair<ll, ll>> l;
-        unordered_map<ll, pair<ll, ll>> r;
-        unordered_map<ll, pair<ll, ll>> ar;
-
-        ll maxi=INT_MIN;
-
-        for (ll i = 0; i < n; i++)
-        {
-            // arr
-            if(l[arr[i].first].first==0 && r[arr[i].first].first==0){
-                ar[arr[i].first].first=1;
-                ar[arr[i].first].second=0;
-                maxi = max( maxi, ar[arr[i].first].second);
-            }else if(l[arr[i].first].first==1){
-                ar[arr[i].first].first=1;
-                ar[arr[i].first].second = max(l[arr[i].first].second,ar[arr[i].first].second);
-                maxi = max( maxi, ar[arr[i].first].second);
-            }else if(r[arr[i].first].first==1){
-                ar[arr[i].first].first=1;
-                ar[arr[i].first].second = max(r[arr[i].first].second,ar[arr[i].first].second);
-                maxi = max( maxi, ar[arr[i].first].second);
-            }
-            // right
-            right=arr[i].first+arr[i].second;
-
-            r[right].first = 1;
-
-            r[right].second = max(ar[arr[i].first].second + arr[i].second,r[right].second);
-            maxi = max( maxi, r[right].second);
-            // if(ar[right].first == 1){
-            //     r[right].second = max((ar[arr[i].first].second + arr[i].second),r[right].second);
-            // }else if(l[right].first == 1){
-            //     r[right].second = max((ar[arr[i].first].second + arr[i].second),r[right].second);
-            //     ar[arr[i].first].second = max(arr[i].second + l[right].second,ar[arr[i].first].second);
-            // }else{
-            // }
-
-            // left
-            left=arr[i].first-arr[i].second;
-
-            l[left].first = 1;
-
-            l[left].second = max(ar[arr[i].first].second - arr[i].second,l[left].second);
-            maxi = max( maxi, l[left].second);
-
-            if(ar[left].first == 1){
-                ar[arr[i].first].second = max(arr[i].second + ar[left].second , ar[arr[i].first].second);
-                maxi = max( maxi, ar[arr[i].first].second);
-            }else if(r[left].first == 1){
-                ar[arr[i].first].second = max(arr[i].second + r[left].second , ar[arr[i].first].second);
-                maxi = max( maxi, ar[arr[i].first].second);
-            }
-        }
-        // for (auto it : ar)
-        // {
-        //     cout<<it.first<<" "<<it.second.second<<"\n";
-        // }
-        // cout<<"\n";
-        // for (auto it : l)
-        // {
-        //     cout<<it.first<<" "<<it.second.second<<"\n";
-        // }
-        // cout<<"\n";
-        // for (auto it : r)
-        // {
-        //     cout<<it.first<<" "<<it.second.second<<"\n";
-        // }
-        cout<<"Case #"<<cas+1<<": "<<maxi<<"\n";
+        cin >> a[i];
     }
+    for (ll i = 0; i < n; i++)
+    {
+        cin >> b[i];
+    }
+    vector<ll> dist;
+    for (ll i = 0; i < n; i++)
+    {
+        dist.push_back(a[i] - b[i]);
+    }
+    sort(dist.begin(), dist.end());
+
+    ll sum = 0, temp;
+    for (int i = 0; i < n; i++)
+    {
+        if (dist[i] > 0)
+        {
+            sum += (n - (i + 1));
+        }
+        else
+        {
+            int l = i + 1, r = n - 1, ans = -1;
+            while (l <= r)
+            {
+                int mid = l + (r - l) / 2;
+                if (dist[mid] + dist[i] > 0)
+                {
+                    ans = mid;
+                    r = mid - 1;
+                }
+                else
+                    l = mid + 1;
+            }
+            if (ans != -1)
+                sum += (n - ans);
+        }
+    }
+    cout << sum;
 }
