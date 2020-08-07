@@ -10,32 +10,31 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
-    priority_queue <int> pq;
-    ll n;
-    cin>>n;
-    vector<int>arr(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin>>arr[i];
-    }
-    int j=n;
-    for (int i = 0; i < n; i++)
-    {
-        if(arr[i]==j){
-            pq.push(arr[i]);
-            while(!pq.empty() && pq.top() == j){
-                cout<<pq.top()<<" ";
-                pq.pop();
-                j--;
-            }cout<<"\n";
+    
+    ll t;
+    cin>>t;
+    while(t--){
+        ll n;
+        cin>>n;
+        vector<ll>arr(n);
+        for (ll i = 0; i < n; i++)
+        {
+            cin>>arr[i];
+        }
+        sort(arr.begin(),arr.end());
+        bool flag = true;
+        for (ll i = 1; i < n; i++)
+        {
+            if(arr[i]-arr[i-1] != 1 && arr[i]-arr[i-1] != 0 ){
+                flag = false;
+            }
+        }
+        if(flag){
+            cout<<"YES"<<"\n";
         }else{
-            pq.push(arr[i]);
-            cout<<"\n";
+            cout<<"NO"<<"\n";
         }
     }
-    
     return 0;
 }
-// drago
-// A. Snacktower
+// cf div3 661 q1

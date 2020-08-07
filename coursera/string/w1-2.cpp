@@ -13,15 +13,12 @@ int const NA      =   -1;
 struct Node
 {
 	int next [Letters];
+	bool patternEnd;
 
 	Node ()
 	{
 		fill (next, next + Letters, NA);
-	}
-
-	bool isLeaf () const
-	{
-	    return (next[0] == NA && next[1] == NA && next[2] == NA && next[3] == NA);
+		patternEnd = false;
 	}
 };
 
@@ -60,6 +57,7 @@ void build_trie (const vector <string>& patterns, vector<Node> &t)
 				t.resize(x + 1);
 			}
 		}
+		t[x].patternEnd = true;
 	}
 
 }
@@ -79,7 +77,7 @@ vector <int> solve (const string& text, int n, const vector <string>& patterns)
 		if (t[x].next[index] != -1)
 		{
 			bool found = true;
-			for (int j = i; !t[x].isLeaf() ; j++)
+			for (int j = i; !t[x].patternEnd ; j++)
 			{
 				if (j >= text.size())
 				{
@@ -139,4 +137,4 @@ int main (void)
 
 	return 0;
 }
-// tries matchings
+// tries matching extended

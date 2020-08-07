@@ -11,49 +11,46 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    vector<ll> b(n);
-    for (ll i = 0; i < n; i++)
+    ll t;
+    cin >> t;
+    while (t--)
     {
-        cin >> a[i];
-    }
-    for (ll i = 0; i < n; i++)
-    {
-        cin >> b[i];
-    }
-    vector<ll> dist;
-    for (ll i = 0; i < n; i++)
-    {
-        dist.push_back(a[i] - b[i]);
-    }
-    sort(dist.begin(), dist.end());
-
-    ll sum = 0, temp;
-    for (int i = 0; i < n; i++)
-    {
-        if (dist[i] > 0)
+        ll n, a;
+        cin >> n;
+        unordered_map<ll, ll> mp;
+        for (ll i = 0; i < n; i++)
         {
-            sum += (n - (i + 1));
+            cin >> a;
+            mp[a]++;
         }
-        else
+        map<ll, ll> ans;
+        for (ll i = 2; i <= 100; i++)
         {
-            int l = i + 1, r = n - 1, ans = -1;
-            while (l <= r)
+            int count = 0;
+            if (i % 2 == 0)
             {
-                int mid = l + (r - l) / 2;
-                if (dist[mid] + dist[i] > 0)
+                for (ll j = 1; j <= (i-1) / 2; j++)
                 {
-                    ans = mid;
-                    r = mid - 1;
+                    count += min(mp[j], mp[i - j]);
                 }
-                else
-                    l = mid + 1;
+                count += mp[i / 2] / 2;
             }
-            if (ans != -1)
-                sum += (n - ans);
+            else
+            {
+                for (ll j = 1; j <= (i) / 2; j++)
+                {
+                    count += min(mp[j], mp[i - j]);
+                }
+            }
+            ans[i] = count;
         }
+        int f_ans=INT_MIN;
+        for (auto it : ans)
+        {
+            // cout<<it.first<<" "<<it.second<<"\n";
+            if(it.second>f_ans) f_ans = it.second;
+        }
+        cout<< f_ans<<"\n";
     }
-    cout << sum;
 }
+// cf div3 661 q3

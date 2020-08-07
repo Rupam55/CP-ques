@@ -1,4 +1,3 @@
-// simple string
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,47 +11,52 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    ull t;
-    cin >> t;
-    for (ull cas = 0; cas < t; cas++)
-    {
-        ull n,m;
-        cin>>n>>m;
-        vector<ull>arr(n);
-        vector<ull>mini(n,LONG_LONG_MAX);
-        for (ull i = 0; i < n; i++)
+    int t;
+    cin>>t;
+    while(t--){
+        int n;
+        cin>>n;
+        string arr;
+        cin>>arr;
+        deque<int>q_1;
+        deque<int>q_0;
+        vector<int>ans(n);
+        set<int>st;
+        for (int i = 0; i < n; i++)
         {
-            cin>>arr[i];
-        }
-        for (ull i = 0; i <= m; i++)
-        {
-            mini[i]=0;
-        }
-        bool flag = true;
-        for (ull i = 0; i < n; i++)
-        {
-            int k=0;
-            for (ull j = i-1 ; j >= i-m && j>=0 ; j--)
-            {
-                if(arr[j]!=0){
-                    mini[i]=min( mini[i], mini[j]+arr[j]);
-                }else{ 
-                    if(j>=m){
-                        k++;
-                    }
+            if(arr[i] == '0'){
+                if(q_1.size()==0){
+                    q_0.push_back(q_0.size());
+                    ans[i] = q_0.back()+1;
+                    st.insert(ans[i]);
+                }else{
+                    int current = q_1.back();
+                    q_1.pop_back();
+                    q_0.push_back(current);
+                    ans[i]=current+1;
+                    st.insert(ans[i]);
+                }
+            }else{
+                if(q_0.size() == 0){
+                    q_1.push_back(q_1.size());
+                    ans[i] = q_1.back()+1;
+                    st.insert(ans[i]);
+                }else{
+                    int current = q_0.back();
+                    q_0.pop_back();
+                    q_1.push_back(current);
+                    ans[i]=current+1;
+                    st.insert(ans[i]);
                 }
             }
-            if(k==m){
-                flag=false;
-            }
         }
-        if(flag){
-            cout<<"Case #"<<cas+1<<": "<<mini[n-1]<<"\n";
-        }else{
-            cout<<"Case #"<<cas+1<<": "<<-1<<"\n";
+        cout<<st.size()<<"\n";
+        for (ll i = 0; i < n; i++)
+        {
+            cout<<ans[i]<<" ";
         }
+        cout<<"\n";
     }
+    return 0;
 }
+// cf div3 661 q4
