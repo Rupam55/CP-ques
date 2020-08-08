@@ -13,21 +13,30 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
+    vector<int> ans;
 
-    string s;
-    cin >> s;
-    int n = s.length();
-    int j = 0;
+    int n, m;
+    cin >> n >> m;
+    vector<pair<int, int>> arr(n);
     for (int i = 0; i < n; i++)
     {
-        char ch = s[i];
-        if ((i >= 2 && ch == ans[j - 1] && ans[j - 1] == ans[j - 2]) || (i >= 3 && ch == ans[j - 1] && ans[j - 2] == ans[j - 3]))
-            continue;
-        else
-        {
-            ans[j] = s[i];
-            j++;
-        }
+        cin>>arr[i].first;
+        arr[i].second=i;
     }
-    cout<<ans;
+    sort(arr.begin(),arr.end());
+    for (int i = 0; i < n; i++)
+    {
+        if (m < arr[i].first)
+            break;
+        ans.push_back(arr[i].second + 1);
+        m -= arr[i].first;
+    }
+    sort(ans.begin(), ans.end());
+    cout << ans.size() << "\n";
+    for (int i = 0; i < ans.size(); i++)
+    {
+        cout<<ans[i]<<" "; 
+    }
+
+    return 0;
 }
