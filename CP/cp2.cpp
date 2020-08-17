@@ -14,26 +14,38 @@ int main()
     ll t;
     cin>>t;
     while(t--){
-        ll n;
-        cin>>n;
-        vector<ll>arr(n);
-        for (ll i = 0; i < n; i++)
+        int n,m,x,y;
+        cin>>n>>m>>x>>y;
+        vector<vector<char>>arr(n,vector<char>(m));
+        for (int i = 0; i < n; i++)
         {
-            cin>>arr[i];
+            for (int j = 0; j < m; j++)
+            {
+                cin>>arr[i][j];
+            }
+            
         }
-        sort(arr.begin(),arr.end());
-        bool flag = true;
-        for (ll i = 1; i < n; i++)
+        int ans=0;
+        for (int i = 0; i < n; i++)
         {
-            if(arr[i]-arr[i-1] != 1 && arr[i]-arr[i-1] != 0 ){
-                flag = false;
+            int count = 0;
+            for (int j = 0; j < m; j++)
+            {
+                if(arr[i][j] == '.'){
+                    int p;
+                    count++;
+                    if(count % 2 == 1){
+                        p = x;
+                    }else{
+                        p = y - x;
+                    }
+                    ans = min(ans + x ,ans + p);
+                }else{
+                    count=0;
+                }
             }
         }
-        if(flag){
-            cout<<"YES"<<"\n";
-        }else{
-            cout<<"NO"<<"\n";
-        }
+        cout<<ans<<"\n";
     }
     return 0;
 }
