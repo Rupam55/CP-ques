@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 
 using namespace std;
-using namespace std::chrono;
 
 typedef unsigned long long ull;
 typedef long long ll;
@@ -13,44 +12,37 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	ll no_0, no_1;
-	cin >> no_0 >> no_1;
-	if (no_1 >= (no_0 - 1) && no_1 <= ((no_0 + 1) * 2))
+	int n;
+	cin>>n;
+	vector<int>arr(n);
+	for (int i = 0; i < n; i++)
 	{
-		ll val = no_0 + ((no_0 + 1) * 2);
-		vector<ll> ans(val, 2);
-		for (ll i = 2; i < val; i += 3)
-		{
-			ans[i] = 0;
-		}
-		if (no_1 == no_0 - 1)
-		{
-			for (ll i = 3; i < val-2 ; i+=3)
-			{
-				ans[i]=1;
-			}
-		}else if(no_1 >= no_0){
-			for (ll i = 0; i < val && i < no_1*3 ; i+=3)
-			{
-				ans[i]=1;
-			}
-			no_1-=no_0+1;
-			for (ll i = 1; i < val && i < no_1*3 ; i+=3)
-			{
-				ans[i]=1;
-			}
-		}
-		for (ll i = 0; i < val; i++)
-			{
-				if (ans[i] != 2)
-				{
-					cout << ans[i];
-				}
-			}
+		cin>>arr[i];
 	}
-	else
+	map<int,int>mp;
+	int maxi=INT_MIN,pos=0;
+	for (int i = 0; i < n; i++)
 	{
-		cout << -1;
+		mp[arr[i]]=mp[arr[i]-1]+1;
+
+		if(mp[arr[i]] > maxi){
+			maxi=mp[arr[i]];
+			pos=arr[i];
+		}
+	}
+	vector<int>brr;
+	for (int i = n-1; i >= 0; i--)
+	{
+		if(arr[i] == pos){
+			brr.push_back(i);
+			pos--;
+		}
+	}
+	reverse(brr.begin(),brr.end());
+	cout<<maxi<<"\n";
+	for(auto it : brr){
+		cout<<it+1<<" ";
 	}
 	return 0;
 }
+// dev

@@ -13,30 +13,31 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    vector<int> ans;
+    
+    int n,m;
+    cin>>n>>m;
+    string s;
+    cin>>s;
+    int i=0,jumps = 0,pos=0;
+    bool flag = true;
 
-    int n, m;
-    cin >> n >> m;
-    vector<pair<int, int>> arr(n);
-    for (int i = 0; i < n; i++)
-    {
-        cin>>arr[i].first;
-        arr[i].second=i;
+    while(flag && pos < s.length()-1){
+        flag = false;
+        i=pos;
+        for (int j = i+1; j <= i+m; j++)
+        {
+            if(s[j] == '1'){
+                pos=j;
+                flag = true;
+            }
+        }
+        // cout<<pos<<" ";
+        jumps++;
     }
-    sort(arr.begin(),arr.end());
-    for (int i = 0; i < n; i++)
-    {
-        if (m < arr[i].first)
-            break;
-        ans.push_back(arr[i].second + 1);
-        m -= arr[i].first;
+    if(flag){
+        cout<<jumps;
+    }else{
+        cout<<-1;
     }
-    sort(ans.begin(), ans.end());
-    cout << ans.size() << "\n";
-    for (int i = 0; i < ans.size(); i++)
-    {
-        cout<<ans[i]<<" "; 
-    }
-
     return 0;
 }

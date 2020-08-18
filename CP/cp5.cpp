@@ -6,45 +6,35 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
+vector<bool> visited (100000,false);
+
+ld dfs(vector<vector<int>> &adj, int n, int v){
+    ld sum = 0;
+    visited[v] = true;
+    for(int i = 0; i < adj[v].size(); i++ ){
+        if(!visited[adj[v][i]]){
+            sum += dfs(adj, n, adj[v][i])+1;
+        }
+    }
+    return sum ? sum/adj[v].size() : 0;
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int arr[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-
-    char ch;
-    int y1, m1, d1, y2, m2, d2;
-    cin >> y1 >> ch >> m1 >> ch >> d1;
-    cin >> y2 >> ch >> m2 >> ch >> d2;
-    int days1 = 0, days2 = 0;
-    days1 += (365*y1 + y1/4 - y1/100 + y1/400 );
-    days2 += (365*y2 + y2/4 - y2/100 + y2/400);
-
-    days1 += d1;
-    int i = 0;
-    while (i < m1)
+    int n;
+    cin >> n;
+    vector<vector<int>> adj(n, vector<int>());
+    for (int i = 0; i < n-1; i++)
     {
-        days1 += arr[m1];
-        i++;
+        int x, y;
+        cin >> x >> y;
+        adj[x - 1].push_back(y - 1);
+        adj[y - 1].push_back(x - 1);
     }
+    cout<< fixed << setprecision(7) << dfs(adj, n, 0)<<"\n";
 
-    if(y1 % 4 == 0 || ( y1 % 100 == 0 && y1 % 400 == 0 ) && m1>= 2){
-        days1+=1;
-    }
-
-    days2 += d2;
-    i = 0;
-    while (i < m2)
-    {
-        days2 += arr[i];
-        i++;
-    }
-
-    if(y2 % 4 == 0 || ( y2 % 100 == 0 && y2 % 400 == 0 ) && m2>= 2){
-        days2+=1;
-    }
-
-    cout<<abs(days1-days2)-2;
     return 0;
 }
