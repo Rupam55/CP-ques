@@ -6,51 +6,53 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
+#define fr(i, n) for (ll i = 0; i < n; i++)
+#define fr1(i, n) for (ll i = 1; i <= n; i++)
+#define pb(x) push_back(x)
+#define l(s) s.size()
+#define as(a) sort(a, a + n)
+#define ds(a) sort(a, a + n, greater<int>())
+#define vas(v) sort(v.begin(), v.end());
+#define inf 1e18
+#define nl cout << endl;
+#define F first
+#define S second
+typedef vector<ll> vi;
+typedef pair<int, int> pi;
+
+
+int infi = 1000000007;
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
-    ll n;
-    cin>>n;
-    vector<ll>arr(n);
-    for (ll i = 0; i < n; i++)
-    {
-        cin>>arr[i];
-    }
-    vector<ll>brr(n+1);
-    vector<ll>crr(n+1);
-    brr[0]=0;
-    for (ll i = 0; i < n; i++)
-    {
-        brr[i+1]=arr[i]+brr[i];
-    }
-    sort(arr.begin(),arr.end());
-    crr[0]=0;
-    for (ll i = 0; i < n; i++)
-    {
-        crr[i+1]=arr[i]+crr[i];
-    }
-    // for (ll i = 0; i < n; i++)
-    // {
-    //     cout<<brr[i];
-    // }cout<<"\n";
-    // for (ll i = 0; i < n; i++)
-    // {
-    //     cout<<crr[i];
-    // }
-    ll m;
-    cin>>m;
-    ll type,l,r;
-    for (ll i = 0; i < m; i++)
-    {
-        cin>>type>>l>>r;
-        if(type == 1){
-            cout<<abs(brr[r]-brr[l-1])<<"\n";
-        }else{
-            cout<<abs(crr[r]-crr[l-1])<<"\n";
+
+    int t;
+    cin>>t;
+    while(t--){
+        ll n;
+        cin>>n;
+        vi arr(n);
+        fr(i,n){
+            cin>>arr[i];
         }
+        ll ans = 0;
+        fr(i,n){
+            ll a = arr[i];
+            ll j = i;
+            bool flag = true;
+            while( j < n && flag ){
+                if((arr[j] > 0 && arr[i] > 0) || (arr[j] < 0 && arr[i] < 0)){
+                    a = max(a,arr[j]);
+                    j++;
+                }else{
+                    flag = false;
+                }
+            }
+            i=j-1;
+            ans+=a;
+        }
+        cout<<ans<<"\n";
     }
-    return 0;
 }
-//bad luck

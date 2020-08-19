@@ -1,4 +1,3 @@
-// AccurateLee
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,45 +11,26 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin >> t;
-    while (t--)
+    string s;
+    cin>>s;
+    int count=0;
+    for (int i = 0; i < s.length(); i++)
     {
-        int n;
-        cin >> n;
-        string s, s1 = "";
-        cin >> s;
-        bool flag = true;
-        bool one = true;
-        while (n > 0 && flag)
-        {
-            --n;
-            if (s[n] == '1' && one)
-            {
-                s1 += s[n];
-            }
-            else if (s[n] == '1' && !one)
-            {
-                flag = false;
-            }
-            else if (s[n] == '0')
-            {
-                one = false;
-            }
+        if(s[i] == '4' || s[i] == '7'){
+            count++;
         }
-        if(flag==false)
-        s1+='0';
-        bool zero = true;
-        int i=0;
-        while(zero){
-            if(s[i]=='0'){
-                s1+=s[i];
-            }else{
-                zero=false;
-            }
-            i++;
-        }
-        reverse(s1.begin(), s1.end());
-        cout << s1 << "\n";
     }
+    string str = to_string(count);
+
+    // cout<<str;
+    
+    for (int i = 0; i < str.length(); i++)
+    {
+        if(str[i] != '4' && str[i] != '7'){
+            cout<<"NO";
+            return 0;
+        }
+    }
+    cout<<"YES";
+    return 0;
 }

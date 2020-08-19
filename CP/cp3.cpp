@@ -11,41 +11,22 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	int t;
-	cin >> t;
-	while (t--)
+	string s;
+	cin >> s;
+	int a = s.find("AB");
+	int b = s.find("BA", a + 2);
+	if ((a != -1 && b != -1))
 	{
-		int n;
-		cin >> n;
-		vector<int> arr(n);
-		bool even = false;
-		int p_e = 0;
-		int odd = 0;
-		vector<int> p_o;
-		for (int i = 0; i < n; i++)
-		{
-			cin >> arr[i];
-			if (arr[i] % 2 == 0){
-				even = true;
-				p_e = i;
-			}
-			else{ 
-				odd++;
-				p_o.push_back(i);
-			}
-		}
-		if (even)
-		{
-			cout << 1 << "\n" << p_e + 1 << "\n";
-		}
-		else if (odd > 1)
-		{
-			cout << 2 << "\n" <<p_o[0]+1<<" "<<p_o[1]+1<<"\n";
-		}else{
-			cout<<-1<<"\n";
-		}
+		cout << "YES";
+		return 0;
 	}
-
+	int c = s.find("BA");
+	int d = s.find("AB", c + 2);
+	if ((c != -1 && d != -1))
+	{
+		cout << "YES";
+	}
+	else
+		cout << "NO";
 	return 0;
 }
-//
