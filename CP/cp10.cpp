@@ -27,27 +27,20 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--){
-        string s;
-        cin>>s;
-        int count_0 = 0, count_1 = 0;;
-        for (int i = 0; i < s.length(); i++)
-        {
-            if(s[i] == '0') count_0++;
-            else count_1++;
-        }
-        
-        int mini = min(count_1,count_0);
-        
-        if(mini & 1){
-            cout<<"DA";
-            nl
-        }else{
-            cout<<"NET";
-            nl
-        }
+    ll n, m;
+    cin >> n >> m;
+    if (n == 1)
+    {
+        cout << 1;
+        return 0;
     }
-    return 0;
+    if (m - 1 < n - m)
+    {
+        cout << m + 1;
+    }
+    else
+    {
+        cout << m - 1;
+    }
 }
+// dev

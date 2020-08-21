@@ -6,27 +6,48 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 
+#define fr(i, n) for (int i = 0; i < n; i++)
+#define fr1(i, n) for (int i = 1; i <= n; i++)
+#define pb(x) push_back(x)
+#define l(s) s.size()
+#define as(a) sort(a, a + n)
+#define ds(a) sort(a, a + n, greater<int>())
+#define vas(v) sort(v.begin(), v.end());
+#define inf 1e18
+#define nl cout << endl;
+#define F first
+#define S second
+typedef vector<int> vi;
+typedef pair<int, int> pi;
+
+int infi = 1000000007;
+
 int main()
 {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	string s;
-	cin >> s;
-	int a = s.find("AB");
-	int b = s.find("BA", a + 2);
-	if ((a != -1 && b != -1))
-	{
-		cout << "YES";
-		return 0;
+	int t;
+	cin>>t;
+	while(t--){
+		int n;
+		cin>>n;
+		vector<int>arr(n);
+		for (int i = 0; i < n; i++)
+		{
+			cin>>arr[i];
+		}
+		int count =0;
+		for (int i = 0; i < n-1; i++)
+		{
+			for (int j = i+1; j < n; j++)
+			{
+				if(arr[i]&arr[j] == arr[i])
+				count++;
+			}
+			
+		}
+		cout<<count<<"\n";
 	}
-	int c = s.find("BA");
-	int d = s.find("AB", c + 2);
-	if ((c != -1 && d != -1))
-	{
-		cout << "YES";
-	}
-	else
-		cout << "NO";
 	return 0;
 }

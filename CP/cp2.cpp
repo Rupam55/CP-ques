@@ -20,7 +20,6 @@ typedef long double ld;
 typedef vector<ll> vi;
 typedef pair<int, int> pi;
 
-
 int infi = 1000000007;
 
 int main()
@@ -29,30 +28,53 @@ int main()
     cin.tie(NULL);
 
     int t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        vi arr(n);
-        fr(i,n){
-            cin>>arr[i];
+    cin >> t;
+    while (t--)
+    {
+        string s;
+        cin >> s;
+        map<char, int> mp;
+        for (int i = 0; i < s.length(); i++)
+        {
+            mp[s[i]]++;
         }
-        ll ans = 0;
-        fr(i,n){
-            ll a = arr[i];
-            ll j = i;
+        int x1, y1, n;
+        cin >> x1 >> y1 >> n;
+        while (n--)
+        {
+            int x2, y2;
+            cin >> x2 >> y2;
+
+            int dist_x = x2 - x1, dist_y = y2 - y1;
+            
             bool flag = true;
-            while( j < n && flag ){
-                if((arr[j] > 0 && arr[i] > 0) || (arr[j] < 0 && arr[i] < 0)){
-                    a = max(a,arr[j]);
-                    j++;
-                }else{
+
+            if(dist_x > 0){
+                if(mp['R'] < abs(dist_x)){
+                    flag = false;
+                }
+            }else{
+                if(mp['L'] < abs(dist_x)){
                     flag = false;
                 }
             }
-            i=j-1;
-            ans+=a;
+
+            if(dist_y > 0){
+                if(mp['U'] < abs(dist_y)){
+                    flag = false;
+                }
+            }else{
+                if(mp['D'] < abs(dist_y)){
+                    flag = false;
+                }
+            }
+
+            if(flag){
+                cout<<"YES "<<abs(dist_x)+abs(dist_y)<<"\n";
+            }else{
+                cout<<"NO"<<"\n";
+            }
         }
-        cout<<ans<<"\n";
     }
+    return 0;
 }

@@ -50,7 +50,7 @@ int main()
 				int val = 1;
 				for (int k = 0; k < i; k++)
 				{
-					val= (primes_map[s[j + k]]*val)%10000007 ;
+					val = (primes_map[s[j + k]] * val) % 10000007;
 				}
 				mp[val]++;
 			}
@@ -58,8 +58,10 @@ int main()
 		int ans = 0;
 		for (auto it : mp)
 		{
-			if(it.second>=2){
-			ans += it.second * (it.second - 1) / 2;
+			if (it.second >= 2)
+			{
+				ans += it.second * (it.second - 1) / 2;
+			}
 		}
 		cout << ans << "\n";
 	}

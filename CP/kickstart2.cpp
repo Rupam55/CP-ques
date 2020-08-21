@@ -1,132 +1,55 @@
-#include <bits/stdc++.h>
-#include <cmath>
-#include <string.h>
-
+#include<bits/stdc++.h>
 using namespace std;
-using namespace std::chrono;
-
-typedef unsigned long long ull;
-typedef long long ll;
-typedef long double ld;
-
-#define F first
-#define S second
-typedef vector<int> vi;
-typedef pair<int, int> pi;
-#define pob pop_back
-#define pb push_back
-
-#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
-#define show(x) cerr << #x << " = " << (x) << '\n'
-#define inf 1e14
-
-#define invec(v)     \
-    for (auto x : v) \
-        cin >> x;
-template <typename T, typename L>
-bool mycomp(T x, L y)
-{
-    return x > y;
-}
-
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
-    int t;
-    cin >> t;
-    for (int i = 0; i < t; i++)
+    int n , k1 , k2 , x , y , steps = 0;
+    queue<int> p1 , p2;
+    cin >> n;
+    cin >> k1;
+    for(int i = 0 ; i < k1 ; i++)
     {
-        int r,c;
-        cin>>r>>c;
-        string s,s1;
-        char arr[r][c],brr[r][c];
-        for (int i = 0; i < r; i++)
+        cin >> x;
+        p1.push(x);
+    }
+    cin >> k2;
+    for(int i = 0 ; i < k2 ; i++)
+    {
+        cin >> x;
+        p2.push(x);
+    }
+    while(!p1.empty() && !p2.empty())
+    {
+        x = p1.front();
+        p1.pop();
+        y = p2.front();
+        p2.pop();
+        if(x > y)
         {
-            for (int j = 0; j < c; j++)
-            {
-                brr[i][j]='*';
-            }
-            
+            p1.push(y);
+            p1.push(x);
+            k1++;k2--;
+            //p2.pop();
         }
-        
-        unordered_map<char, int> mp;
-        for (int i = 0; i < r ; i++)
+        else if(x < y)
         {
-            cin>>s;
-            for (int j = 0; j < s.length(); j++)
-            {
-                arr[i][j]=s[j];
-                mp.insert(pair<char,int>(arr[i][j],0));
-            }
+            p2.push(x);
+            p2.push(y);
+            k1--;k2++;
+            //p1.pop();
         }
+        /*else
+        {
+            cout << "-1";
+            return 0;
+        }*/
+       steps++;
+       //if(p1.empty()){cout << steps << " " << 2;break;}
+       //if(p2.empty()){cout << steps << " " << 1;break;}
+       if(steps == 1050000){cout << -1;return 0;}
+    }
+    cout << steps << " ";
+    if(p1.empty())cout << 2 << " ";
+    if(p2.empty())cout << 1 << " ";
 
-        while()
-
-        // for (auto x : mp)
-        // {
-        //     if(x.second==0){
-        //         int hey = 1;
-        //         for (int i = 0; i < r; i++)
-        //         {
-        //             for (int j = 0; j < c; j++)
-        //             {
-
-        //                 if (arr[i][j] == x.first)
-        //                 {
-        //                     if (arr[i][j] == arr[i + 1][j] || i == r - 1)
-        //                     {
-        //                         // cout << x.first << i<<" " <<j<< " ";
-        //                     }
-        //                     else
-        //                     {
-        //                         hey = 0;
-        //                         x.second = 2;
-        //                     }
-        //                 }
-        //             }
-        //     }
-        //     if(hey==1){
-        //         char ch=x.first;
-        //         for (int i = 0; i < r; i++)
-        //         {
-        //             for (int j = 0; j < c; j++)
-        //             {
-        //                 if (arr[i][j] == x.first)
-        //                 {
-        //                     brr[i][j]=arr[i][j];
-        //                 }
-        //             }
-        //         }
-        //         x.second=1;
-        //         s1 += x.first;
-        //         cout<<"y";
-        //     }
-        //     }
-        // }
-        // for (auto x : mp)
-        //     cout << x.first << " " << x.second << endl;
-
-        // for (auto x : mp)
-        // {
-        //     if(x.second==0){
-        //         for (int i = 0; i < r; i++)
-        //         {
-        //             for (int j = 0; j < c; j++)
-        //             {
-        //                 if(arr[i][j]==x.first){
-        //                     if(brr[i+1][j]!='*' || i==r-1){
-        //                         brr[i][j]=x.first;
-        //                     }
-        //                 }
-        //             }
-        //         }
-        //         s1+=x.first;
-        //     }
-        // }
-        //     cout << "Case #" << i + 1 << ": " << s1 << "\n";
-        // }
-
-    // Time();
+    return 0;
 }
