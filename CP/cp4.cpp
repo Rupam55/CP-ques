@@ -22,32 +22,40 @@ typedef pair<int, int> pi;
 
 int infi = 1000000007;
 
+ll gcd(ll a, ll b)
+{
+    if (a == 0)
+        return b;
+    return gcd(b % a, a);
+}
+ll lcm(ll a, ll b)
+{
+    return (a * b) / gcd(a, b);
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int t;
-    cin>>t;
-    while(t--){
-        string s;
-        cin>>s;
-        int count_0 = 0, count_1 = 0;;
-        for (int i = 0; i < s.length(); i++)
+    ll n;
+    cin >> n;
+    ll min_a = LONG_LONG_MAX, min_b = LONG_LONG_MAX, mini = LONG_LONG_MAX;
+    for (ll i = 1; i * i <= n; i++)
+    {
+        if (n % i == 0)
         {
-            if(s[i] == '0') count_0++;
-            else count_1++;
-        }
-        
-        int mini = min(count_1,count_0);
-        
-        if(mini & 1){
-            cout<<"DA";
-            nl
-        }else{
-            cout<<"NET";
-            nl
+            if (lcm(i, n / i) == n)
+            {
+                if (mini > max(i, n / i))
+                {
+                    mini = max(i, n / i);
+                    min_a = i;
+                    min_b = n / i;
+                }
+            }
         }
     }
+    cout << min_a<< " " << min_b;
     return 0;
 }

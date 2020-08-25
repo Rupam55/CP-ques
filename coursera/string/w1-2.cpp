@@ -1,140 +1,49 @@
-#include <algorithm>
-#include <cassert>
 #include <cstdio>
 #include <iostream>
 #include <string>
 #include <vector>
 
-using namespace std;
+using std::cin;
+using std::string;
+using std::vector;
 
-int const Letters =    4;
-int const NA      =   -1;
-
-struct Node
-{
-	int next [Letters];
-	bool patternEnd;
-
-	Node ()
-	{
-		fill (next, next + Letters, NA);
-		patternEnd = false;
-	}
-};
-
-int letterToIndex (char letter)
-{
-	switch (letter)
-	{
-		case 'A': return 0; break;
-		case 'C': return 1; break;
-		case 'G': return 2; break;
-		case 'T': return 3; break;
-		default: assert (false); return -1;
-	}
+void compute_prefix(string& p_t, vector<int>& s) {
+  int border = 0;
+  for (int i = 1; i < p_t.size(); i++) {
+    while (border > 0 && p_t[i] != p_t[border]) {
+      border = s[border - 1];
+    }
+    if (p_t[i] == p_t[border]) {
+      border++;
+      s[i] = border;
+    }
+    if (border == 0) {
+      s[i] = 0;
+    }
+  }
 }
 
-void build_trie (const vector <string>& patterns, vector<Node> &t)
-{	
-	for (int i = 0; i < patterns.size(); i++)
-	{
-		int x = 0;
-		for (int j = 0; j < patterns[i].size(); j++)
-		{
-			int index = letterToIndex(patterns[i][j]);
-			if (x >= t.size())
-			{
-				t.resize(x + 1);
-			}
-			if (t[x].next[index] != -1)
-			{
-				x = t[x].next[index];
-			}
-			else
-			{
-				t[x].next[index] = t.size();
-				x = t[x].next[index];
-				t.resize(x + 1);
-			}
-		}
-		t[x].patternEnd = true;
-	}
-
+vector<int> find_pattern(const string& pattern, const string& text) {
+  vector<int> result;
+  string p_t = pattern + '$' + text;
+  vector<int> s(p_t.size());
+  compute_prefix(p_t, s);
+  for (int i = pattern.size() + 1; i < p_t.size(); i++) {
+    if (s[i] == pattern.size()) {
+      result.push_back(i - 2 * pattern.size());
+    }
+  }
+  return result;
 }
 
-vector <int> solve (const string& text, int n, const vector <string>& patterns)
-{
-	vector <int> result;
-
-	// write your code here
-	vector<Node> t;
-	build_trie(patterns, t);
-
-	for (int i = 0; i < text.size(); i++)
-	{
-		int index = letterToIndex(text[i]);
-		int x = 0;
-		if (t[x].next[index] != -1)
-		{
-			bool found = true;
-			for (int j = i; !t[x].patternEnd ; j++)
-			{
-				if (j >= text.size())
-				{
-					found = false;
-					break;
-				}
-				index = letterToIndex(text[j]);
-				if (t[x].next[index] != -1)
-				{
-					x = t[x].next[index];
-				}
-				else
-				{
-					found = false;
-					break;
-				}
-			}
-			if (found)
-			{
-				result.push_back(i);
-			}
-		}
-	}
-
-	return result;
+int main() {
+  string pattern, text;
+  cin >> pattern;
+  cin >> text;
+  vector<int> result = find_pattern(pattern, text);
+  for (int i = 0; i < result.size(); ++i) {
+    printf("%d ", result[i]);
+  }
+  printf("\n");
+  return 0;
 }
-
-int main (void)
-{
-	string t;
-	cin >> t;
-
-	int n;
-	cin >> n;
-
-	vector <string> patterns (n);
-	for (int i = 0; i < n; i++)
-	{
-		cin >> patterns[i];
-	}
-
-	vector <int> ans;
-	ans = solve (t, n, patterns);
-
-	for (int i = 0; i < (int) ans.size (); i++)
-	{
-		cout << ans[i];
-		if (i + 1 < (int) ans.size ())
-		{
-			cout << " ";
-		}
-		else
-		{
-			cout << endl;
-		}
-	}
-
-	return 0;
-}
-// tries matching extended
