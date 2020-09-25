@@ -22,10 +22,33 @@ typedef vector<int> vi;
 typedef pair<ll, ll> pl;
 typedef pair<int, int> pi;
 
+ll infi = (ll)1e15;
+string table[] = { " ", ".+@$", "abc", "def", "ghi", "jkl" , "mno", "pqrs" , "tuv", "wxyz" };
+
+void solve( string num , int i, string ans){
+
+    if(num[i] == '\0'){
+        cout<<ans<<"\n";
+        return;
+    }
+
+    int pos = num[i] - '0' ;
+
+    for(int j = 0 ; j < table[pos].length() ; j++){
+        ans[i] = table[pos][j];
+        solve(num,i+1,ans);
+    }
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
+    
+    string num;
+    cin>>num;
+    string ans(num.length(),'0');
+    solve(num,0,ans);
     return 0;
 }

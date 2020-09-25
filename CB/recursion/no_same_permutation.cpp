@@ -22,20 +22,23 @@ typedef pair<int, int> pi;
 
 int infi = 1000000007;
 
-set<vector<int> > st;
+vector<vector<int>> st;
 vector<int> arr(11);
+
+vector<vector<int>> dp (11,vector<int>(11,-1));
 
 void solve(vector<int> arr, vector<int> ans, int k, int n){
 
     if(k == n){
-        st.insert(ans);
+        st.push_back(ans);
         return;
     }
 
     for(int i =0; i < n; i++){
         int ch = arr[i];
         ans[k] = ch;
-        if(arr[i] != 0){
+        if(arr[i] != 0 && dp[arr[i]][k] == -1){
+            dp[arr[i]][k] = 1;
             arr[i] = 0;
             solve(arr,ans,k+1,n);
             arr[i] = ch;
@@ -61,6 +64,12 @@ int main()
 		for(auto it1 : it){
 			cout<<it1<<" ";
 		}nl
+    }
+
+    for(int i=0; i<4; i++){
+        for(int j=0; j<4; j++){
+            cout<<dp[i][j]<<" ";
+        }nl
     }
     return 0;
 }

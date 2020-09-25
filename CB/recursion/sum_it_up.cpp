@@ -22,26 +22,27 @@ typedef pair<int, int> pi;
 
 int infi = 1000000007;
 
-set<vector<int> > st;
-vector<int> arr(11);
+set<vector<int>>f_ans;
+int n;
 
-void solve(vector<int> arr, vector<int> ans, int k, int n){
+void dev(vector<int> arr,int pos,int t, vector<int>ans){
 
-    if(k == n){
-        st.insert(ans);
+    if(t == 0){
+        sort(ans.begin(),ans.end());
+        f_ans.insert(ans);
+        return;
+    }
+    if(pos == n){
         return;
     }
 
-    for(int i =0; i < n; i++){
-        int ch = arr[i];
-        ans[k] = ch;
-        if(arr[i] != 0){
-            arr[i] = 0;
-            solve(arr,ans,k+1,n);
-            arr[i] = ch;
-        }
-    }
+    
 
+    int np = pos+1;
+    dev(arr,np,t,ans);
+    // 
+    ans.push_back(arr[pos]);
+    dev(arr,np,t-arr[pos],ans);
 }
 
 int main()
@@ -49,18 +50,19 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-	int n;
-	cin>>n;
-	for(int i =0 ;i < n; i++){
-		cin>>arr[i];
-	}
-	vector<int> ans(n,0);
-    solve(arr,ans,0,n);
-	vector<string> vect;
-    for(auto it : st){
-		for(auto it1 : it){
-			cout<<it1<<" ";
-		}nl
+    cin>>n;
+    vector<int> arr(n);
+    fr(i,n){
+        cin >>arr[i];
+    }
+    int t;
+    cin>>t;
+    vector<int> ans;
+    dev(arr,0,t,ans);
+    for(auto it : f_ans){
+        for(auto it1 : it){
+            cout<<it1<<" ";
+        }nl
     }
     return 0;
 }

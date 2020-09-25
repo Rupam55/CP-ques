@@ -22,26 +22,30 @@ typedef pair<int, int> pi;
 
 int infi = 1000000007;
 
-set<vector<int> > st;
-vector<int> arr(11);
+set<string> st;
+string s;
 
-void solve(vector<int> arr, vector<int> ans, int k, int n){
+void solve(string s, string ans, int k)
+{
 
-    if(k == n){
+    if (s[k] == '\0')
+    {
+
         st.insert(ans);
         return;
     }
 
-    for(int i =0; i < n; i++){
-        int ch = arr[i];
+    for (int i = 0; i < s.length(); i++)
+    {
+        char ch = s[i];
         ans[k] = ch;
-        if(arr[i] != 0){
-            arr[i] = 0;
-            solve(arr,ans,k+1,n);
-            arr[i] = ch;
+        if (s[i] != '0')
+        {
+            s[i] = '0';
+            solve(s, ans, k + 1);
+            s[i] = ch;
         }
     }
-
 }
 
 int main()
@@ -49,18 +53,14 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-	int n;
-	cin>>n;
-	for(int i =0 ;i < n; i++){
-		cin>>arr[i];
-	}
-	vector<int> ans(n,0);
-    solve(arr,ans,0,n);
-	vector<string> vect;
-    for(auto it : st){
-		for(auto it1 : it){
-			cout<<it1<<" ";
-		}nl
+    cin >> s;
+    string ans(s.length(), '1');
+    solve(s, ans, 0);
+    for (auto it : st)
+    {
+        if(it > s){
+            cout<<it<<"\n";
+        }
     }
     return 0;
 }

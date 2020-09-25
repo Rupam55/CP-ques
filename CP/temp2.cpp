@@ -1,28 +1,61 @@
 #include <stdio.h>
 
-using namespace std;
+using namespace std; 
 
-int main()
+void heapify(int arr[], int n, int i) 
 { 
-    int array[50];
-    int n,i,j,temp, check = 1;
-    scanf("%d",&n);
-    for(i = 0;i< n;i++){
-        scanf("%d",&array[i]);
-    }
+	int largest = i;  
+	int l = 2*i + 1; 
+	int r = 2*i + 2;  
+  int temp;
+	 
+	if (l < n && arr[l] > arr[largest]) 
+		largest = l; 
 
-    for(i = 0; i< n && check == 1; i++){
-        for(j = 0; j< n-1-i; j++){
-            check = 0;
-            if(array[j]>array[j+1]){
-                temp = array[j];
-                array[j] = array[j+1];
-                array[j+1] = temp;
-                check = 1;
-            }
-        }    
-    }
-    for(i = 0;i< n;i++){
-        printf("%d ",array[i]);
-    }
-}
+	 
+	if (r < n && arr[r] > arr[largest]) 
+		largest = r; 
+
+	 
+	if (largest != i) 
+	{ 
+    temp = arr[largest];
+    arr[largest] = arr[i];
+    arr[i] = temp;  
+		heapify(arr, n, largest); 
+	} 
+} 
+
+
+void heapSort(int arr[], int n) 
+{ 
+  int temp;
+
+	for (int i = n / 2 - 1; i >= 0; i--) 
+		heapify(arr, n, i); 
+
+	
+	for (int i=n-1; i>0; i--) 
+	{ 
+		temp = arr[0];
+    arr[0] = arr[i];
+    arr[i] = temp;
+
+		
+		heapify(arr, i, 0); 
+	} 
+} 
+
+int main() 
+{ 
+	int arr[] = {12, 11, 13, 5, 6, 7}; 
+	int n = sizeof(arr)/sizeof(arr[0]);
+  int i; 
+
+	heapSort(arr, n); 
+
+	for(i=0; i<n; i++){
+    printf("%d ",arr[i]);
+  }
+
+} 
