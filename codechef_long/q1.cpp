@@ -20,26 +20,52 @@ typedef long double ld;
 typedef vector<int> vi;
 typedef pair<int, int> pi;
 
+bool flag = false;
+
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll t;
+    ll t = 1;
     cin >> t;
     while (t--)
     {
-        ll h,p;
-        cin>>h>>p;
-        ll res = (2*p)-1;
-        if(res>=h){
-            cout<<1;
-            nl
-        }else{
-            cout<<0;
+        ll n = 1, x = 1, y = 1, k = 1;
+        cin >> n >> k >> x >> y;
+
+        vector<bool> flag(n, true);
+
+        flag[x] = false;
+
+        if (x == y)
+        {
+            cout << "YES";
             nl
         }
+        else if (k == 0)
+        {
+            cout << "NO";
+            nl
+        }
+        else
+        {
+            for (int i = (x + k)%n; i != x; i = (i + k) % n)
+            {
+                flag[i] = false;
+            }
+            if (flag[y] == false)
+            {
+                cout << "YES";
+                nl
+            }
+            else
+            {
+                cout << "NO";
+                nl
+            }
+        }
     }
-    return 0;
+return 0;
 }
-// dev_
+//dev

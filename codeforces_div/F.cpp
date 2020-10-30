@@ -5,32 +5,77 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
+typedef vector<ll> vi;
+typedef pair<ll, ll> pi;
 
-#define fr(i,n)             for (ll i=0;i<n;i++)
-#define fr1(i,n)            for(ll i=1;i<=n;i++)
-#define pb(x)               push_back(x)
-#define l(s)                s.size()
-#define as(a)               sort(a,a+n)
-#define ds(a)               sort(a,a+n,greater<int>())
-#define vas(v)              sort(v.begin(), v.end());
-#define inf                 1e18
-#define nl                  cout<<endl;
+#define fr(i, n) for (ll i = 0; i < n; i++)
+#define fr1(i, n) for (ll i = 1; i <= n; i++)
+#define pb(x) push_back(x)
+#define l(s) s.size()
+#define as(a) sort(a.begin(), a.end())
+#define ds(a) sort(a.begin(), a.end(), greater<ll>())
+#define vs(v) sort(v.begin(), v.end())
+#define nl cout << endl;
 #define F first
 #define S second
-typedef vector<int> vi;
-typedef pair<int, int> pi;
+#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
+// clear input stream berore it
+// cin.ignore(numeric_limits<streamsize>::max(),'\n');
+// getline(cin, str); 
+
+ll inf = 1e18;
+ll mod = 1e9 + 7 ;
+ll gcd(ll a , ll b){return b==0?a:gcd(b,a%b);}
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    
+
     ll t;
     cin>>t;
     while(t--){
+        ll n,hig=INT_MIN,pos =0;
+        cin>>n;
+        vector<ll> arr(n);
+        set<ll> st;
+        for(ll i=0; i<n; i++){
+            cin>>arr[i];
+            st.insert(arr[i]);
+        } 
         
+        if(hig <= arr[0]){
+            hig = arr[0];
+            if(arr[0] > arr[1]){
+                pos = 0;
+            }
+        }
+
+        for(ll i=1; i<n-1; i++){
+            if(hig <= arr[i]){
+                hig = arr[i];
+                if(arr[i] > arr[i+1] || arr[i] > arr[i-1]){
+                    pos = i;
+                }
+            }
+        }
+
+        if(hig <= arr[n-1]){
+            hig = arr[n-1];
+            if(arr[n-1] > arr[n-2]){
+                pos = n-1;
+            }
+        }
+
+        if(st.size() == 1){
+            cout<<-1;
+            nl
+        }else{
+            cout<<pos+1;
+            nl
+        }
     }
+    
     return 0;
 }
-// dev_
- 
+//dev

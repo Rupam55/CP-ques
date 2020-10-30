@@ -22,46 +22,25 @@ typedef pair<int, int> pi;
 
 int infi = 1000000007;
 
+int countDigit(long long n) 
+{ 
+    return floor(log10(n) + 1); 
+}
+
 int main()
 {
 
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 
-	int t;
-	cin >> t;
-	while (t--)
-	{
-		string s;
-        cin>>s;
-        map<int,int>mp;
-        for(int i = 0; i < s.length(); i++){
-            int j = i;
-            int count = 0; 
-            while(j < s.length() && s[j]=='1'){
-                count++;
-                j++;
-            }
-            mp[count]++;
-            i=j;
-        }
-        int count = 1,alice = 0, other = 0;
-        for(auto it = mp.rbegin(); it != mp.rend(); ++it){
-            while(it->first != 0 && mp[it->first] >0){
-                if(count & 1){
-                    alice+=it->first;
-                    mp[it->first]--;
-                    count++;
-                }else{
-                    other+=it->first;
-                    mp[it->first]--;
-                    count++;
-                }
-            }
-        }
-        cout<<alice;
-        nl 
-	}
+	ll t;
+    cin>>t;
+    while(t--){
+        ll a,b;
+        cin>>a>>b;
+        cout<<a* (countDigit(b+1)-1);
+        nl
+    }
 
 	return 0;
 }

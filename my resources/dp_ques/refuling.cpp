@@ -34,8 +34,41 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    
+    int n;
+    cin>>n;
+    vector<int> arr(n);
+    fr(i,n){
+        cin>>arr[i];
+    }
 
-    Time();
+    int current_val = 0;
+    int height_val = arr[0];
+    int count=0;
+    int i = 0;
+    for(i=0; i<n && current_val >= 0; i++){
+        if(current_val == 0 && i != n-1){
+            count++;
+            if(arr[i] > height_val){
+                current_val = arr[i];
+                height_val = arr[i];
+            }else{
+                current_val = height_val;
+            }
+            current_val --;
+            height_val--;
+        }else{
+            if(arr[i] > height_val){
+                height_val = arr[i];
+            }
+            current_val --;
+            height_val--;
+        }
+    }
+
+    if(i == n){
+        cout<<count;
+    }else{
+        cout<<"NOT POSSIBLE";
+    }
     return 0;
 }

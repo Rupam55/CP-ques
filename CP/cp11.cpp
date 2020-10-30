@@ -27,47 +27,31 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    int n, k1, k2, a;
-    deque<int> dq1;
-    deque<int> dq2;
-    cin>>n>>k1;
-    fr(i,k1){
-        cin>>a;
-        dq1.push_front(a);
-    }
+    ll t;
+	cin>>t;
+	while(t--){
+		ll n;
+		cin>>n;
 
-    cin>>k2;
-    fr(i,k2){
-        cin>>a;
-        dq2.push_front(a);
-    }
-    int count =0 ;
-    while( !dq1.empty() && !dq2.empty()){
-        int x = dq1.back();
-        dq1.pop_back();
-        int y = dq2.back();
-        dq2.pop_back();
-
-        if(x>y){
-            dq1.push_front(y);
-            dq1.push_front(x);
-        }else if(y>x){
-            dq2.push_front(x);
-            dq2.push_front(y);
-        }
-        count++;
-        if(count == 3628800){
-            cout<<-1;
-            return 0;
-        }
-    }
-    cout<<count;
-    nl
-    if(dq1.empty()){
-        cout<<2;
-    }else{
-        cout<<1;
-    }
-    return 0;
+        bool flag = true;
+		for(int i=2 ; i*i< n && flag; i++){
+			if(n %i == 0){
+				ll num = n/i;
+				for(int j = i+1; j*j < num && flag; j++){
+					if(num % j == 0){
+						if(i != j && i != num && j != num){
+							cout<<"YES"<<"\n"<<i<<" "<<j<<" "<<num/j<<"\n";
+							flag = false;
+						}
+					}
+				}
+			}
+		}
+		if(flag){
+			cout<<"NO";
+			nl
+		}
+	}
 }
-// dev
+// dev 
+

@@ -23,22 +23,16 @@ typedef pair<ll, ll> pl;
 typedef pair<int, int> pi;
 
 ll infi = (ll)1e15;
-string table[] = { " ", ".+@$", "abc", "def", "ghi", "jkl" , "mno", "pqrs" , "tuv", "wxyz" };
-vector<string> arr;
 
-void solve( string num , int i, string ans){
-
-    if(num[i] == '\0'){
-        arr.push_back(ans);
-        return;
+int count(int n)
+{
+    int cnt = 0;
+    while (n % 2 == 0)
+    {
+        n /= 2;
+        cnt++;
     }
-
-    int pos = num[i] - '0' ;
-
-    for(int j = 0 ; j < table[pos].length() ; j++){
-        ans[i] = table[pos][j];
-        solve(num,i+1,ans);
-    }
+    return pow(2, cnt);
 }
 
 int main()
@@ -46,24 +40,42 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    
-    string num;
-    cin>>num;
-    string ans(num.length(),'0');
-    solve(num,0,ans);
-    string searchIn [11] = {
-            "prateek", "sneha", "deepak", "arnav", "shikha", "palak",
-            "utkarsh", "divyam", "vidhi", "sparsh", "akku"
-    };
+    ll a, b;
+    cin >> a >> b;
+    vector<pair<ll, ll>> arr;
 
-    for(int i =0 ;i < 11; i++){
-        string first = searchIn[i];
-        for(int j = 0; j < arr.size(); j++){
-            if(first.find(arr[j]) != string::npos){
-                cout<<first<<"\n";
-                break;
-            }
+    for (int i = 1; i <= b; i++)
+    {
+        ll res = count(i);
+        arr.push_back({res, i});
+    }
+    vi vec;
+    sort(arr.rbegin(), arr.rend());
+    ll sum = 0, num = 0;
+    for (auto it : arr)
+    {
+        if (sum + it.first <= a)
+        {
+            sum += it.first;
+            num++;
+            vec.push_back(it.second);
         }
+        if (sum == a)
+        {
+            break;
+        }
+    }
+    if (sum == a)
+    {
+        cout << num;
+        nl for (auto it : vec)
+        {
+            cout << it << " ";
+        }
+    }
+    else
+    {
+        cout << -1;
     }
     return 0;
 }

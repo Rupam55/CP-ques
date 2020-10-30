@@ -27,20 +27,32 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n, m;
-    cin >> n >> m;
-    if (n == 1)
-    {
-        cout << 1;
-        return 0;
-    }
-    if (m - 1 < n - m)
-    {
-        cout << m + 1;
-    }
-    else
-    {
-        cout << m - 1;
-    }
+    ll t;
+	cin>>t;
+	while(t--){
+		ll n;
+		cin>>n;
+		vi a(n+1);
+		fr1(i,n){
+			cin>>a[i];
+		}
+
+		vi dp(n+1,1); 
+
+		for(int i = 1; i<=n; i++){
+			for(int j = i*2; j<=n; j += i){
+				// cout<<i<<" "<<j<<"\n";
+				if(a[i]<a[j]){
+					dp[j] = max(dp[j],dp[i]+1);
+				}
+			}
+		} 
+	
+		int ans = 0;
+		for(int i = 1; i<=n; i++)
+			ans = max(ans,dp[i]);
+		cout << ans << endl;
+	} 
 }
-// dev
+// dev 
+

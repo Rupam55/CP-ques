@@ -5,8 +5,6 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
-typedef vector<int> vi;
-typedef pair<int, int> pi;
 
 #define fr(i, n) for (ll i = 0; i < n; i++)
 #define fr1(i, n) for (ll i = 1; i <= n; i++)
@@ -19,37 +17,43 @@ typedef pair<int, int> pi;
 #define nl cout << "\n";
 #define F first
 #define S second
+typedef vector<int> vi;
+typedef pair<int, int> pi;
+
+bool flag = false;
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll t;
+    ll t = 1;
     cin >> t;
     while (t--)
     {
-        ll n,m;
-        cin>>n>>m;
-        vi arr(n);
+        ll n=1,k=1;
+        cin>>n>>k;
+        vector<ll> arr(n);
         fr(i,n){
             cin>>arr[i];
         }
-        ll mini=INT_MAX;
-        ll pos;
-        bool flag = false;
+        ll ans=0,steps=0;
         fr(i,n){
-            if(m%arr[i] == 0){
-                flag = true;
-                if(mini > (m/arr[i])-1){
-                    mini = (m/arr[i])-1;
-                    pos = arr[i];
-                }
+            ans += arr[i];
+            steps++;
+            if(ans < k){
+                ans -= k;
+                cout<<steps;
+                break;
+            }else{
+                ans-=k;
             }
         }
-        if(flag) cout<<pos<<"\n";
-        else cout<<-1<<"\n";
+        if(ans > 0){
+            cout<<steps + ans/k + 1;
+        }
+        nl
     }
-    return 0;
+return 0;
 }
-// dev_
+//dev

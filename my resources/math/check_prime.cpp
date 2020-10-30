@@ -21,21 +21,39 @@ typedef pair<int, int> pi;
 #define F first
 #define S second
 #define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
-// clear input stream berore it
-// cin.ignore(numeric_limits<streamsize>::max(),'\n');
-// getline(cin, str); 
-
-ll inf = 1e18;
-ll mod = 1e9 + 7 ;
-ll gcd(ll a , ll b){return b==0?a:gcd(b,a%b);}
-
-int main()
-{
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-
+   
+bool isPrime(int n) 
+{ 
     
+    if (n <= 1) 
+        return false; 
+    if (n <= 3) 
+        return true; 
+  
+    if (n % 2 == 0 || n % 3 == 0) 
+        return false; 
+  
+    for (int i = 5; i * i <= n; i = i + 6) 
+        if (n % i == 0 || n % (i + 2) == 0) 
+            return false; 
+  
+    return true; 
+} 
+  
+int arr[1001];
 
-    Time();
-    return 0;
-}
+void printPrime(int n) 
+{ 
+    for (int i = 2; i <= n; i++) { 
+        if (isPrime(i)) 
+            arr[i] = 1; 
+    } 
+} 
+
+int main() 
+{ 
+    int n ;
+    cin >> n; 
+    printPrime(n);
+    Time(); 
+} 
