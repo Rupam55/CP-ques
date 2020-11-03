@@ -24,58 +24,43 @@ typedef pair<int, int> pi;
 
 ll infi = (ll)1e15;
 
-int count(int n)
-{
-    int cnt = 0;
-    while (n % 2 == 0)
-    {
-        n /= 2;
-        cnt++;
-    }
-    return pow(2, cnt);
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll a, b;
-    cin >> a >> b;
-    vector<pair<ll, ll>> arr;
+    ll n, sum = 0;
+    cin >> n;
+    vector<ll> arr(n);
+    fr(i, n)
+    {
+        cin >> arr[i];
+        sum += arr[i];
+    }
 
-    for (int i = 1; i <= b; i++)
+    ll m;
+    cin >> m;
+    vector<pair<ll, ll>> brr;
+    fr(i, m)
     {
-        ll res = count(i);
-        arr.push_back({res, i});
+        ll a, b;
+        cin >> a >> b;
+        brr.push_back({a, b});
     }
-    vi vec;
-    sort(arr.rbegin(), arr.rend());
-    ll sum = 0, num = 0;
-    for (auto it : arr)
-    {
-        if (sum + it.first <= a)
-        {
-            sum += it.first;
-            num++;
-            vec.push_back(it.second);
-        }
-        if (sum == a)
-        {
-            break;
-        }
-    }
-    if (sum == a)
-    {
-        cout << num;
-        nl for (auto it : vec)
-        {
-            cout << it << " ";
+
+    sort(brr.begin(), brr.end());
+
+    fr(i,m){
+        if(brr[i].first <= sum && brr[i].second >= sum){
+            cout<<sum;
+            return 0;
+        }else if(brr[i].first >= sum){
+            cout<<brr[i].first;
+            return 0;
         }
     }
-    else
-    {
-        cout << -1;
-    }
+
+    cout<< -1;
     return 0;
+
 }

@@ -1,38 +1,59 @@
-#include<stdio.h>
+#include <bits/stdc++.h>
 
-int matrix_chain(int arr[], int n){
-    int dp[n][n];
-    int i,j,k,l,q;
-    
-    for(i=1; i<n; i++){
-        dp[i][i]=0;
-    }
-    
-    for(l = 2; l<n; l++){
-        for(i=1; i<n-l+1; i++){
-            j = i+l-1;
-            dp[i][j] = INT_MAX;
-            for(k=i; k<=j-1; k++){
-                q = dp[i][k] + dp[k+1][j] + arr[i-1]*arr[k]*arr[j];
-                if(q < m[i][j]){
-                    dp[i][j] = q;
-                }
-            }
+using namespace std;
+
+typedef unsigned long long ull;
+typedef long long ll;
+typedef long double ld;
+typedef vector<ll> vl;
+typedef vector<ll> vi;
+typedef pair<ll, ll> pl;
+typedef pair<ll, ll> pi;
+
+#define fr(i, n) for (ll i = 0; i < n; i++)
+#define fr1(i, n) for (ll i = 1; i <= n; i++)
+#define pb(x) push_back(x)
+#define l(s) s.size()
+#define as(a) sort(a.begin(), a.end())
+#define ds(a) sort(a.begin(), a.end(), greater<ll>())
+#define vs(v) sort(v.begin(), v.end())
+#define nl cout << endl;
+#define F first
+#define S second
+#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
+// clear input stream berore it
+// cin.ignore(numeric_limits<streamsize>::max(),'\n');
+// getline(cin, str);
+
+ll inf = 1e18;
+ll mod = 1e9 + 7;
+ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
+
+int reduceZero(int N)
+{
+
+    vector<int> dp(N + 1, 1e9);
+
+    dp[0] = 0;
+
+    for (int i = 0; i <= N; i++)
+    {
+
+        for (char c : to_string(i))
+        {
+
+            dp[i] = min(dp[i] , dp[i - (c - '0')] + 1);
         }
     }
-    
-    return m[1][n-1];
-    
+
+    return dp[N];
 }
 
-int main(){
-    
-    int n, arr[1000];
-    scanf("%d",&n);
-    for(int i=0; i<n; i++){
-        scanf("%d", & arr[i]);
-    }
-    
-    matrix_chain(arr,n);
-    
+int main()
+{
+
+    ll N;
+    cin >> N;
+    cout << reduceZero(N);
+    return 0;
 }

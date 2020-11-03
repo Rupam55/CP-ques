@@ -34,26 +34,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll t;
-    cin>>t;
-    while(t--){
-        ll n,k;
-        cin>>n>>k;
-        ll mini = INT_MAX,maxi=INT_MIN;
+   
 
-        vl arr(n);
-        fr(i,n){
-            cin>>arr[i];
-            mini = min(mini,arr[i]);
-            maxi = max(maxi,arr[i]);
-        }
-        ll ans  = mini + k;
-        if(abs(ans - maxi) > k){
-            cout<<-1;
-        }else{
-            cout<<ans;
-        }
-        nl
-    }
     return 0;
 }

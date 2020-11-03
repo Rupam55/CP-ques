@@ -5,11 +5,15 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
-typedef vector<ll> vl;
-typedef vector<int> vi;
-typedef pair<ll, ll> pl;
-typedef pair<int, int> pi;
+typedef vector<ll> vi;
+typedef vector<vector<ll>> vvi;
+typedef vector<pair<ll, ll>> vp;
+typedef pair<ll, ll> pi;
 
+#define bg begin()
+#define rbg rbegin()
+#define ed end()
+#define red rend()
 #define fr(i, n) for (ll i = 0; i < n; i++)
 #define fr1(i, n) for (ll i = 1; i <= n; i++)
 #define pb(x) push_back(x)
@@ -34,25 +38,49 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n;
-    cin >> n;
-    vector<ll> arr(n);
-    vector<ll> brr(n);
-    for(int i=0; i<n; i++){
-        cin >> arr[i];
-    }
+    ll n, a, b;
+    cin >> n >> a >> b;
 
-    brr[0] = arr[0];
-    brr[1] = min(arr[1], brr[0]); 
-    for (int i = 2; i < n; i++)
+    string s;
+    cin >> s;
+    ll count = 0;
+    bool flag = false;
+
+    ll temp = max(a, b);
+    b = min(a, b);
+    a = temp;
+
+    for (int i = 0; s[i] != '\0'; i++)
     {
-        brr[i] = min(arr[i], max(brr[i - 1], brr[i - 2]));
+        if (s[i] == '.')
+        {
+            if (a > 0)
+            {
+                s[i] = 'a';
+                a--;
+            }
+            swap(a, b);
+        }
+        else
+        {
+            ll temp = max(a, b);
+            b = min(a, b);
+            a = temp;
+        }
     }
 
-    // for (auto it : brr)
-    // {
-    //     cout << it << " ";
-    // }
+    ll ans = 0;
 
-    cout<< brr.back();
+    for (int i = 0; s[i] != '\0'; i++)
+    {
+        if (s[i] == 'a')
+        {
+            ans++;
+        }
+        // cout << s[i];
+    }
+
+    cout << ans;
+
+    return 0;
 }

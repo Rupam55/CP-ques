@@ -21,11 +21,11 @@ typedef pair<ll, ll> pi;
 #define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
 // clear input stream berore it
 // cin.ignore(numeric_limits<streamsize>::max(),'\n');
-// getline(cin, str); 
+// getline(cin, str);
 
 ll inf = 1e18;
-ll mod = 1e9 + 7 ;
-ll gcd(ll a , ll b){return b==0?a:gcd(b,a%b);}
+ll mod = 1e9 + 7;
+ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 
 int main()
 {
@@ -33,40 +33,92 @@ int main()
     cin.tie(NULL);
 
     ll t;
-    cin>>t;
-    while(t--){
-        ll n;
-        cin>>n;
-        vector<ll> arr(n);
-        fr(i,n){
-            cin>>arr[i];
+    cin >> t;
+    while (t--)
+    {
+        ll a, b;
+        cin >> a >> b;
+        string s;
+        cin >> s;
+
+        vector<pair<int, int>> arr;
+        vector<pair<int, int>> brr;
+        ll count = 0, count_0 = 0;
+        bool flag = false;
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (s[i] == '1')
+            {
+                count++;
+                flag = true;
+                if (count_0 != 0)
+                {
+                    brr.push_back({count_0, 0});
+                    count_0 = 0;
+                }
+            }
+            else if (count != 0 && s[i] == '0')
+            {
+                arr.push_back({count, 0});
+                count = 0;
+            }
+            if (s[i] == '0' && flag)
+            {
+                count_0++;
+            }
         }
+        if (count != 0)
+        {
+            arr.push_back({count, 0});
+        }
+
+        // for (auto it : arr)
+        // {
+        //     cout << it.first << " " << it.second;
+        //     nl
+        // }
+        // nl for (auto it : brr)
+        // {
+        //     cout << it.first << " " << it.second;
+        //     nl
+        // }
 
         ll ans = 0;
-        bool flag = false;
-        for(int i=0; i<n; i++){
-            if(arr[i] == 1){
-                flag = true;
-            }
-            else if(arr[i] == 0 && flag == true){
-                ans++;
-            }
-        }
-        ll num=0;
-        flag = false;
-        for(int i = n-1; i>=0; i--){
-            if(arr[i] == 1){
-                flag = true;
-            }
-            if(arr[i] == 0 && flag == false){
-                num++;
-            }
-        }
 
-        cout<<ans-num;
+        for (int i = 0; i < brr.size(); i++)
+        {
+            if ((brr[i].first) * b < 2 * a)
+            {
+                ans += (brr[i].first) * b;
+                if (arr[i].second == 0)
+                {
+                    arr[i].second = 1;
+                    arr[i + 1].second = 1;
+                    ans += a;
+                }
+                else
+                {
+                    arr[i].second = 1;
+                    arr[i + 1].second = 1;
+                }
+            }
+            else
+            {
+                if (arr[i].second == 0)
+                {
+                    arr[i].second = 1;
+                    ans+=a;
+                }
+            }
+        }
+        if (arr[arr.size() - 1].second == 0)
+        {
+            ans += a;
+        }
+        cout << ans;
         nl
     }
-    
+
     return 0;
 }
 //dev

@@ -31,23 +31,92 @@ ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 
 int main()
 {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
 
-    ll n;
-	cin>>n;
+	ll n, d, l, no_o, no_e;
+	cin >> n >> d >> l;
 
-	vi arr(n);
-	fr(i,n) cin>>arr[i];
+	vector<int> arr(n);
 
-	ll sum =0;
-	for(int i=1; i<n; i++){
-		if(arr[i] < arr[i-1]){
-			sum += abs(arr[i]-arr[i-1]);
+	if (n & 1)
+	{
+		no_o = (n / 2) + 1, no_e = n / 2;
+	}
+	else
+	{
+		no_o = (n / 2), no_e = n / 2;
+	}
+
+	if (d > 0)
+	{
+		for (int i = 1; i < n; i += 2)
+		{
+			arr[i] = 1;
+		}
+
+		if (no_e + d <= no_o * l && no_e + d >= no_o)
+		{
+			ll sum = no_e + d, val = sum / no_o, rem = sum - no_o*val;
+			for (int i = 0; i < n; i += 2)
+			{
+				arr[i] = val;
+			}
+			for (int i = 0; i < n; i += 2)
+			{
+				if(arr[i] < l){
+					ll a = l - arr[i];
+					ll b = min (a, rem);
+					arr[i] += b;
+					rem -= b;
+				}
+			}
+		}
+		else
+		{
+			cout << -1;
+			return 0;
 		}
 	}
-	
-	cout<<sum;
+	else
+	{
 
-    return 0;
+		// odd - even  = -d;
+
+		for (int i = 0; i < n; i += 2)
+		{
+			arr[i] = 1;
+		}
+
+		if (no_o - d <= no_e * l && no_o - d >= no_e)
+		{
+			ll sum = no_o - d, val = sum / no_e, rem = sum - no_e*val;
+			for (int i = 1; i < n; i += 2)
+			{
+				arr[i] = val;
+			}
+			for (int i = 1; i < n; i += 2)
+			{
+				if(arr[i] < l && rem > 0){
+					// cout<<rem<<" ";
+					ll a = l - arr[i];
+					ll b = min (a, rem);
+					arr[i] += b;
+					rem -= b;
+				}
+			}
+		}
+		else
+		{
+			cout << -1;
+			return 0;
+		}
+	}
+
+	for (auto it : arr)
+	{
+		cout << it << " ";
+	}
+
+	return 0;
 }

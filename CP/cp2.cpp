@@ -34,50 +34,30 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n,m;
-    cin>>n>>m;
-    ll num = 1,res = 0,i = 1, ans = 0, dup = n, dup_2 =n;
-    while(n>0){
+    ll n, m;
+    cin >> n >> m;
+    vi arr(n+1);
+    vi brr(m+1);
 
-        num = n % 10;
-        n = n/10;
-        res = res + i*num;
+    fr(i,n+1) cin>>arr[i];
+    fr(i,m+1) cin>>brr[i];
 
-        if(res+1 <= m){
-            ans = res+1;
-        }
-
-        i*=10;  
+    if (n < m)
+    {
+        cout << "0/1";
+    }
+    else if (n > m)
+    {
+        if(arr[0] * brr[0] < 0) cout<<"-";
+        cout<<"Infinity";
+    }
+    else
+    {
+        if(arr[0] * brr[0] < 0)cout<<"-";
+        if(arr[0] < 0){arr[0] = -arr[0];}
+        if(brr[0] < 0){brr[0] = -brr[0];}
+        cout<< arr[0] / gcd(arr[0],brr[0]) <<"/"<< brr[0] / gcd(arr[0],brr[0]);
     }
 
-    ll f_num = abs(dup - ans);
-    ll n_9_1 =0, n_9_2 =0;
-
-    while(dup_2 > 0){
-        ll a = dup_2%10;
-        dup_2 /= 10;
-        if(a == 9){
-            n_9_1++;
-        }else{
-            break;
-        }
-    }
-    while(f_num > 0){
-        ll a = f_num%10;
-        f_num /= 10;
-        if(a == 9){
-            n_9_2++;
-        }else{
-            break;
-        }
-    }
-    // cout<<n_9_1<<" "<<n_9_2;
-    if(n_9_2 > n_9_1){
-        cout<<abs(dup - ans);
-    }else if(n_9_1 == n_9_2){
-        cout<<dup;
-    }else{
-        cout<<dup;
-    }
     return 0;
 }
