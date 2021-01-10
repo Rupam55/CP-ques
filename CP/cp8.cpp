@@ -1,3 +1,4 @@
+// if you are reading this i will curse you
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -5,11 +6,15 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
-typedef vector<ll> vl;
-typedef vector<int> vi;
-typedef pair<ll, ll> pl;
-typedef pair<int, int> pi;
+typedef vector<ll> vi;
+typedef vector<vector<ll>> vvi;
+typedef vector<pair<ll, ll>> vp;
+typedef pair<ll, ll> pi;
 
+#define bg begin()
+#define rbg rbegin()
+#define ed end()
+#define red rend()
 #define fr(i, n) for (ll i = 0; i < n; i++)
 #define fr1(i, n) for (ll i = 1; i <= n; i++)
 #define pb(x) push_back(x)
@@ -23,52 +28,56 @@ typedef pair<int, int> pi;
 #define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
 // clear input stream berore it
 // cin.ignore(numeric_limits<streamsize>::max(),'\n');
-// getline(cin, str); 
+// getline(cin, str);
 
 ll inf = 1e18;
-ll mod = 1e9 + 7 ;
-ll gcd(ll a , ll b){return b==0?a:gcd(b,a%b);}
+ll mod = 1e9 + 7;
+ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
+
+// gv
+
+// gf
+
+//
+
+void dev()
+{
+    ll n,vb,vs,x,y;
+    cin>>n>>vb>>vs;
+
+    vector<ld> arr(n);
+    fr(i,n) cin>>arr[i];
+
+    cin>>x>>y;
+
+    ld mn = INT_MAX;
+    ll ans =1;
+    for(int i=1; i<n; i++){
+        ld dist_t =( sqrt((x-arr[i])*(x-arr[i]) + (y)*(y)) ) / vs;
+        ld time = arr[i] / vb;
+
+        if(dist_t + time <= mn){
+            // cout<<mn<<" "<<dist_t<<" "<<time;
+            // nl
+            mn = dist_t + time;
+            ans = i+1;
+        }
+    }
+
+    cout<<ans;
+}
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll n,m;
-    cin>>n>>m;
-    vector<ll> arr;
-
-    ll a = 1, b = -1;
-    if(m&1){
-        ll mid = m/2 +1;
-        for(int i =0; i<m; i++){
-            if(i == 0) arr.pb(mid);
-            else {
-                arr.pb(mid + b);
-                if(b>0) b++;
-                else b--;
-                swap(a,b);
-            }
-        }
-    }else{
-        ll mid_1 = m/2 ;
-        ll mid_2 = m/2 +1;
-        for(int i =0; i<m; i++){
-            if(i == 0) arr.pb(mid_1);
-            else if(i == 1) arr.pb(mid_2);
-            else {
-                arr.pb(mid_1 + b);
-                if(b>0) b++;
-                else b--;
-                swap(a, b);
-                swap(mid_1, mid_2);
-            }
-        }   
+    ll t = 1;
+    // cin >> t;
+    while (t--)
+    {
+        dev();
     }
-    for(int i=0; i<n; i++){
-        cout<<arr[i%m];
-        nl
-    }
-
+    // Time();
     return 0;
 }

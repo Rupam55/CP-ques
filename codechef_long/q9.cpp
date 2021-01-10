@@ -29,50 +29,56 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, k, maxi = INT_MIN;
-        cin >> n >> k;
-        map<ll, ll> mp;
-        for (ll i = 0; i < n; i++)
-        {
-            int a;
-            cin >> a;
-            mp[a]++;
-            maxi = max(maxi, mp[a]);
-        }
-        vector<map<ll, ll>> arr;
-        while (maxi--)
-        {
-            map<ll, ll> tem;
-            for (auto it : mp)
-            {
-                if (it.second > 0)
-                {
-                    mp[it.first]--;
-                    tem[it.first]++;
+
+        ll n = 1, k = 1;
+    cin >> n >> k;
+    k++;
+    string s,dumy="";
+    cin >> s;
+    ll found_pair = 0;
+
+    for (int i = 0; i <= n; i++)
+    {
+        if(s[i] == 'X' || i == n){
+            // cout<<dumy<<"\n";
+
+            vector<ll> pos (n+1);
+            queue<ll> iron;
+            queue<ll> mag;
+            ll cumm =0;
+            for(int j=0; j<dumy.length(); j++){
+                if(dumy[j] == ':'){
+                    cumm ++;
                 }
-            }
-            arr.push_back(tem);
-        }
-        ll ans = arr.size() * k;
-        for (int i = arr.size() - 1; i > 0; i--)
-        {
-            for (auto it : arr[i])
-            {
-                arr[i - 1][it.first] += arr[i][it.first];
-                arr[i][it.first] = 0;
-            }
-            ll curr = k * i;
-            ll disp = 0;
-            for (auto it : arr[i - 1])
-            {
-                if (it.second > 1)
-                {
-                    disp += it.second;
+                else if(dumy[j] == 'M'){
+                    mag.push(j);
                 }
+                if(dumy[j] == 'I'){
+                    iron.push(j);
+                }
+                pos[j]=cumm;
             }
-            ans = min(curr + disp, ans);
+
+            while(!mag.empty() && !iron.empty()){
+                ll mag_pos = mag.front();
+                ll iron_pos = iron.front();
+                // cout<<mag_pos<<" "<<iron_pos<<"\n";
+                if( k - abs(mag_pos - iron_pos) - abs(pos[iron_pos] - pos[mag_pos]) > 0){
+                    found_pair++;
+                    iron.pop();
+                }
+                mag.pop();
+            }
+
+            dumy = "";
         }
-        cout << ans << "\n";
+        else{
+            dumy += s[i];
+        }
+    }
+
+    cout<< found_pair;
+    nl
     }
     return 0;
 }

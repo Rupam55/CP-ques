@@ -33,14 +33,14 @@ inline void read(T &x)
      while (!isdigit(c = getchar()))
           ;
      do
-          x = x * 10 + c - 48;
+          x = x * 10 + c - 48;d
      while (isdigit(c = getchar()));
 }
 template <typename T>
 inline void writep(T x)
-{ 
+{
      if (x >= 10)
-          writep(x / 10); 
+          writep(x / 10);
      putchar(x % 10 + 48);
 }
 template <typename T>

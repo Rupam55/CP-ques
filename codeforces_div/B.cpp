@@ -1,3 +1,6 @@
+// If you are reading this i will curse you
+// "Its better to be hurt, than to hurt others. Nice people can live with just that"
+// The world is a cage to be reborn one must destroy a world.
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,18 +9,24 @@ typedef unsigned long long ull;
 typedef long long ll;
 typedef long double ld;
 typedef vector<ll> vi;
+typedef vector<vector<ll>> vvi;
+typedef vector<pair<ll, ll>> vp;
 typedef pair<ll, ll> pi;
 
-#define fr(i, n) for (ll i = 0; i < n; i++)
-#define fr1(i, n) for (ll i = 1; i <= n; i++)
+#define bg begin()
+#define rbg rbegin()
+#define ed end()
+#define red rend()
+#define fr(i, l, n) for (ll i = l; i < n; i++)
+#define fr1(i, l, n) for (ll i = l; i <= n; i++)
 #define pb(x) push_back(x)
 #define l(s) s.size()
 #define as(a) sort(a.begin(), a.end())
-#define ds(a) sort(a.begin(), a.end(), greater<ll>())
+#define ds(a) sort(a.begin(), a.end(), greater<int>())
 #define vs(v) sort(v.begin(), v.end())
 #define nl cout << endl;
-#define F first
-#define S second
+#define ff first
+#define ss second
 #define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
 // clear input stream berore it
 // cin.ignore(numeric_limits<streamsize>::max(),'\n');
@@ -26,99 +35,72 @@ typedef pair<ll, ll> pi;
 ll inf = 1e18;
 ll mod = 1e9 + 7;
 ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
+bool isPrime(int n){
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
+
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+
+    for (int i = 5; i * i <= n; i = i + 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
+
+    return true;
+}
+
+// gv
+
+// gf
+
+//
+
+void dev()
+{
+    ll n, n1 =0, n2 =0;
+    cin>>n;
+    for(int i=0; i<n; i++){
+        ll a;
+        cin>>a;
+        if(a == 1){
+            n1++;
+        }else{
+            n2++;
+        }
+    }
+
+    if(n1 % 2 == 1){
+        cout<<"NO";
+    }
+
+    else{
+        if(n2 % 2 == 0){
+            cout<<"YES";
+        }else{
+            if((n1 - 2) % 2 == 0 && n1 > 0){
+                cout<<"YES";
+            }
+            else{
+                cout<<"NO";
+            }
+        } 
+    }
+    nl
+}
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
 
-    ll t;
+    ll t = 1;
     cin >> t;
     while (t--)
     {
-        ll a, b;
-        cin >> a >> b;
-        string s;
-        cin >> s;
-
-        vector<pair<int, int>> arr;
-        vector<pair<int, int>> brr;
-        ll count = 0, count_0 = 0;
-        bool flag = false;
-        for (int i = 0; i < s.length(); i++)
-        {
-            if (s[i] == '1')
-            {
-                count++;
-                flag = true;
-                if (count_0 != 0)
-                {
-                    brr.push_back({count_0, 0});
-                    count_0 = 0;
-                }
-            }
-            else if (count != 0 && s[i] == '0')
-            {
-                arr.push_back({count, 0});
-                count = 0;
-            }
-            if (s[i] == '0' && flag)
-            {
-                count_0++;
-            }
-        }
-        if (count != 0)
-        {
-            arr.push_back({count, 0});
-        }
-
-        // for (auto it : arr)
-        // {
-        //     cout << it.first << " " << it.second;
-        //     nl
-        // }
-        // nl for (auto it : brr)
-        // {
-        //     cout << it.first << " " << it.second;
-        //     nl
-        // }
-
-        ll ans = 0;
-
-        for (int i = 0; i < brr.size(); i++)
-        {
-            if ((brr[i].first) * b < 2 * a)
-            {
-                ans += (brr[i].first) * b;
-                if (arr[i].second == 0)
-                {
-                    arr[i].second = 1;
-                    arr[i + 1].second = 1;
-                    ans += a;
-                }
-                else
-                {
-                    arr[i].second = 1;
-                    arr[i + 1].second = 1;
-                }
-            }
-            else
-            {
-                if (arr[i].second == 0)
-                {
-                    arr[i].second = 1;
-                    ans+=a;
-                }
-            }
-        }
-        if (arr[arr.size() - 1].second == 0)
-        {
-            ans += a;
-        }
-        cout << ans;
-        nl
+        dev();
     }
-
+    // Time();
     return 0;
 }
-//dev

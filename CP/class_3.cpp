@@ -1,84 +1,73 @@
+#include <stdbool.h>
 #include <stdio.h>
 
-void merge(int arr[], int l, int m, int r)
+int n = 4;
+int grid[15][15];
+
+void ini()
 {
-    int i, j, k;
-    int n1 = m - l + 1;
-    int n2 = r - m;
-
-    int L[n1], R[n2];
-
-    for (i = 0; i < n1; i++)
-        L[i] = arr[l + i];
-    for (j = 0; j < n2; j++)
-        R[j] = arr[m + 1 + j];
-
-    i = 0;
-    j = 0;
-    k = l;
-    while (i < n1 && j < n2)
+    for (int i = 0; i < 15; i++)
     {
-        if (L[i] <= R[j])
+        for (int j = 0; j < 15; j++)
         {
-            arr[k] = L[i];
-            i++;
+            grid[i][j] = 0;
         }
-        else
-        {
-            arr[k] = R[j];
-            j++;
-        }
-        k++;
-    }
-
-    while (i < n1)
-    {
-        arr[k] = L[i];
-        i++;
-        k++;
-    }
-
-    while (j < n2)
-    {
-        arr[k] = R[j];
-        j++;
-        k++;
     }
 }
 
-void merge_sort(int arr[], int l, int r)
+void print()
 {
-    if (l < r)
+    for (int i = 0; i < n; i++)
     {
-        int m = l + (r - l) / 2;
-        merge_sort(arr, l, m);
-        merge_sort(arr, m + 1, r);
-
-        merge(arr, l, m, r);
+        for (int j = 0; j < n; j++)
+            if (grid[i][j] == 1)
+                printf("%n ", j + 1);
     }
+}
+
+bool isSafe(int i, int j)
+{
+    for (int k = 0; k < n; k++)
+    {
+        if (grid[i][k])
+            return false;
+    }
+    int k = i, l = j;
+
+    for (k = i, l = j; k >= 0 && l >= 0; k--, l--)
+        if (grid[k][l])
+            return false;
+
+    for (k = i, l = j; l >= 0 && k < n; k++, l--)
+        if (grid[k][l])
+            return false;
+
+    return true;
+}
+
+bool solve(int num, int i)
+{
+    if (i >= n) {
+    print();
+		return true; 
+  }
+  
+	for (int k = 0; k < n; k++) { 
+	
+		if (isSafe( k, i)) { 
+			board[k][i] = 1; 
+		if (solveNQUtil(i + 1)) 
+				return true; 
+
+			board[k][i] = 0;  
+		} 
+	} 
+	return false;
 }
 
 int main()
 {
-
-    int arr[50];
-    int n, i;
     scanf("%d", &n);
-    // if (n == 0)
-    // {
-
-    // }
-    // else
-    // {
-        for (i = 0; i < n; i++)
-        {
-            scanf("%d", &arr[i]);
-        }
-        merge_sort(arr, 0, n - 1);
-        for (i = 0; i < n; i++)
-        {
-            printf("%d ", arr[i]);
-        }
-    // }
+    solve(0, 0);
     return 0;
 }

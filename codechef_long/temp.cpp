@@ -1,90 +1,163 @@
-// C++ implementation of the above approach 
-#include <bits/stdc++.h> 
-using namespace std; 
-const int maxx = 100005; 
-vector<int> graph[maxx]; 
+// If you are reading this i will curse you
+// "Its better to be hurt, than to hurt others. Nice people can live with just that"
+// The world is a cage to be reborn one must destroy a world.
+#include <bits/stdc++.h>
 
-// Function to perform the DFS calculating the 
-// count of the elements in a connected component 
-void dfs(int curr, int& cnt, int* 
-			visited, vector<int>& duringdfs) 
-{ 
-	visited[curr] = 1; 
+using namespace std;
 
-	// Number of nodes in this component 
-	++cnt; 
+typedef unsigned long long ull;
+typedef long long ll;
+typedef long double ld;
+typedef vector<ll> vi;
+typedef vector<vector<ll>> vvi;
+typedef vector<pair<ll, ll>> vp;
+typedef pair<ll, ll> pi;
+typedef priority_queue<int, vector<int>, greater<int>> min_heap;
+typedef priority_queue<int> max_heap;
 
-	// Stores the nodes which belong 
-	// to current component 
-	duringdfs.push_back(curr); 
-	for (auto& child : graph[curr]) { 
+#define bg begin()
+#define rbg rbegin()
+#define ed end()
+#define red rend()
+#define fr(i, l, n) for (ll i = l; i < n; i++)
+#define fr1(i, l, n) for (ll i = l; i <= n; i++)
+#define pb(x) push_back(x)
+#define l(s) s.size()
+#define as(a) sort(a.begin(), a.end())
+#define ds(a) sort(a.begin(), a.end(), greater<int>())
+#define vs(v) sort(v.begin(), v.end())
+#define nl cout << endl;
+#define ff first
+#define ss second
+#define Time() cerr << clock() * 1000 / CLOCKS_PER_SEC << "ms\n"
+// clear input stream berore it
+// cin.ignore(numeric_limits<streamsize>::max(),'\n');
+// getline(cin, str);
 
-		// If the child is not visited 
-		if (visited[child] == 0) { 
-			dfs(child, cnt, visited, duringdfs); 
-		} 
-	} 
-} 
+ll inf = 1e18;
+ll mod = 1e9 + 7;
+ll gcd(ll a, ll b) { return b == 0 ? a : gcd(b, a % b); }
 
-// Function to return the desired 
-// count for every node in the graph 
-void MaximumVisit(int n, int k) 
-{ 
-	// To keep track of nodes we visit 
-	int visited[maxx]; 
+ll power(ll x, ll y)
+{
+    if (y == 0)
+        return 1;
+    else if (y % 2 == 0)
+        return power(x, y / 2) * power(x, y / 2);
+    else
+        return x * power(x, y / 2) * power(x, y / 2);
+}
 
-	// Mark every node unvisited 
-	memset(visited, 0, sizeof visited); 
-	int ans[maxx]; 
+bool comp(const pair<string, ll> &v1,
+          const pair<string, ll> &v2)
+{
+    return v1.second < v2.second;
+}
 
-	// No of connected elements for each node 
-	memset(ans, 0, sizeof ans); 
-	vector<int> duringdfs; 
-	for (int i = 1; i <= n; ++i) { 
-		duringdfs.clear(); 
-		int cnt = 0; 
+bool isPrime(int n)
+{
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
 
-		// If a node is not visited, perform a DFS as 
-		// this node belongs to a different component 
-		// which is not yet visited 
-		if (visited[i] == 0) { 
-			cnt = 0; 
-			dfs(i, cnt, visited, duringdfs); 
-		} 
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
 
-		// Now store the count of all the visited 
-		// nodes for any particular component. 
-		for (auto& x : duringdfs) { 
-			ans[x] = cnt; 
-		} 
-	} 
-	
-	// Print the result 
-	for (int i = 1; i <= n; ++i) { 
-		cout << ans[i] << " "; 
-	} 
-	cout << endl; 
-	return; 
-} 
+    for (int i = 5; i * i <= n; i = i + 6)
+        if (n % i == 0 || n % (i + 2) == 0)
+            return false;
 
-// Function to build the graph 
-void MakeGraph(){ 
-	graph[1].push_back(2);  
-	graph[2].push_back(3);  
-	graph[3].push_back(4); 
-	graph[5].push_back(6);  
-	graph[6].push_back(7);  
-	graph[5].push_back(7);  
-} 
+    return true;
+}
 
-// Driver code 
-int main() 
-{ 
-	int N = 7, K = 6; 
-	
-	// Build the graph 
-	MakeGraph(); 
-	
-	MaximumVisit(N, K); 
-	return 0; 
-} 
+// gv
+
+// gf
+
+//
+
+void dev()
+{
+    ll n, x , c;
+    cin >> n >> x;
+
+    vi arr(n);
+    fr(i, 0, n) cin >> arr[i];
+
+    unordered_map<ll, ll> mp;
+    ll i = 0;
+    for (i = 0; i < n - 1 && x > 0; i++)
+    {
+        while (arr[i] > 0 && x > 0)
+        {
+            ll p = (ll)log2(arr[i]);
+            p = (ll)power(2, p);
+
+            if (mp[p] == 1)
+            {
+                arr[i] = arr[i] ^ p;
+                mp[p]--;
+            }
+            else
+            {
+                arr[i] = arr[i] ^ p;
+                mp[p]++;
+                x--;
+            }
+        }
+
+		c = x+1;
+        // nl
+    }
+
+    for (auto it : mp)
+    {
+        ll l = it.first;
+        if (mp[l] == 1)
+        {
+            bool flag = true;
+            for (int k = i - 1; k < n - 1; k++)
+            {
+                if ((arr[k] ^ l) < arr[k])
+                {
+                    mp[l]--;
+                    arr[k] = arr[k] ^ l;
+                    flag = false;
+                }
+            }
+            if (flag)
+            {
+                arr[n - 1] = arr[n - 1] ^ l;
+            }
+        }
+    }
+
+    if (c > 0 && n < 3 && c % 2 == 1)
+    {
+        arr[n - 2] = arr[n - 2] ^ 1;
+        arr[n - 1] = arr[n - 1] ^ 1;
+    }
+
+    // nl
+    fr(i, 0, n)
+    {
+        cout << arr[i] << " ";
+    }
+    nl
+}
+
+int main()
+{
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    ll t = 1;
+    cin >> t;
+    while (t--)
+    {
+        dev();
+    }
+    // Time();
+    return 0;
+}
